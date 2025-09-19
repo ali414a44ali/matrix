@@ -357,7 +357,7 @@ async def verifyLoggerGroup():
             )
     else:
         descript = "لا تقم بحذف هذه المجموعة أو التغيير إلى مجموعة عامـة (وظيفتهـا تخزيـن كـل سجـلات وعمليـات البـوت.)"
-        photodev = await blal.upload_file(file="BiLaL/malath/Matrix.jpg")
+        photodev = await blal.upload_file(file="BiLaL/malath/Matri.jpg")
         _, groupid = await create_supergroup(
             "مجمـوعـة السجـل تيبثـــون", blal, Config.TG_BOT_USERNAME, descript, photodev
         )
@@ -384,7 +384,7 @@ async def verifyLoggerGroup():
             LOGS.error("حدث خطأ اثناء التعرف على فار PM_LOGGER_GROUP_ID.\n" + str(e))
     else:
         descript = "لا تقم بحذف هذه المجموعة أو التغيير إلى مجموعة عامـة (وظيفتهـا تخزيـن رسـائل الخـاص.)"
-        photodev = await blal.upload_file(file="BiLaL/malath/Tep.jpg")
+        photodev = await blal.upload_file(file="BiLaL/malath/Matrix.jpg")
         _, groupid = await create_supergroup(
             "مجمـوعـة التخـزيـن", blal, Config.TG_BOT_USERNAME, descript, photodev
         )
