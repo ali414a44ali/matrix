@@ -22,6 +22,7 @@ bot = blal
 
 StartTime = time.time()
 tepversion = "3.3.3"
+devversion = "3.3.3"
 
 if Config.UPSTREAM_REPO == "zel":
     UPSTREAM_REPO_URL = "https://github.com/MatrixArabic/UserBot"
