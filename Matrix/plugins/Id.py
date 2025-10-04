@@ -78,7 +78,7 @@ async def fetch_Matrixal(user_id):
         'User-Agent': 'Nicegram/101 CFNetwork/1404.0.5 Darwin/22.3.0',
         'Content-Type': 'application/x-www-form-urlencoded',
     }
-    data = '{"telegramId":' + str(user_id) + '}'
+    data = '{"telegramId":' + str(user_id) + '}'  # ✅ هنا user_id هو متغير وليس دالة
     response = requests.post('https://restore-access.indream.app/regdate', headers=headers, data=data).json()
     Matrixal_date = response['data']['date']
     return Matrixal_date
@@ -565,7 +565,7 @@ async def potocmd(event):
     user = await get_user_from_event(event)
     rser = await event.get_reply_message()
     chat = event.input_chat
-    if rser and ser.sender:
+    if rser and rser.sender:
         photos = await event.client.get_profile_photos(rser.sender)
     else:
         photos = await event.client.get_profile_photos(user.id)
