@@ -130,7 +130,7 @@ async def fetch_info(event):
     else:
         zpre = "𝕍𝕀ℝ𝕋𝕌𝔸𝕃 ✨"
     #zid = int(gvarstatus("ZThon_Vip"))
-    #if user_id in dev_Dev: #Code by T.me/zzzzl1l
+    #if user_id in Zel_Dev: #Code by T.me/zzzzl1l
         #zvip = "𝕍𝕀ℙ 💎"
     #elif user_id == zid:
         #zvip = "𝕍𝕀ℙ 💎"
@@ -195,7 +195,7 @@ async def fetch_info(event):
         caption += f"<b>{devM}الرتبــه    ⤎ {rotbat} </b>\n" #Code by T.me/zzzzl1l
         if zilzal == True or user_id in Matrixal: #Code by T.me/zzzzl1l
             caption += f"<b>{devM}الحساب  ⤎  بـريميـوم 🌟</b>\n"
-        #if user_id in dev_Dev or user_id == zid: #Code by T.me/zzzzl1l
+        #if user_id in Zel_Dev or user_id == zid: #Code by T.me/zzzzl1l
         caption += f"<b>{devM}الاشتراك  ⤎  𝕍𝕀ℙ 💎</b>\n"
         caption += f"<b>{devM}الصـور    ⤎</b>  {replied_user_profile_photos_count}\n"
         caption += f"<b>{devM}الرسائل  ⤎</b>  {zzz}  💌\n" #Code by T.me/zzzzl1l
