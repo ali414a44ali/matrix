@@ -15,7 +15,7 @@ from ..sql_helper.globals import addgvar, delgvar, gvarstatus
 from ..sql_helper.echo_sql import addecho, get_all_echos, get_echos, is_echo, remove_all_echos, remove_echo, remove_echos
 from ..sql_helper import gban_sql_helper as gban_sql
 from ..sql_helper.mute_sql import is_muted, mute, unmute
-from ..utils import dev_Dev
+from ..utils import Zel_Dev
 from . import BOTLOG, BOTLOG_CHATID, admin_groups, get_user_from_event
 plugin_category = "الادمن"
 
