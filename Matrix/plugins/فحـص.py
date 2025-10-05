@@ -27,7 +27,7 @@ from . import StartTime, blal, devversion
 from ..Config import Config
 from ..helpers.functions import devalive, check_data_base_heal_th, get_readable_time
 from ..helpers.utils import reply_id
-from ..utils import dev_Dev
+from ..utils import Zel_Dev
 from ..core.logger import logging
 from ..helpers.utils import _format
 from ..sql_helper.globals import addgvar, delgvar, gvarstatus
@@ -36,8 +36,8 @@ from ..core.logger import logging
 from . import BOTLOG, BOTLOG_CHATID, mention
 
 Zel_Uid = blal.uid
-dev_dev = (7291869416, 6806861615)
-dev_Vvv = (6806861615, 7291869416)
+Zel_Dev = (7291869416, 6806861615)
+Zel_Vvv = (6806861615, 7291869416)
 LOGS = logging.getLogger(__name__)
 vocself = True
 HEROKU_APP_NAME = Config.HEROKU_APP_NAME
