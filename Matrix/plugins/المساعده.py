@@ -26,7 +26,7 @@ from telethon.errors.rpcerrorlist import YouBlockedUserError, ChatSendMediaForbi
 from . import StartTime, blal, devversion, mention
 from ..core import check_owner, pool
 from ..Config import Config
-from ..utils import dev_Vip, dev_Dev
+from ..utils import Zel_Vip, Zel_Dev
 from ..helpers import reply_id
 from ..helpers.utils import _format
 from ..core.logger import logging
@@ -45,7 +45,7 @@ from . import BOTLOG, BOTLOG_CHATID, spamwatch, mention
 plugin_category = "العروض"
 LOGS = logging.getLogger(__name__)
 #Code by T.me/zzzzl1l
-dev_dev = dev_Dev
+Zel_dev = Zel_Dev
 zel_dev = (7291869416, 7291869416, 7291869416, 7291869416)
 Matrixal = (7291869416, 7291869416, 7291869416)
 ZIDA = gvarstatus("Z_ZZID") or "zvhhhclc"
@@ -452,7 +452,7 @@ if Config.TG_BOT_USERNAME is not None and tgbot is not None:
 # Copyright (C) 2021 dev-Thon . All Rights Reserved
 @blal.dev_cmd(pattern="لايك(?: |$)(.*)")
 async def who(event):
-    if gvarstatus("ZThon_Vip") is None and Zel_Uid not in dev_dev:
+    if gvarstatus("ZThon_Vip") is None and Zel_Uid not in Zel_dev:
         return await edit_or_reply(event, "**⎉╎عـذࢪاً .. ؏ـزيـزي\n⎉╎هـذا الامـر ليـس مجـانـي📵\n⎉╎للاشتـراك في الاوامـر المدفوعـة\n⎉╎تواصـل مطـور السـورس @DEV_BLAL**")
     input_str = event.pattern_match.group(1)
     reply = event.reply_to_msg_id
@@ -460,7 +460,7 @@ async def who(event):
         return await edit_or_reply(event, "**- ارسـل الامـر بـدون رد**")
     if input_str or reply:
         return await edit_or_reply(event, "**- ارسـل الامـر بـدون رد**")
-    if (event.chat_id in dev_BLACKLIST) and (Zel_Uid not in dev_dev):
+    if (event.chat_id in dev_BLACKLIST) and (Zel_Uid not in Zel_dev):
         return await edit_or_reply(event, "**- عـذراً .. عـزيـزي 🚷\n- لا تستطيـع استخـدام هـذا الامـر 🚫\n- فـي مجموعـة استفسـارات ماتركـس  ؟!**")
     dev = await edit_or_reply(event, "⇆")
     if event.reply_to_msg_id:
@@ -473,7 +473,7 @@ async def who(event):
 # Copyright (C) 2021 dev-Thon . All Rights Reserved
 @blal.dev_cmd(pattern="like(?: |$)(.*)")
 async def who(event):
-    if gvarstatus("ZThon_Vip") is None and Zel_Uid not in dev_dev:
+    if gvarstatus("ZThon_Vip") is None and Zel_Uid not in Zel_dev:
         return await edit_or_reply(event, "**⎉╎عـذࢪاً .. ؏ـزيـزي\n⎉╎هـذا الامـر ليـس مجـانـي📵\n⎉╎للاشتـراك في الاوامـر المدفوعـة\n⎉╎تواصـل مطـور السـورس @DEV_BLAL**")
     input_str = event.pattern_match.group(1)
     reply = event.reply_to_msg_id
@@ -481,7 +481,7 @@ async def who(event):
         return await edit_or_reply(event, "**- ارسـل الامـر بـدون رد**")
     if input_str or reply:
         return await edit_or_reply(event, "**- ارسـل الامـر بـدون رد**")
-    if (event.chat_id in dev_BLACKLIST) and (Zel_Uid not in dev_dev):
+    if (event.chat_id in dev_BLACKLIST) and (Zel_Uid not in Zel_dev):
         return await edit_or_reply(event, "**- عـذراً .. عـزيـزي 🚷\n- لا تستطيـع استخـدام هـذا الامـر 🚫\n- فـي مجموعـة استفسـارات ماتركـس  ؟!**")
     dev = await edit_or_reply(event, "⇆")
     if event.reply_to_msg_id:
@@ -510,7 +510,7 @@ async def help(event):
 # اوامـر لايك ايدي تبدأ من هنا
 @blal.dev_cmd(pattern="المعجبين$")
 async def on_like_list(event):
-    if gvarstatus("ZThon_Vip") is None and Zel_Uid not in dev_dev:
+    if gvarstatus("ZThon_Vip") is None and Zel_Uid not in Zel_dev:
         return await edit_or_reply(event, "**⎉╎عـذࢪاً .. ؏ـزيـزي\n⎉╎هـذا الامـر ليـس مجـانـي📵\n⎉╎للاشتـراك في الاوامـر المدفوعـة\n⎉╎تواصـل مطـور السـورس @DEV_BLAL**")
     count = 1
     likers = get_likes(blal.uid)
@@ -531,7 +531,7 @@ async def on_like_list(event):
 
 @blal.dev_cmd(pattern="مسح المعجبين$")
 async def on_all_liked_delete(event):
-    if gvarstatus("ZThon_Vip") is None and Zel_Uid not in dev_dev:
+    if gvarstatus("ZThon_Vip") is None and Zel_Uid not in Zel_dev:
         return await edit_or_reply(event, "**⎉╎عـذࢪاً .. ؏ـزيـزي\n⎉╎هـذا الامـر ليـس مجـانـي📵\n⎉╎للاشتـراك في الاوامـر المدفوعـة\n⎉╎تواصـل مطـور السـورس @DEV_BLAL**")
     liikers = get_likes(blal.uid)
     count = 1
