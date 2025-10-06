@@ -26,7 +26,7 @@ from telethon.errors.rpcerrorlist import YouBlockedUserError, ChatSendMediaForbi
 from . import StartTime, blal, devversion, mention
 from ..core import check_owner, pool
 from ..Config import Config
-from ..utils import Zel_Vip, Zel_Dev
+from ..utils import Zed_Vip, Zel_Dev
 from ..helpers import reply_id
 from ..helpers.utils import _format
 from ..core.logger import logging
