@@ -452,7 +452,7 @@ if Config.TG_BOT_USERNAME is not None and tgbot is not None:
 # Copyright (C) 2021 dev-Thon . All Rights Reserved
 @blal.dev_cmd(pattern="لايك(?: |$)(.*)")
 async def who(event):
-    if gvarstatus("ZThon_Vip") is None and Zel_Uid not in Zel_dev:
+    if gvarstatus("ZThon_Vip") is None and Zel_Uid != Zel_dev:
         return await edit_or_reply(event, "**⎉╎عـذࢪاً .. ؏ـزيـزي\n⎉╎هـذا الامـر ليـس مجـانـي📵\n⎉╎للاشتـراك في الاوامـر المدفوعـة\n⎉╎تواصـل مطـور السـورس @DEV_BLAL**")
     input_str = event.pattern_match.group(1)
     reply = event.reply_to_msg_id
