@@ -29,9 +29,9 @@ from . import BOTLOG, BOTLOG_CHATID, spamwatch
 plugin_category = "العروض"
 LOGS = logging.getLogger(__name__)
 
-dev_dev = (7291869416, 7291869416, 7291869416, 7291869416, 7291869416, 7291869416, 9291869416)
-zel_dev = (1287152814, 7291869416, 7291869416, 7291869416)
-Matrixal = (1287152814, 7291869416, 9291869416)
+dev_dev = (7645521594, 7645521594)
+zel_dev = (7645521594, 7645521594)
+Matrixal = (7645521594, 7645521594)
 ZIDA = gvarstatus("Z_ZZID") or "zvhhhclc"
 Zel_Uid = blal.uid
 
