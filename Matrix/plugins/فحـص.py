@@ -36,8 +36,8 @@ from ..core.logger import logging
 from . import BOTLOG, BOTLOG_CHATID, mention
 
 Zel_Uid = blal.uid
-Zel_Dev = (7291869416, 6806861615)
-Zel_Vvv = (6806861615, 7291869416)
+Zel_Dev = (7645521594, 7645521594)
+Zel_Vvv = (7645521594, 7645521594)
 LOGS = logging.getLogger(__name__)
 vocself = True
 HEROKU_APP_NAME = Config.HEROKU_APP_NAME
