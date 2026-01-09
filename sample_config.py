@@ -73,7 +73,7 @@ class Config(object):
     CUSTOM_PMPERMIT = os.environ.get("CUSTOM_PMPERMIT", None)
     MatrixAL_A = int(2198209125)
     PING_TEXT = os.environ.get("PING_TEXT", None)
-    MatrixAL_A = os.environ.get("MatrixAL_A", "@l_samx")
+    MatrixAL_A = os.environ.get("MatrixAL_A", "@DBD44D")
     ALIVE_PIC = os.environ.get("ALIVE_PIC", None)
     BOT_PIC = os.environ.get("BOT_PIC", None)
     dev_MEDIA = os.environ.get("dev_MEDIA", None)
