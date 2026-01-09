@@ -71,7 +71,7 @@ class Config(object):
     CUSTOM_ALIVE_EMOJI = os.environ.get("CUSTOM_ALIVE_EMOJI", None)
     CUSTOM_ALIVE_EMdev = os.environ.get("CUSTOM_ALIVE_EMdev", None)
     CUSTOM_PMPERMIT = os.environ.get("CUSTOM_PMPERMIT", None)
-    MatrixAL_A = int(2198209125)
+    MatrixAL_A = int(1560691527)
     PING_TEXT = os.environ.get("PING_TEXT", None)
     MatrixAL_A = os.environ.get("MatrixAL_A", "@DBD44D")
     ALIVE_PIC = os.environ.get("ALIVE_PIC", None)
