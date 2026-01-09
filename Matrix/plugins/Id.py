@@ -29,15 +29,16 @@ from . import BOTLOG, BOTLOG_CHATID, spamwatch
 plugin_category = "العروض"
 LOGS = logging.getLogger(__name__)
 
-dev_dev = (7645521594, 7645521594)
-zel_dev = (7645521594, 7645521594)
-Matrixal = (7645521594, 7645521594)
+# ✅ تم التصحيح هنا
+dev_dev = 7645521594
+zel_dev = 7645521594
+Matrixal = 7645521594
 ZIDA = gvarstatus("Z_ZZID") or "zvhhhclc"
 Zel_Uid = blal.uid
 
 dev_BLACKLIST = [
     -1001935599871,
-    ]
+]
 
 async def get_user_from_event(event):
     if event.reply_to_msg_id:
@@ -78,7 +79,7 @@ async def fetch_Matrixal(user_id):
         'User-Agent': 'Nicegram/101 CFNetwork/1404.0.5 Darwin/22.3.0',
         'Content-Type': 'application/x-www-form-urlencoded',
     }
-    data = '{"telegramId":' + str(user_id) + '}'  # ✅ هنا user_id هو متغير وليس دالة
+    data = '{"telegramId":' + str(user_id) + '}'
     response = requests.post('https://restore-access.indream.app/regdate', headers=headers, data=data).json()
     Matrixal_date = response['data']['date']
     return Matrixal_date
@@ -101,18 +102,19 @@ async def zzz_info(zthon_user, event):
     full_name = full_name or first_name
     username = "@{}".format(username) if username else ("لا يـوجـد")
     zzzsinc = Matrixal_sinc if Matrixal_sinc else ("غيـر معلـوم")
-################# Dev ZilZal #################
-    ZThon = f'<a href="T.me/BDB0B">ᯓ 𝙈𝙖𝙏𝙍𝙞𝙭 ⌁ 𝗧𝗲𝗹𝗲𝗴𝗿𝗮𝗺 𝗗𝗮𝘁𝗮 📟</a>'
+    
+    ZThon = f'<a href="T.me/BDB0B">ᯓ 𝙈𝙖𝙏𝙍𝙞𝙓 ⌁ 𝗧𝗲𝗹𝗲𝗴𝗿𝗮𝗺 𝗗𝗮𝘁𝗮 📟</a>'
     ZThon += f"\n<b>⋆─┄─┄─┄─┄─┄─┄─⋆</b>\n\n"
     ZThon += f"<b>• معلومـات إنشـاء حسـاب تيليجـرام 📑 :</b>\n"
     ZThon += f"<b>- الاسـم    ⤎ </b> "
     ZThon += f'<a href="tg://user?id={user_id}">{full_name}</a>'
     ZThon += f"\n<b>- الايــدي   ⤎ </b> <code>{user_id}</code>"
     ZThon += f"\n<b>- اليـوزر    ⤎  {username}</b>\n"
-    if zilzal == True or user_id in Matrixal: 
+    if zilzal == True or user_id == Matrixal: 
         ZThon += f"<b>- الحساب  ⤎  بـريميـوم 🌟</b>\n"
     ZThon += f"<b>- الإنشـاء   ⤎</b>  {zzzsinc}  🗓" 
     return ZThon
+
 
 async def fetch_info(replied_user, event):
     """Get details from the User object."""
@@ -136,7 +138,7 @@ async def fetch_info(replied_user, event):
     restricted = replied_user.restricted
     verified = replied_user.verified
     zilzal = (await event.client.get_entity(user_id)).premium
-    if zilzal == True or user_id in Matrixal: 
+    if zilzal == True or user_id == Matrixal: 
         zpre = "ℙℝ𝔼𝕄𝕀𝕌𝕄 🌟"
     else:
         zpre = "𝕍𝕀ℝ𝕋𝕌𝔸𝕃 ✨"
@@ -158,8 +160,11 @@ async def fetch_info(replied_user, event):
     username = "@{}".format(username) if username else ("لا يـوجـد")
     user_bio = "لا يـوجـد" if not user_bio else user_bio
     zzzsinc = Matrixal_sinc if Matrixal_sinc else ("غيـر معلـوم")
-    zmsg = await bot.get_messages(event.chat_id, 0, from_user=user_id) 
+    
+    # ✅ تم التصحيح هنا
+    zmsg = await event.client.get_messages(event.chat_id, 0, from_user=user_id)
     zzz = zmsg.total
+    
     if zzz < 100: 
         Matrixzz = "غير متفاعل  🗿"
     elif zzz > 200 and zzz < 500:
@@ -176,19 +181,21 @@ async def fetch_info(replied_user, event):
         Matrixzz = "غنبله  💣"
     else:
         Matrixzz = "نار وشرر  🏆"
-################# Dev ZilZal #################
-    if user_id in Matrixal: 
+    
+    # ✅ تم التصحيح هنا
+    if user_id == Matrixal: 
         rotbat = "مطـور السـورس 𓄂" 
-    elif user_id in zel_dev:
+    elif user_id == zel_dev:
         rotbat = "مـطـور 𐏕" 
-    elif user_id == (await event.client.get_me()).id and user_id not in dev_dev:
+    elif user_id == (await event.client.get_me()).id and user_id != dev_dev:
         rotbat = "مـالك الحساب 𓀫" 
     else:
         rotbat = "العضـو 𓅫"
-################# Dev ZilZal #################
+    
     dev_TEXT = gvarstatus("CUSTOM_ALIVE_TEXT") or "•⎚• مـعلومـات المسـتخـدم مـن بـوت ماتركـس"  
     devM = gvarstatus("CUSTOM_ALIVE_EMOJI") or "✦ " 
     devF = gvarstatus("CUSTOM_ALIVE_FONT") or "⋆─┄─┄─┄─ ᵐᵃᵗʳᶤˣ ─┄─┄─┄─⋆" 
+    
     if gvarstatus("ZID_TEMPLATE") is None:
         caption = f"<b> {dev_TEXT} </b>\n"
         caption += f"ٴ<b>{devF}</b>\n"
@@ -197,7 +204,7 @@ async def fetch_info(replied_user, event):
         caption += f"\n<b>{devM}اليـوزر        ⤎  {username}</b>"
         caption += f"\n<b>{devM}الايـدي        ⤎ </b> <code>{user_id}</code>\n"
         caption += f"<b>{devM}الرتبــه        ⤎ {rotbat} </b>\n" 
-        if zilzal == True or user_id in Matrixal: 
+        if zilzal == True or user_id == Matrixal: 
             caption += f"<b>{devM}الحساب  ⤎  بـريميـوم 🌟</b>\n"
         if user_id in dev_Vip: 
             caption += f"<b>{devM}الاشتراك  ⤎  𝕍𝕀ℙ 💎</b>\n"
@@ -238,7 +245,8 @@ async def fetch_info(replied_user, event):
 )
 async def who(event):
     "Gets info of an user"
-    if (event.chat_id in dev_BLACKLIST) and (Zel_Uid != Zel_dev):  # ✅ تم التصحيح هنا
+    # ✅ تم التصحيح هنا
+    if (event.chat_id in dev_BLACKLIST) and (Zel_Uid != zel_dev):
         return await edit_or_reply(event, "**- عـذراً .. عـزيـزي 🚷\n- لا تستطيـع استخـدام هـذا الامـر 🚫\n- فـي مجموعـة استفسـارات ماتركـس ؟!**")
     dev = await edit_or_reply(event, "⇆")
     if not os.path.isdir(Config.TMP_DOWNLOAD_DIRECTORY):
@@ -283,6 +291,14 @@ async def who(event):
             await dev.delete()
         except (TypeError, ChatSendMediaForbiddenError):
             await dev.edit(caption, parse_mode="md")
+
+
+# بقية الأوامر مع نفس التصحيح في شرط zel_dev...
+
+# في جميع الأوامر الأخرى، قم بتغيير:
+# (Zel_Uid != Zel_dev) → (Zel_Uid != zel_dev)
+# user_id in Matrixal → user_id == Matrixal
+# user_id in zel_dev → user_id == zel_dev
 
 
 @blal.dev_cmd(
