@@ -27,7 +27,7 @@ from . import StartTime, blal, devversion
 from ..Config import Config
 from ..helpers.functions import devalive, check_data_base_heal_th, get_readable_time
 from ..helpers.utils import reply_id
-from ..utils import Zel_Dev
+from ..utils import dev_Dev
 from ..core.logger import logging
 from ..helpers.utils import _format
 from ..sql_helper.globals import addgvar, delgvar, gvarstatus
@@ -35,9 +35,9 @@ from ..core.managers import edit_delete, edit_or_reply
 from ..core.logger import logging
 from . import BOTLOG, BOTLOG_CHATID, mention
 
-Zel_Uid = blal.uid
-Zel_Dev = (7645521594, 7645521594)
-Zel_Vvv = (7645521594, 7645521594)
+dev_Uid = blal.uid
+dev_Dev = (7645521594, 7645521594)
+dev_Vvv = (7645521594, 7645521594)
 LOGS = logging.getLogger(__name__)
 vocself = True
 HEROKU_APP_NAME = Config.HEROKU_APP_NAME
@@ -82,10 +82,10 @@ def mask_email(email: str) -> str:
 @blal.dev_cmd(pattern="(تفعيل البصمه الذاتيه|تفعيل البصمه الذاتية|تفعيل البصمة الذاتيه|تفعيل البصمة الذاتية)")
 async def start_datea(event):
     global vocself
-    if gvarstatus("ZThon_Vip") is None and Zel_Uid not in Zel_Dev:
+    if gvarstatus("ZThon_Vip") is None and dev_Uid not in dev_Dev:
         return await edit_or_reply(event, "**⎉╎عـذࢪاً .. ؏ـزيـزي\n⎉╎هـذا الامـر ليـس مجـانـي📵\n⎉╎للاشتـراك في الاوامـر المدفوعـة\n⎉╎تواصـل مطـور السـورس @dev_blal - \n⎉╎**")
     zid = int(gvarstatus("ZThon_Vip"))
-    if Zel_Uid != zid:
+    if dev_Uid != zid:
         return
     if vocself:
         return await edit_or_reply(event, "**⎉╎حفظ البصمه الذاتية التلقائي 🎙**\n**⎉╎مفعلـه .. مسبقـاً ✅**")
@@ -95,10 +95,10 @@ async def start_datea(event):
 @blal.dev_cmd(pattern="(تعطيل البصمه الذاتيه|تعطيل البصمه الذاتية|تعطيل البصمة الذاتيه|تعطيل البصمة الذاتية)")
 async def stop_datea(event):
     global vocself
-    if gvarstatus("ZThon_Vip") is None and Zel_Uid not in Zel_Dev:
+    if gvarstatus("ZThon_Vip") is None and dev_Uid not in dev_Dev:
         return await edit_or_reply(event, "**⎉╎عـذࢪاً .. ؏ـزيـزي\n⎉╎هـذا الامـر ليـس مجـانـي📵\n⎉╎للاشتـراك في الاوامـر المدفوعـة\n⎉╎تواصـل مطـور السـورس @BBBlibot - @EiAbot\n⎉╎او التواصـل مـع احـد المشرفيـن @AAAl1l**")
     zid = int(gvarstatus("ZThon_Vip"))
-    if Zel_Uid != zid:
+    if dev_Uid != zid:
         return
     if vocself:
         vocself = False
@@ -108,14 +108,14 @@ async def stop_datea(event):
 @blal.on(events.NewMessage(func=lambda e: e.is_private and (e.audio or e.voice) and e.media_unread))
 async def sddm(event):
     global vocself
-    if gvarstatus("ZThon_Vip") is None and Zel_Uid not in Zel_Dev:
+    if gvarstatus("ZThon_Vip") is None and dev_Uid not in dev_Dev:
         return
     Matrixal = event.sender_id
     malath = blal.uid
     if Matrixal == malath:
         return
     zid = int(gvarstatus("ZThon_Vip")) if gvarstatus("ZThon_Vip") else 0
-    if Zel_Uid != zid:
+    if dev_Uid != zid:
         return
     if vocself:
         sender = await event.get_sender()
@@ -133,7 +133,7 @@ async def _(event):
     user = await event.get_sender()
 
     # حالة اذا الرد على رسالة وكان المطور غير مسموح
-    if event.reply_to and user.id in Zel_Dev and user.id not in dev_Vvv:
+    if event.reply_to and user.id in dev_Dev and user.id not in dev_Vvv:
         await event.reply(
             f"**- عـذراً عـزيـزي** [{user.first_name}](tg://user?id={user.id}) ✖️\n"
             "**- هـذا الامـر خـاص بمطـور السـورس فقـط 🚧**"
@@ -230,12 +230,12 @@ async def _(event):
     if not event.is_private:
         return
     user = await event.get_sender()
-    if user.id in Zel_Dev:
+    if user.id in dev_Dev:
         if gvarstatus("ZThon_Vip"):
             await event.reply(f"**- عـزيـزي** [{user.first_name}](tg://user?id={user.id}) 🧞‍♂\n**- الحساب مضاف للسورس المدفوع .. مسبقاً 🌟**")
         else:
-            await event.reply(f"**- بواسطـة** [{user.first_name}](tg://user?id={user.id}) 🧞‍♂\n**- تم اضافة الحساب** `{Zel_Uid}` 🧚‍♂\n**- السورس المدفوع .. بنجـاح 🌟**")
-            addgvar("ZThon_Vip", Zel_Uid)
+            await event.reply(f"**- بواسطـة** [{user.first_name}](tg://user?id={user.id}) 🧞‍♂\n**- تم اضافة الحساب** `{dev_Uid}` 🧚‍♂\n**- السورس المدفوع .. بنجـاح 🌟**")
+            addgvar("ZThon_Vip", dev_Uid)
 
 
 vip_temp = """
@@ -265,7 +265,7 @@ async def _(event):
     if not event.is_private:
         return
     user = await event.get_sender()
-    if user.id in Zel_Dev and Zel_Uid in Zel_Dev:
+    if user.id in dev_Dev and dev_Uid in dev_Dev:
         if gvarstatus("ZThon_Vip"):
             await event.reply(f"**- بواسطـة** [{user.first_name}](tg://user?id={user.id}) 🧞‍♂\n**- تم تنزيل الحساب من السورس المدفوع 🗑**")
             delgvar("ZThon_Vip")
@@ -279,9 +279,9 @@ async def zalive(event):
     if not event.is_private:
         return
     user = await event.get_sender()
-    if user.id not in Zel_Dev:
+    if user.id not in dev_Dev:
         return
-    if Zel_Uid in Zel_Dev:
+    if dev_Uid in dev_Dev:
         return
     #reply_to_id = await reply_id(event)
     uptime = await get_readable_time((time.time() - StartTime))
@@ -398,7 +398,7 @@ async def check_private_chat_with_user(user_id):
 
 @blal.dev_cmd(pattern="تفعيل الكاشف الذكي(?: |$)(.*)")
 async def start_Matrixali(event):
-    if gvarstatus("ZThon_Vip") is None and Zel_Uid not in Zel_Dev:
+    if gvarstatus("ZThon_Vip") is None and dev_Uid not in dev_Dev:
         return await edit_or_reply(event, "**⎉╎عـذࢪاً .. ؏ـزيـزي\n⎉╎هـذا الامـر ليـس مجـانـي📵\n⎉╎للاشتـراك في الاوامـر المدفوعـة\n⎉╎تواصـل مطـور السـورس @DEV_BLAL - **") 
     zid = int(gvarstatus("ZThon_Vip")) if gvarstatus("ZThon_Vip") else 0
     input_str = event.pattern_match.group(1)
@@ -461,10 +461,10 @@ async def stop_Matrixali(event):
 """
 @blal.on(events.UserUpdate)
 async def Matrixal_online_ai(event):
-    if gvarstatus("ZThon_Vip") is None and Zel_Uid not in Zel_Dev:
+    if gvarstatus("ZThon_Vip") is None and dev_Uid not in dev_Dev:
         return
     zid = int(gvarstatus("ZThon_Vip"))
-    #if Zel_Uid != zid:
+    #if dev_Uid != zid:
         #return
     if gvarstatus("ZAZ") == "false":
         return
@@ -496,10 +496,10 @@ async def Matrixal_online_ai(event):
 
 @blal.on(events.UserUpdate)
 async def Matrixal_online_ai(event):
-    if gvarstatus("ZThon_Vip") is None and Zel_Uid not in Zel_Dev:
+    if gvarstatus("ZThon_Vip") is None and dev_Uid not in dev_Dev:
         return
     #zid = int(gvarstatus("ZThon_Vip"))
-    #if Zel_Uid != zid:
+    #if dev_Uid != zid:
         #return
     if gvarstatus("ZAZ") == "false":
         return
@@ -525,13 +525,13 @@ async def Matrixal_online_ai(event):
 async def _(e):
     if e.is_private:
         return await edit_or_reply(e, "**- عـذراً ... هـذه ليـست مجمـوعـة ؟!**")
-    if gvarstatus("ZThon_Vip") is None and Zel_Uid not in Zel_Dev:
+    if gvarstatus("ZThon_Vip") is None and dev_Uid not in dev_Dev:
         return await edit_or_reply(e, "**⎉╎عـذࢪاً .. ؏ـزيـزي\n⎉╎هـذا الامـر ليـس مجـانـي📵\n⎉╎للاشتـراك في الاوامـر المدفوعـة\n⎉╎تواصـل مطـور السـورس @DEV_BLAL**")
     chat = await e.get_chat()
     if not chat.admin_rights and not chat.creator:
         await edit_or_reply(e, "**- عـذراً ... يجب ان تكـون مشرفـاً هنـا ؟!**")
         return False
-    zel = await edit_or_reply(e, "**- جـارِ الكشـف اونـلايـن ...**")
+    dev = await edit_or_reply(e, "**- جـارِ الكشـف اونـلايـن ...**")
     zzz = e.pattern_match.group(1)
     o = 0
     zilzali = "𓆩 [𝗦𝗼𝘂𝗿𝗰𝗲 𝙎𝙀𝘿𝙏𝙃𝙊𝙈 - 🝢 - الڪـٓاشـف الذڪـٓي](t.me/BDB0B) 𓆪\n⋆┄─┄─┄─┄┄─┄─┄─┄─┄┄⋆\n**- تـم انتهـاء الكشـف .. بنجـاح ✅**\n**- قائمـة بعـدد الاعضـاء المتصليـن واسمائـهـم :**\n"
@@ -544,7 +544,7 @@ async def _(e):
             o += 1
             xx += f"\n- [{get_display_name(bb)}](tg://user?id={bb.id})"
     await e.client.send_message(e.chat_id, xx)
-    await zel.delete()
+    await dev.delete()
 
 
 MatrixalVip_Orders = (
@@ -594,12 +594,12 @@ MatrixalVip_Orders = (
 #BiLaL
 @blal.dev_cmd(pattern="(المميز|vip)$")
 async def zvip(event):
-    if gvarstatus("ZThon_Vip") is None and Zel_Uid not in Zel_Dev:
+    if gvarstatus("ZThon_Vip") is None and dev_Uid not in dev_Dev:
         return await edit_or_reply(event, "**⎉╎عـذࢪاً .. ؏ـزيـزي\n⎉╎هـذا الامـر ليـس مجـانـي📵\n⎉╎للاشتـراك في الاوامـر المدفوعـة\n⎉╎تواصـل مطـور السـورس @dev_blal **")
-    if Zel_Uid in Zel_Dev:
-        addgvar("ZThon_Vip", Zel_Uid)
+    if dev_Uid in dev_Dev:
+        addgvar("ZThon_Vip", dev_Uid)
     zid = int(gvarstatus("ZThon_Vip")) if gvarstatus("ZThon_Vip") else 0
-    if Zel_Uid != zid:
+    if dev_Uid != zid:
         return await edit_or_reply(event, "**⎉╎عـذࢪاً .. ؏ـزيـزي\n⎉╎هـذا الامـر ليـس مجـانـي📵\n⎉╎للاشتـراك في الاوامـر المدفوعـة\n⎉╎تواصـل مطـور السـورس @dev_blal**")
     return await edit_or_reply(event, MatrixalVip_Orders)
 
