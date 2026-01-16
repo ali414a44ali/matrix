@@ -513,7 +513,7 @@ async def fetched_info(chat, event):  # sourcery no-metrics
     )
     username = "@{}".format(username) if username else None
 
-    caption = f'<a href="t.me/+LoO1LGVxdqM3NWZk">ᯓ 𝗭𝗧𝗵𝗼𝗻 𝗧𝗲𝗹𝗲𝗴𝗿𝗮𝗺 𝗗𝗮𝘁𝗮 📟</a>'
+    caption = f'<a href="t.me/BDB0B">ᯓ 𝙈𝙖𝙏𝙍𝙞𝙭  𝗧𝗲𝗹𝗲𝗴𝗿𝗮𝗺 𝗗𝗮𝘁𝗮 📟</a>'
     caption += f"\n<b>⋆─┄─┄─┄─┄─┄┄─┄┄─┄─⋆</b>\n"
     caption += f"<b>● معلومـات إنشـاء {chat_type} 📑:</b>\n"
     if chat_title is not None:
@@ -656,7 +656,7 @@ async def zzz_info(zthon_user, event):
                     emoji_id = 5834880210268329130
     if mypremium == True:
         ################# Dev ZilZal #################
-        ZThon = f'<a href="t.me/+LoO1LGVxdqM3NWZk">ᯓ 𝗭𝗧𝗵𝗼𝗻 𝗧𝗲𝗹𝗲𝗴𝗿𝗮𝗺 𝗗𝗮𝘁𝗮</a>.'
+        ZThon = f'<a href="t.me/+LoO1LGVxdqM3NWZk">ᯓ 𝙈𝙖𝙏𝙍𝙞𝙭  𝗧𝗲𝗹𝗲𝗴𝗿𝗮𝗺 𝗗𝗮𝘁𝗮</a>.'
         ZThon += f'<a href="emoji/5832391341144805776">❤️</a>\n'
         ZThon += f"<b>⋆─┄─┄─┄─┄─┄┄─┄┄─┄─⋆</b>\n"
         ZThon += f"<b>● معلومـات إنشـاء حسـاب تيليجـرام </b>"
@@ -675,7 +675,7 @@ async def zzz_info(zthon_user, event):
         return ZThon
     else:
         ################# Dev ZilZal #################
-        ZThon = f'<a href="t.me/+LoO1LGVxdqM3NWZk">ᯓ 𝗭𝗧𝗵𝗼𝗻 𝗧𝗲𝗹𝗲𝗴𝗿𝗮𝗺 𝗗𝗮𝘁𝗮 📟</a>'
+        ZThon = f'<a href="t.me/BDB0B">ᯓ 𝙈𝙖𝙏𝙍𝙞𝙭  𝗧𝗲𝗹𝗲𝗴𝗿𝗮𝗺 𝗗𝗮𝘁𝗮 📟</a>'
         ZThon += f"\n<b>⋆─┄─┄─┄─┄─┄┄─┄┄─┄─⋆</b>\n"
         ZThon += f"<b>● معلومـات إنشـاء حسـاب تيليجـرام 📑:</b>\n"
         ZThon += f"<b>- الاسـم    ⤎  </b> "
@@ -773,7 +773,7 @@ async def fetch_info(replied_user, event):
         rotbat = "العضـو 𓅫"
 ################# Dev ZilZal #################
     #zid = int(gvarstatus("ZThon_Vip"))
-    dev_TEXT = gvarstatus("CUSTOM_ALIVE_TEXT") or "•⎚• مـعلومـات المسـتخـدم سـورس زدثــون"  
+    dev_TEXT = gvarstatus("CUSTOM_ALIVE_TEXT") or "•⎚• مـعلومـات المسـتخـدم سـورس ماتركـس"  
     devM = gvarstatus("CUSTOM_ALIVE_EMOJI") or "✦ " 
     devF = gvarstatus("CUSTOM_ALIVE_FONT") or "⋆─┄─┄─┄─ ᶻᵗʰᵒᶰ ─┄─┄─┄─⋆" 
     if gvarstatus("ZID_TEMPLATE") is None:
