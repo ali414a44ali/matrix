@@ -20,7 +20,7 @@ except ModuleNotFoundError:
 from telethon.sync import events, Button
 from . import blal
 from ..Config import Config
-from ..utils import Zed_Vip
+from ..utils import dev_Vip
 from ..sql_helper.globals import gvarstatus
 from ..core.session import tgbot
 
