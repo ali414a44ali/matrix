@@ -21,17 +21,12 @@ from ..helpers.utils import reply_id
 from ..sql_helper.globals import gvarstatus
 from . import mention
 
-# ⚠️ مهم
-from .xtelethonimport import CustomParseMode  
-
 plugin_category = "العروض"
 STATS = gvarstatus("Z_STATS") or "فحص"
 
-# ===== الإيموجي المميّز الثابت =====
+# الإيموجي المميز
 ALIVE_CUSTOM_EMOJI_ID = 5472026645659401564
 CUSTOM_EMOJI_HTML = f'<a href="emoji/{ALIVE_CUSTOM_EMOJI_ID}">❤️</a>'
-# =================================
-
 
 async def get_alive_emoji(event):
     """تحقق من Premium لإظهار الإيموجي"""
@@ -43,7 +38,6 @@ async def get_alive_emoji(event):
     except Exception:
         return ""
 
-
 @blal.dev_cmd(pattern=f"{STATS}$")
 async def amireallyalive(event):
     reply_to_id = await reply_id(event)
@@ -52,21 +46,15 @@ async def amireallyalive(event):
     boot_time_timestamp = psutil.boot_time()
     bt = datetime.fromtimestamp(boot_time_timestamp)
 
-    start = datetime.now()
+    start = time.time()
     devevent = await edit_or_reply(event, "**⎆┊جـاري .. فحـص البـوت الخـاص بك**")
-    end = datetime.now()
-    ms = (end - start).microseconds / 1000
+    end = time.time()
+    ms = int((end - start) * 1000)
 
     _, check_sgnirts = check_data_base_heal_th()
 
-    if gvarstatus("z_date") is not None:
-        zzd = gvarstatus("z_date")
-        zzt = gvarstatus("z_time")
-        devda = f"{zzd}┊{zzt}"
-    else:
-        devda = f"{bt.year}/{bt.month}/{bt.day}"
-
-    ALIVE_TEXT = gvarstatus("ALIVE_TEXT") or "**بـوت  ماتركـس 𝙈𝙖𝙏𝙍𝙞𝙭 ⌁  يعمـل .. بنجـاح ☑️ 𓆩**"
+    devda = f"{gvarstatus('z_date')}┊{gvarstatus('z_time')}" if gvarstatus("z_date") else f"{bt.year}/{bt.month}/{bt.day}"
+    ALIVE_TEXT = gvarstatus("ALIVE_TEXT") or "**بـوت ماتركـس 𝙈𝙖𝙏𝙍𝙞𝙭 ⌁ يعمل بنجاح ☑️**"
     dev_IMG = gvarstatus("ALIVE_PIC")
     dev_caption = gvarstatus("ALIVE_TEMPLATE") or dev_temp
 
@@ -94,56 +82,48 @@ async def amireallyalive(event):
                 PIC,
                 caption=caption,
                 reply_to=reply_to_id,
-                parse_mode=CustomParseMode("html"),
+                parse_mode="html",
             )
             await devevent.delete()
         except (WebpageMediaEmptyError, MediaEmptyError, WebpageCurlFailedError):
-            return await edit_or_reply(
+            await edit_or_reply(
                 devevent,
-                "**⌔∮ عـذراً عليـك الـرد ع صـوره او ميـديـا ⪼ `.اضف صورة الفحص`**",
+                "**⌔∮ عذراً، أضف صورة الفحص أولاً**",
             )
     else:
         await edit_or_reply(
             devevent,
             caption,
-            parse_mode=CustomParseMode("html"),
+            parse_mode="html",
         )
-
 
 dev_temp = """{ALIVE_TEXT}
 
-**{Z_EMOJI} قاعـدة البيانـات : ** سريعـة للغايـة 🚀 
-**{Z_EMOJI} إصــدار المكتبــة :** `{telever}`
-**{Z_EMOJI} إصــدار الـسـورس : ** `{zdver}`
-**{Z_EMOJI} إصــدار بايـثون : ** `{pyver}`
-**{Z_EMOJI} وَقـت التشغِيـل : ** `{uptime}`
-**{Z_EMOJI} منــصـة التنصِيب :** `RENDAR`
-**{Z_EMOJI} تاريــخ التنصيـب : ** `{devda}`
-**{Z_EMOJI} المالـك : ** {mention}
-**{Z_EMOJI} قنـاتنا :** [اضغـط هنـا](https://t.me/BDB0B)
+**{Z_EMOJI} قاعدة البيانات : ** سريعـة للغايـة 🚀 
+**{Z_EMOJI} إصدار المكتبة :** `{telever}`
+**{Z_EMOJI} إصدار السورس : ** `{zdver}`
+**{Z_EMOJI} إصدار بايثون : ** `{pyver}`
+**{Z_EMOJI} وقت التشغيل : ** `{uptime}`
+**{Z_EMOJI} منصة التنصيب :** `RENDAR`
+**{Z_EMOJI} تاريخ التنصيب : ** `{devda}`
+**{Z_EMOJI} المالك : ** {mention}
+**{Z_EMOJI} قناتنا :** [اضغط هنا](https://t.me/BDB0B)
 """
 
-
-@blal.dev_cmd(
-    pattern="الفحص$",
-    command=("الفحص", plugin_category),
-)
+@blal.dev_cmd(pattern="الفحص$")
 async def amireallyialive(event):
     reply_to_id = await reply_id(event)
-    Z_EMOJI = await get_alive_emoji(event)  # ⚡ يتحقق قبل إنشاء النص
+    Z_EMOJI = await get_alive_emoji(event)
 
-    dev_caption = "**- بوت ماتركـس MaTrix يعمـل بنجـاح 🌿 .. **\n"
-    dev_caption += f"**{Z_EMOJI} إصـــدار تليثـون : ** `{version.__version__}`\n"
-    dev_caption += f"**{Z_EMOJI} إصــدار ماتركـس : ** `{tepversion}`\n"
-    dev_caption += f"**{Z_EMOJI} إصــدار بايـثـون : ** `{python_version()}`\n"
-    dev_caption += f"**{Z_EMOJI} المالـك : ** {mention}\n"
+    dev_caption = "**- بوت ماتركـس MaTrix يعمل بنجاح 🌿 .. **\n"
+    dev_caption += f"**{Z_EMOJI} إصدار Telethon : ** `{version.__version__}`\n"
+    dev_caption += f"**{Z_EMOJI} إصدار ماتركـس : ** `{tepversion}`\n"
+    dev_caption += f"**{Z_EMOJI} إصدار بايثون : ** `{python_version()}`\n"
+    dev_caption += f"**{Z_EMOJI} المالك : ** {mention}\n"
 
-    results = await event.client.inline_query(
-        Config.TG_BOT_USERNAME, dev_caption
-    )
+    results = await event.client.inline_query(Config.TG_BOT_USERNAME, dev_caption)
     await results[0].click(event.chat_id, reply_to=reply_to_id, hide_via=True)
     await event.delete()
-
 
 @blal.tgbot.on(CallbackQuery(data=re.compile(b"stats")))
 async def on_plug_in_callback_query_handler(event):
