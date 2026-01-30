@@ -775,10 +775,10 @@ async def fetch_info(replied_user, event):
     #zid = int(gvarstatus("ZThon_Vip"))
     dev_TEXT = gvarstatus("CUSTOM_ALIVE_TEXT") or "•⎚• مـعلومـات المسـتخـدم سـورس ماتركـس"  
     devM = gvarstatus("CUSTOM_ALIVE_EMOJI") or "✦ " 
-    devF = gvarstatus("CUSTOM_ALIVE_FONT") or "⋆─┄─┄─┄─ ᶻᵗʰᵒᶰ ─┄─┄─┄─⋆" 
+    devF = gvarstatus("CUSTOM_ALIVE_FONT") or "⋆─┄─┄─┄─ 𝙈𝙖𝙏𝙍𝙞𝙭  ─┄─┄─┄─⋆" 
     if gvarstatus("ZID_TEMPLATE") is None:
         if mypremium == True:
-            caption = f"<b>✦ مـعلومـات المسـتخـدم سـورس زدثــون </b>"
+            caption = f"<b>✦ مـعلومـات المسـتخـدم سـورس ماتركـس  </b>"
             caption += f'<a href="emoji/5812307593032372545">❤️</a>\n'
             caption += f"ٴ<b>⋆┄─┄─┄─┄─</b>"
             caption += f'<a href="emoji/5809662223890518926">❤️</a>'
