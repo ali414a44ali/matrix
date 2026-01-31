@@ -15,10 +15,10 @@ from telethon.errors.rpcerrorlist import (
 )
 from telethon.events import CallbackQuery
 
-from . import StartTime, bilal, tepversion
+from . import StartTime, blal, tepversion
 from ..Config import Config
 from ..core.managers import edit_or_reply
-from ..helpers.functions import zedalive, check_data_base_heal_th, get_readable_time
+from ..helpers.functions import devalive, check_data_base_heal_th, get_readable_time
 from ..helpers.utils import reply_id
 from ..sql_helper.globals import gvarstatus
 from . import mention
@@ -55,17 +55,17 @@ class CustomParseMode:
         return html.unparse(text, entities)
 
 # =====================[ Alive Template ]=====================
-zed_temp = """
+dev_temp = """
 <b>{ALIVE_TEXT}</b>
 <a href="emoji/5834880210268329130">💎</a>
 
 <b>{Z_EMOJI} قاعـدة البيانـات :</b> سريعـة جدًا 🚀
 <b>{Z_EMOJI} إصدار Telethon :</b> <code>{telever}</code>
-<b>{Z_EMOJI} إصدار MaTrix :</b> <code>{zdver}</code>
+<b>{Z_EMOJI} إصدار MaTrix :</b> <code>{devver}</code>
 <b>{Z_EMOJI} إصدار Python :</b> <code>{pyver}</code>
 
 <b>{Z_EMOJI} وقت التشغيل :</b> <code>{uptime}</code>
-<b>{Z_EMOJI} تاريخ التنصيب :</b> <code>{zedda}</code>
+<b>{Z_EMOJI} تاريخ التنصيب :</b> <code>{devda}</code>
 
 <b>{Z_EMOJI} المالك :</b> {mention}
 <b>{Z_EMOJI} قناتنا :</b>
@@ -74,10 +74,10 @@ zed_temp = """
 """
 
 # =====================[ Alive Command ]=====================
-@bilal.dev_cmd(pattern=f"{STATS}$")
+@blal.dev_cmd(pattern=f"{STATS}$")
 async def amireallyalive(event):
     reply_to_id = await reply_id(event)
-    zedevent = await edit_or_reply(event, "**⎆┊ جـاري فحـص البـوت ...**")
+    devevent = await edit_or_reply(event, "**⎆┊ جـاري فحـص البـوت ...**")
 
     start = datetime.now()
     uptime = await get_readable_time((time.time() - StartTime))
@@ -86,32 +86,32 @@ async def amireallyalive(event):
     ping = (end - start).microseconds / 1000
 
     boot_time = datetime.fromtimestamp(psutil.boot_time())
-    zedda = f"{boot_time.year}/{boot_time.month}/{boot_time.day}"
+    devda = f"{boot_time.year}/{boot_time.month}/{boot_time.day}"
 
     Z_EMOJI = gvarstatus("ALIVE_EMOJI") or "✾╿"
     ALIVE_TEXT = gvarstatus("ALIVE_TEXT") or "بـوت ماتركـس MaTrix يعمـل بنجـاح"
-    ZED_IMG = gvarstatus("ALIVE_PIC")
-    zed_caption = gvarstatus("ALIVE_TEMPLATE") or zed_temp
+    DEV_IMG = gvarstatus("ALIVE_PIC")
+    dev_caption = gvarstatus("ALIVE_TEMPLATE") or dev_temp
 
     me = await event.client.get_me()
     if me.premium:
         ALIVE_TEXT += f' <a href="emoji/{PREMIUM_EMOJI}">🌟</a>'
 
-    caption = zed_caption.format(
+    caption = dev_caption.format(
         ALIVE_TEXT=ALIVE_TEXT,
         Z_EMOJI=Z_EMOJI,
         mention=mention,
         uptime=uptime,
-        zedda=zedda,
+        devda=devda,
         telever=version.__version__,
-        zdver=tepversion,
+        devver=tepversion,
         pyver=python_version(),
         dbhealth=db_health,
         ping=ping,
     )
 
-    if ZED_IMG:
-        pic = random.choice(ZED_IMG.split())
+    if DEV_IMG:
+        pic = random.choice(DEV_IMG.split())
         try:
             await event.client.send_file(
                 event.chat_id,
@@ -120,18 +120,18 @@ async def amireallyalive(event):
                 reply_to=reply_to_id,
                 parse_mode=CustomParseMode("html"),
             )
-            await zedevent.delete()
+            await devevent.delete()
         except (WebpageMediaEmptyError, MediaEmptyError, WebpageCurlFailedError):
-            await zedevent.edit(caption, parse_mode=CustomParseMode("html"))
+            await devevent.edit(caption, parse_mode=CustomParseMode("html"))
     else:
-        await zedevent.edit(
+        await devevent.edit(
             caption,
             parse_mode=CustomParseMode("html"),
             link_preview=False,
         )
 
 # =====================[ Inline Alive ]=====================
-@bilal.dev_cmd(
+@blal.dev_cmd(
     pattern="الفحص$",
     command=("الفحص", plugin_category),
 )
@@ -155,7 +155,7 @@ async def amireallyialive(event):
     await event.delete()
 
 # =====================[ Callback Stats ]=====================
-@bilal.tgbot.on(CallbackQuery(data=re.compile(b"stats")))
+@blal.tgbot.on(CallbackQuery(data=re.compile(b"stats")))
 async def on_stats_callback(event):
-    text = await zedalive(StartTime)
+    text = await devalive(StartTime)
     await event.answer(text, cache_time=0, alert=True)
