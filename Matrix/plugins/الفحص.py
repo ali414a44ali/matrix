@@ -1,3 +1,4 @@
+# =====================[ Imports ]=====================
 import random
 import re
 import time
@@ -5,7 +6,8 @@ import psutil
 from datetime import datetime
 from platform import python_version
 
-from telethon import version
+from telethon import version, types
+from telethon.extensions import html
 from telethon.errors.rpcerrorlist import (
     MediaEmptyError,
     WebpageCurlFailedError,
@@ -13,119 +15,147 @@ from telethon.errors.rpcerrorlist import (
 )
 from telethon.events import CallbackQuery
 
-from . import StartTime, blal, tepversion
+from . import StartTime, bilal, tepversion
 from ..Config import Config
 from ..core.managers import edit_or_reply
-from ..helpers.functions import devalive, check_data_base_heal_th, get_readable_time
+from ..helpers.functions import zedalive, check_data_base_heal_th, get_readable_time
 from ..helpers.utils import reply_id
 from ..sql_helper.globals import gvarstatus
 from . import mention
 
+# =====================[ Constants ]=====================
 plugin_category = "العروض"
 STATS = gvarstatus("Z_STATS") or "فحص"
 
-# الإيموجي المميز
-ALIVE_CUSTOM_EMOJI_ID = 5472026645659401564
-CUSTOM_EMOJI_HTML = f'<a href="emoji/{ALIVE_CUSTOM_EMOJI_ID}">❤️</a>'
+MATRIX_EMOJI = 5834880210268329130   # 💎 Emoji مميز
+PREMIUM_EMOJI = 5832422209074762334 # 🌟 Premium
 
-async def get_alive_emoji(event):
-    """تحقق من Premium لإظهار الإيموجي"""
-    try:
-        sender = await event.get_sender()
-        if sender and getattr(sender, "is_premium", False):
-            return CUSTOM_EMOJI_HTML
-        return ""  # إذا مش Premium
-    except Exception:
-        return ""
+# =====================[ Custom ParseMode ]=====================
+class CustomParseMode:
+    def __init__(self, parse_mode: str):
+        self.parse_mode = parse_mode
 
-@blal.dev_cmd(pattern=f"{STATS}$")
+    def parse(self, text):
+        text, entities = html.parse(text)
+        for i, e in enumerate(entities):
+            if isinstance(e, types.MessageEntityTextUrl):
+                if e.url.startswith("emoji/"):
+                    entities[i] = types.MessageEntityCustomEmoji(
+                        e.offset, e.length, int(e.url.split("/")[1])
+                    )
+        return text, entities
+
+    @staticmethod
+    def unparse(text, entities):
+        for i, e in enumerate(entities or []):
+            if isinstance(e, types.MessageEntityCustomEmoji):
+                entities[i] = types.MessageEntityTextUrl(
+                    e.offset, e.length, f"emoji/{e.document_id}"
+                )
+        return html.unparse(text, entities)
+
+# =====================[ Alive Template ]=====================
+zed_temp = """
+<b>{ALIVE_TEXT}</b>
+<a href="emoji/5834880210268329130">💎</a>
+
+<b>{Z_EMOJI} قاعـدة البيانـات :</b> سريعـة جدًا 🚀
+<b>{Z_EMOJI} إصدار Telethon :</b> <code>{telever}</code>
+<b>{Z_EMOJI} إصدار MaTrix :</b> <code>{zdver}</code>
+<b>{Z_EMOJI} إصدار Python :</b> <code>{pyver}</code>
+
+<b>{Z_EMOJI} وقت التشغيل :</b> <code>{uptime}</code>
+<b>{Z_EMOJI} تاريخ التنصيب :</b> <code>{zedda}</code>
+
+<b>{Z_EMOJI} المالك :</b> {mention}
+<b>{Z_EMOJI} قناتنا :</b>
+<a href="https://t.me/BDB0B">اضغـط هنـا</a>
+<a href="emoji/5834880210268329130">✨</a>
+"""
+
+# =====================[ Alive Command ]=====================
+@bilal.dev_cmd(pattern=f"{STATS}$")
 async def amireallyalive(event):
     reply_to_id = await reply_id(event)
+    zedevent = await edit_or_reply(event, "**⎆┊ جـاري فحـص البـوت ...**")
+
+    start = datetime.now()
     uptime = await get_readable_time((time.time() - StartTime))
+    _, db_health = check_data_base_heal_th()
+    end = datetime.now()
+    ping = (end - start).microseconds / 1000
 
-    boot_time_timestamp = psutil.boot_time()
-    bt = datetime.fromtimestamp(boot_time_timestamp)
+    boot_time = datetime.fromtimestamp(psutil.boot_time())
+    zedda = f"{boot_time.year}/{boot_time.month}/{boot_time.day}"
 
-    start = time.time()
-    devevent = await edit_or_reply(event, "**⎆┊جـاري .. فحـص البـوت الخـاص بك**")
-    end = time.time()
-    ms = int((end - start) * 1000)
+    Z_EMOJI = gvarstatus("ALIVE_EMOJI") or "✾╿"
+    ALIVE_TEXT = gvarstatus("ALIVE_TEXT") or "بـوت ماتركـس MaTrix يعمـل بنجـاح"
+    ZED_IMG = gvarstatus("ALIVE_PIC")
+    zed_caption = gvarstatus("ALIVE_TEMPLATE") or zed_temp
 
-    _, check_sgnirts = check_data_base_heal_th()
+    me = await event.client.get_me()
+    if me.premium:
+        ALIVE_TEXT += f' <a href="emoji/{PREMIUM_EMOJI}">🌟</a>'
 
-    devda = f"{gvarstatus('z_date')}┊{gvarstatus('z_time')}" if gvarstatus("z_date") else f"{bt.year}/{bt.month}/{bt.day}"
-    ALIVE_TEXT = gvarstatus("ALIVE_TEXT") or "**بـوت ماتركـس 𝙈𝙖𝙏𝙍𝙞𝙭 ⌁ يعمل بنجاح ☑️**"
-    dev_IMG = gvarstatus("ALIVE_PIC")
-    dev_caption = gvarstatus("ALIVE_TEMPLATE") or dev_temp
-
-    Z_EMOJI = await get_alive_emoji(event)  # ⚡ هنا يتحقق من Premium
-
-    caption = dev_caption.format(
+    caption = zed_caption.format(
         ALIVE_TEXT=ALIVE_TEXT,
         Z_EMOJI=Z_EMOJI,
         mention=mention,
         uptime=uptime,
-        devda=devda,
+        zedda=zedda,
         telever=version.__version__,
         zdver=tepversion,
         pyver=python_version(),
-        dbhealth=check_sgnirts,
-        ping=ms,
+        dbhealth=db_health,
+        ping=ping,
     )
 
-    if dev_IMG:
-        dev = [x for x in dev_IMG.split()]
-        PIC = random.choice(dev)
+    if ZED_IMG:
+        pic = random.choice(ZED_IMG.split())
         try:
             await event.client.send_file(
                 event.chat_id,
-                PIC,
+                pic,
                 caption=caption,
                 reply_to=reply_to_id,
-                parse_mode="html",
+                parse_mode=CustomParseMode("html"),
             )
-            await devevent.delete()
+            await zedevent.delete()
         except (WebpageMediaEmptyError, MediaEmptyError, WebpageCurlFailedError):
-            await edit_or_reply(
-                devevent,
-                "**⌔∮ عذراً، أضف صورة الفحص أولاً**",
-            )
+            await zedevent.edit(caption, parse_mode=CustomParseMode("html"))
     else:
-        await edit_or_reply(
-            devevent,
+        await zedevent.edit(
             caption,
-            parse_mode="html",
+            parse_mode=CustomParseMode("html"),
+            link_preview=False,
         )
 
-dev_temp = """{ALIVE_TEXT}
-
-**{Z_EMOJI} قاعدة البيانات : ** سريعـة للغايـة 🚀 
-**{Z_EMOJI} إصدار المكتبة :** `{telever}`
-**{Z_EMOJI} إصدار السورس : ** `{zdver}`
-**{Z_EMOJI} إصدار بايثون : ** `{pyver}`
-**{Z_EMOJI} وقت التشغيل : ** `{uptime}`
-**{Z_EMOJI} منصة التنصيب :** `RENDAR`
-**{Z_EMOJI} تاريخ التنصيب : ** `{devda}`
-**{Z_EMOJI} المالك : ** {mention}
-**{Z_EMOJI} قناتنا :** [اضغط هنا](https://t.me/BDB0B)
-"""
-
-@blal.dev_cmd(pattern="الفحص$")
+# =====================[ Inline Alive ]=====================
+@bilal.dev_cmd(
+    pattern="الفحص$",
+    command=("الفحص", plugin_category),
+)
 async def amireallyialive(event):
     reply_to_id = await reply_id(event)
-    Z_EMOJI = await get_alive_emoji(event)
+    Z_EMOJI = gvarstatus("ALIVE_EMOJI") or "✾╿"
 
-    dev_caption = "**- بوت ماتركـس MaTrix يعمل بنجاح 🌿 .. **\n"
-    dev_caption += f"**{Z_EMOJI} إصدار Telethon : ** `{version.__version__}`\n"
-    dev_caption += f"**{Z_EMOJI} إصدار ماتركـس : ** `{tepversion}`\n"
-    dev_caption += f"**{Z_EMOJI} إصدار بايثون : ** `{python_version()}`\n"
-    dev_caption += f"**{Z_EMOJI} المالك : ** {mention}\n"
+    caption = (
+        f"<b>بوت ماتركـس MaTrix يعمل بنجاح</b> "
+        f'<a href="emoji/{MATRIX_EMOJI}">💎</a>\n\n'
+        f"<b>{Z_EMOJI} Telethon :</b> <code>{version.__version__}</code>\n"
+        f"<b>{Z_EMOJI} MaTrix :</b> <code>{tepversion}</code>\n"
+        f"<b>{Z_EMOJI} Python :</b> <code>{python_version()}</code>\n"
+        f"<b>{Z_EMOJI} المالك :</b> {mention}"
+    )
 
-    results = await event.client.inline_query(Config.TG_BOT_USERNAME, dev_caption)
+    results = await event.client.inline_query(
+        Config.TG_BOT_USERNAME, caption
+    )
     await results[0].click(event.chat_id, reply_to=reply_to_id, hide_via=True)
     await event.delete()
 
-@blal.tgbot.on(CallbackQuery(data=re.compile(b"stats")))
-async def on_plug_in_callback_query_handler(event):
-    statstext = await devalive(StartTime)
-    await event.answer(statstext, cache_time=0, alert=True)
+# =====================[ Callback Stats ]=====================
+@bilal.tgbot.on(CallbackQuery(data=re.compile(b"stats")))
+async def on_stats_callback(event):
+    text = await zedalive(StartTime)
+    await event.answer(text, cache_time=0, alert=True)
