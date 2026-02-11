@@ -43,7 +43,7 @@ dev_Dev = (7645521594)
 dec_Dev = (7645521594)
 dev_Vip = dev_Dev
 Zzz_Vip = dev_Dev
-zchannel = {"@BDB0B", "@matrixhelp"}
+zchannel = {"@BDB0B", "@BPB0B", "@matrixub"}
 heroku_api = "https://api.heroku.com"
 if Config.HEROKU_APP_NAME is not None and Config.HEROKU_API_KEY is not None:
     Heroku = heroku3.from_key(Config.HEROKU_API_KEY)
