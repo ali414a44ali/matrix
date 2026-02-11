@@ -47,7 +47,7 @@ from telethon.errors import (
     SessionPasswordNeededError,
     PasswordHashInvalidError
 )
-from .. import tgbot
+
 from . import bot, blal
 from ..Config import Config
 from ..utils import dev_Vip
