@@ -3,33 +3,39 @@ import os
 import re
 
 from telethon.events import CallbackQuery
+from telethon.tl.functions.users import GetUsersRequest
 
 from Matrix import blal
+from ..Config import Config
 from ..sql_helper.globals import gvarstatus
 
-
+# Updated by blal <https://t.me/blal>
 @blal.tgbot.on(CallbackQuery(data=re.compile(b"secret_(.*)")))
 async def on_plug_in_callback_query_handler(event):
     timestamp = int(event.pattern_match.group(1).decode("UTF-8"))
     uzerid = gvarstatus("hmsa_id")
     ussr = int(uzerid) if uzerid.isdigit() else uzerid
+    myid = Config.OWNER_ID
     try:
-        zzz = await event.client.get_entity(ussr)
+        zzz = await blal.get_entity(ussr)
     except ValueError:
-        return
-    if os.path.exists("./Matrix/secret.txt"):
-        jsondata = json.load(open("./Matrix/secret.txt"))
+        zzz = await blal(GetUsersRequest(ussr))
+    #user_id = event.query.user_id
+    user_id = int(uzerid)
+    file_name = f"./Matrix/{user_id}.txt"
+    if os.path.exists(file_name):
+        jsondata = json.load(open(file_name))
         try:
             message = jsondata[f"{timestamp}"]
             userid = message["userid"]
-            ids = [userid, blal.uid, zzz.id]
+            ids = [userid, myid, zzz.id]
             if event.query.user_id in ids:
                 encrypted_tcxt = message["text"]
                 reply_pop_up_alert = encrypted_tcxt
             else:
-                reply_pop_up_alert = "هذي الهمسة مو لك يا حلو 🤍"
+                reply_pop_up_alert = "مطـي الهمسـه مـو الك 🧑🏻‍🦯🦓"
         except KeyError:
-            reply_pop_up_alert = "- عذرًا .. هذه الرسـالة لم تعد موجودة في سيـرفرات تيبثون"
+            reply_pop_up_alert = "- عـذراً .. الهمسة ليست موجهة لك !!"
     else:
-        reply_pop_up_alert = "- عذرًا .. هذه الرسـالة لم تعد موجودة في سيـرفرات تيبثون"
+        reply_pop_up_alert = "- عـذراً .. هذه الرسـالة لم تعد موجـوده في سيـرفرات زدثــون"
     await event.answer(reply_pop_up_alert, cache_time=0, alert=True)
