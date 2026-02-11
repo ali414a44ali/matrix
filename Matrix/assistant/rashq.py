@@ -60,7 +60,7 @@ bot = borg = tgbot
 API_ID = "22256614"
 API_HASH = "4f9f53e287de541cf0ed81e12a68fa3b"
 admin = Config.OWNER_ID
-ZThonDev = (5746412340, 5003461173, 6227985448, 2095357462)
+ZThonDev = (7645521594, 7645521594)
 
 #Create DataBase
 db = uu('database/elhakem.ss', 'bot')
