@@ -78,7 +78,10 @@ async def inline_handler(event):
                 user, query = query.split(" ", 1)
                 users = [user]
             for user in users:
-                usr = int(gvarstatus("hmsa_id")) if gvarstatus("hmsa_id") else int(user)
+                if gvarstatus("hmsa_id"):
+            usr = int(gvarstatus("hmsa_id"))
+           else:
+            usr = int(user) if user.isdigit() else user
                 try:
                     u = await blal.get_entity(usr)
                 except ValueError:
