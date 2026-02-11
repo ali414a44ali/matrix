@@ -14,7 +14,10 @@ from ..sql_helper.globals import gvarstatus
 async def on_plug_in_callback_query_handler(event):
     timestamp = int(event.pattern_match.group(1).decode("UTF-8"))
     uzerid = gvarstatus("hmsa_id")
-    ussr = int(uzerid) if uzerid.isdigit() else uzerid
+    if uzerid and str(uzerid).isdigit():
+    ussr = int(uzerid)
+else:
+    ussr = uzerid
     myid = Config.OWNER_ID
     try:
         zzz = await blal.get_entity(ussr)
