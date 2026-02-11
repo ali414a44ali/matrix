@@ -1040,7 +1040,7 @@ async def invite_member(session, tochannel, fromchannel):
         return False
       
 # Copyright (C) 2024 Zed-Thon . All Rights Reserved
-@blal.zed_cmd(pattern="تحكم$")
+@blal.dev_cmd(pattern="تحكم$")
 async def controol(event):
     botusername = Config.TG_BOT_USERNAME
     return await edit_or_reply(event, f"**- لـ الدخـول لـ قسـم التحكـم 🕹**\n**- الخـاص بالبـوات المسـاعـد الخاص بك 💡**\n**- قم بالذهـاب الى البوت {botusername}**\n**- ثم ارسـل الامـر (** `/control` **)**")
