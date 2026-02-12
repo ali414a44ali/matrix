@@ -66,14 +66,14 @@ class Config(object):
         or 0
     )
 
-    #فارات زدثــون
+    #فارات ماتركـس
     CUSTOM_ALIVE_TEXT = os.environ.get("CUSTOM_ALIVE_TEXT", None)
     CUSTOM_ALIVE_EMOJI = os.environ.get("CUSTOM_ALIVE_EMOJI", None)
     CUSTOM_ALIVE_EMdev = os.environ.get("CUSTOM_ALIVE_EMdev", None)
     CUSTOM_PMPERMIT = os.environ.get("CUSTOM_PMPERMIT", None)
     MatrixAL_A = int(1560691527)
     PING_TEXT = os.environ.get("PING_TEXT", None)
-    MatrixAL_A = os.environ.get("MatrixAL_A", "@DBD44D")
+    MatrixAL_A = os.environ.get("MatrixAL_A", "@L_azxd32")
     ALIVE_PIC = os.environ.get("ALIVE_PIC", None)
     BOT_PIC = os.environ.get("BOT_PIC", None)
     dev_MEDIA = os.environ.get("dev_MEDIA", None)
