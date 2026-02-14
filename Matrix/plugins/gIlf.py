@@ -38,16 +38,16 @@ from telethon.tl.functions.contacts import BlockRequest as bloock
 from telethon.tl.functions.messages import ImportChatInviteRequest as Get
 from telethon.tl.types import InputSingleMedia, InputMediaPhoto
 
-from . import zedub
+from . import blal
 from ..Config import Config
-from ..utils import Zed_Vip
+from ..utils import dev_Vip
 from ..core.logger import logging
 from ..core.managers import edit_delete, edit_or_reply
 from ..helpers.functions import delete_conv
 from ..sql_helper.globals import addgvar, delgvar, gvarstatus
 from ..helpers import media_type, progress, thumb_from_audio, sanga_seperator
 from ..helpers.functions import convert_toimage, convert_tosticker, vid_to_gif
-from ..helpers.utils import _zedtools, _zedutils, _format, parse_pre, reply_id
+from ..helpers.utils import _devtools, _devutils, _format, parse_pre, reply_id
 from . import BOTLOG, BOTLOG_CHATID, mention, deEmojify
 
 extractor = URLExtract()
@@ -60,7 +60,7 @@ gpsbb = '@openmap_bot'
 storyz = '@tgstories_dl_bot'
 ppdf = '@Photo22pdfbot'
 LOGS = logging.getLogger(__name__)
-Zel_Uid = zedub.uid
+Zel_Uid = blal.uid
 thumb_loc = os.path.join(Config.TMP_DOWNLOAD_DIRECTORY, "thumb_image.jpg")
 cancel_process = False
 
@@ -272,7 +272,7 @@ async def get_user_from_event(event):
 async def get_names(phone_number):
     try:
         contact = InputPhoneContact(client_id=0, phone=phone_number, first_name="", last_name="")
-        contacts = await zedub(functions.contacts.ImportContactsRequest([contact]))
+        contacts = await blal(functions.contacts.ImportContactsRequest([contact]))
         user = contacts.to_dict()['users'][0]
         username = user['username']
         if not username:
@@ -284,11 +284,11 @@ async def get_names(phone_number):
         return None, None
 
 
-@zedub.zed_cmd(pattern="اضف وسائط (الحماية|الحمايه|الفحص|فحص) ?(.*)")
+@blal.dev_cmd(pattern="اضف وسائط (الحماية|الحمايه|الفحص|فحص) ?(.*)")
 async def _(malatha):
     if malatha.fwd_from:
         return
-    zed = await edit_or_reply(malatha, "**⎉╎جـاري اضـافة فـار الكليشـة الكاملـة الـى بـوتك ...**")
+    dev = await edit_or_reply(malatha, "**⎉╎جـاري اضـافة فـار الكليشـة الكاملـة الـى بـوتك ...**")
     if not os.path.isdir(Config.TEMP_DIR):
         os.makedirs(Config.TEMP_DIR)
     optional_title = malatha.pattern_match.group(2)
@@ -312,20 +312,20 @@ async def _(malatha):
                     data = f.read()
                     resp = requests.post("https://envs.sh", files={"file": data})
                     if resp.status_code == 200:
-                        #await zed.edit(f"https://envs.sh/{resp.text}")
+                        #await dev.edit(f"https://envs.sh/{resp.text}")
                         vinfo = resp.text
                     else:
                         os.remove(downloaded_file_name)
-                        return await zed.edit("**- حدث خطأ .. اثناء رفع الميديا**\n**- حاول مجدداً في وقت لاحق**")
+                        return await dev.edit("**- حدث خطأ .. اثناء رفع الميديا**\n**- حاول مجدداً في وقت لاحق**")
             except Exception as exc:
-                await zed.edit("**⎉╎خطا : **" + str(exc))
+                await dev.edit("**⎉╎خطا : **" + str(exc))
                 os.remove(downloaded_file_name)
             else:
                 end = datetime.now()
                 ms_two = (end - start).seconds
                 os.remove(downloaded_file_name)
                 addgvar("pmpermit_pic", vinfo)
-                await zed.edit("**⎉╎تم تعييـن الكليشـة الكاملـة لـ {} .. بنجـاح ☑️**\n**⎉╎المتغيـر : ↶ ميديـا + كليشـة**\n**⎉╎ارسـل الان الامـر : ↶** `.الحماية تفعيل`\n\n**⎉╎قنـاة السـورس : @ZThon**".format(input_str))
+                await dev.edit("**⎉╎تم تعييـن الكليشـة الكاملـة لـ {} .. بنجـاح ☑️**\n**⎉╎المتغيـر : ↶ ميديـا + كليشـة**\n**⎉╎ارسـل الان الامـر : ↶** `.الحماية تفعيل`\n\n**⎉╎قنـاة السـورس : @BDB0B**".format(input_str))
         elif input_str in ["الفحص", "فحص"]:
             downloaded_file_name = await malatha.client.download_media(
                 r_message, Config.TEMP_DIR
@@ -341,24 +341,24 @@ async def _(malatha):
                     data = f.read()
                     resp = requests.post("https://envs.sh", files={"file": data})
                     if resp.status_code == 200:
-                        #await zed.edit(f"https://envs.sh/{resp.text}")
+                        #await dev.edit(f"https://envs.sh/{resp.text}")
                         vinfo = resp.text
                     else:
                         os.remove(downloaded_file_name)
-                        return await zed.edit("**- حدث خطأ .. اثناء رفع الميديا**\n**- حاول مجدداً في وقت لاحق**")
+                        return await dev.edit("**- حدث خطأ .. اثناء رفع الميديا**\n**- حاول مجدداً في وقت لاحق**")
             except Exception as exc:
-                await zed.edit("**⎉╎خطا : **" + str(exc))
+                await dev.edit("**⎉╎خطا : **" + str(exc))
                 os.remove(downloaded_file_name)
             else:
                 end = datetime.now()
                 ms_two = (end - start).seconds
                 os.remove(downloaded_file_name)
                 addgvar("ALIVE_PIC", vinfo)
-                await zed.edit("**⎉╎تم تعييـن الكليشـة الكاملـة لـ {} .. بنجـاح ☑️**\n**⎉╎المتغيـر : ↶ ميديـا + كليشـة**\n**⎉╎ارسـل الان الامـر : ↶** `.فحص`\n\n**⎉╎قنـاة السـورس : @ZThon**".format(input_str))
+                await dev.edit("**⎉╎تم تعييـن الكليشـة الكاملـة لـ {} .. بنجـاح ☑️**\n**⎉╎المتغيـر : ↶ ميديـا + كليشـة**\n**⎉╎ارسـل الان الامـر : ↶** `.فحص`\n\n**⎉╎قنـاة السـورس : @BDB0B**".format(input_str))
     else:
-        await zed.edit("**⎉╎بالـرد ع صـورة او ميديـا لتعييـن الفـار ...**")
+        await dev.edit("**⎉╎بالـرد ع صـورة او ميديـا لتعييـن الفـار ...**")
 
-@zedub.zed_cmd(pattern=r"حفظ (.+)")
+@blal.dev_cmd(pattern=r"حفظ (.+)")
 async def save_post(event):
     post_link = event.pattern_match.group(1)
     if not post_link:
@@ -386,7 +386,7 @@ async def save_post(event):
         except Exception as e:
             return await edit_or_reply(event, f"**- اووبـس .. حدث خطأ أثناء حفظ الرسالة\n- تفاصيل الخطأ :**\n {str(e)}\n\n**- استخـدم الامـر الآخـر لـ حفـظ الملفـات المقيـده 🔳:\n- ارسـل** ( .احفظ ) **+ رابـط او بالـرد ع رابـط مقيـد**")
     try:
-        message = await zedub.get_messages(channel_username_or_id, ids=message_id)
+        message = await blal.get_messages(channel_username_or_id, ids=message_id)
         if not message:
             return await edit_or_reply(event, "**- رابـط غيـر صالـح ؟!**")
         if message.media:
@@ -403,27 +403,27 @@ async def save_post(event):
                         if isinstance(attr, DocumentAttributeFilename):
                             file_ext = os.path.splitext(attr.file_name)[1]
             file_path = os.path.join(save_dir, f"media_{message.id}{file_ext}")
-            await zedub.download_media(message, file=file_path)
+            await blal.download_media(message, file=file_path)
             if message.text:
-                ahmed = await zedub.send_file(event.chat_id, file=file_path, caption=f"{message.text}")
-                await zedub.send_message(event.chat_id, f"ᯓ 𝗦𝗼𝘂𝗿𝗰𝗲 𝗭𝗧𝗵𝗼𝗻 - حـفـظ المـحتـوى 🧧\n⋆┄─┄─┄─┄┄─┄─┄─┄─┄┄⋆\n**⌔╎ تـم جلب المنشـور المقيـد .. بنجـاح ☑️** ❝\n**⌔╎رابـط المنشـور** {post_link} .", reply_to=ahmed)
+                ahmed = await blal.send_file(event.chat_id, file=file_path, caption=f"{message.text}")
+                await blal.send_message(event.chat_id, f"ᯓ 𝗦𝗼𝘂𝗿𝗰𝗲 𝙈𝙖𝙏𝙍𝙞𝙭  - حـفـظ المـحتـوى 🧧\n⋆┄─┄─┄─┄┄─┄─┄─┄─┄┄⋆\n**⌔╎ تـم جلب المنشـور المقيـد .. بنجـاح ☑️** ❝\n**⌔╎رابـط المنشـور** {post_link} .", reply_to=ahmed)
                 os.remove(file_path)
                 await event.delete()
             else:
-                await zedub.send_file(event.chat_id, file=file_path, caption=f"[ᯓ 𝗦𝗼𝘂𝗿𝗰𝗲 𝗭𝗧𝗵𝗼𝗻 - حـفـظ المـحتـوى 🧧](t.me/ZThon) .\n⋆┄─┄─┄─┄┄─┄─┄─┄─┄┄⋆\n**⌔╎ تـم جلب المنشـور المقيـد .. بنجـاح ☑️** ❝\n**⌔╎رابـط المنشـور** {post_link} .")
+                await blal.send_file(event.chat_id, file=file_path, caption=f"[ᯓ 𝗦𝗼𝘂𝗿𝗰𝗲 𝙈𝙖𝙏𝙍𝙞𝙭  - حـفـظ المـحتـوى 🧧](t.me/BDB0B) .\n⋆┄─┄─┄─┄┄─┄─┄─┄─┄┄⋆\n**⌔╎ تـم جلب المنشـور المقيـد .. بنجـاح ☑️** ❝\n**⌔╎رابـط المنشـور** {post_link} .")
                 os.remove(file_path)
                 await event.delete()
         else:
             if message.text:
-                ali = await zedub.send_message(event.chat_id, f"{message.text}")
-                await zedub.send_message(event.chat_id, f"ᯓ 𝗦𝗼𝘂𝗿𝗰𝗲 𝗭𝗧𝗵𝗼𝗻 - حـفـظ المـحتـوى 🧧\n⋆┄─┄─┄─┄┄─┄─┄─┄─┄┄⋆\n**⌔╎ تـم جلب المنشـور المقيـد .. بنجـاح ☑️** ❝\n**⌔╎رابـط المنشـور** {post_link} .", reply_to=ali)
+                ali = await blal.send_message(event.chat_id, f"{message.text}")
+                await blal.send_message(event.chat_id, f"ᯓ 𝗦𝗼𝘂𝗿𝗰𝗲 𝙈𝙖𝙏𝙍𝙞𝙭  - حـفـظ المـحتـوى 🧧\n⋆┄─┄─┄─┄┄─┄─┄─┄─┄┄⋆\n**⌔╎ تـم جلب المنشـور المقيـد .. بنجـاح ☑️** ❝\n**⌔╎رابـط المنشـور** {post_link} .", reply_to=ali)
                 await event.delete()
             else:
                 await edit_or_reply(event, "**- الرابط لا يحتوي على ميديا أو نص ؟!**")
     except Exception as e:
         return await edit_or_reply(event, f"**- اووبـس .. حدث خطأ أثناء حفظ الرسالة\n- تفاصيل الخطأ :**\n {str(e)}\n\n**- استخـدم الامـر الآخـر لـ حفـظ الملفـات المقيـده 🔳:\n- ارسـل** ( .احفظ ) **+ رابـط او بالـرد ع رابـط مقيـد**")
 
-@zedub.zed_cmd(
+@blal.dev_cmd(
     pattern="(الغاء محتوى|الغاء المحتوى)$",
     command=("الغاء المحتوى", plugin_category),
     info={
@@ -438,13 +438,13 @@ async def save_posts(event):
     cancel_process = True
     await event.edit("**- تم إلغـاء عمليـة حفـظ الميـديا .. بنجـاح✅**")
 
-@zedub.on(events.NewMessage(incoming=True))
+@blal.on(events.NewMessage(incoming=True))
 async def check_cancel(event):
     global cancel_process
     if isinstance(event.message, MessageService) and event.message.action and isinstance(event.message.action, MessageActionChannelMigrateFrom):
         cancel_process = True
 
-@zedub.zed_cmd(
+@blal.dev_cmd(
     pattern="محتوى(?: |$)(.*) (\\d+)",
     command=("محتوى", plugin_category),
     info={
@@ -465,8 +465,8 @@ async def save_posts(event):
     save_dir = "media"
     os.makedirs(save_dir, exist_ok=True)
     try:
-        channel_entity = await zedub.get_entity(channel_username)
-        messages = await zedub.get_messages(channel_entity, limit=limit)
+        channel_entity = await blal.get_entity(channel_username)
+        messages = await blal.get_messages(channel_entity, limit=limit)
     except Exception as e:
         return await event.edit(f"**- اووبـس .. حدث خطأ أثناء جلب الرسـائل مـن القنـاة**\n**- تفاصيـل الخطـأ:**\n{str(e)}")
     for message in messages:
@@ -487,7 +487,7 @@ async def save_posts(event):
                     continue
                 file_path = os.path.join(save_dir, f"media_{message.id}{file_ext}")
                 await message.download_media(file=file_path)
-                await zedub.send_file("me", file=file_path)
+                await blal.send_file("me", file=file_path)
                 os.remove(file_path)
             if cancel_process:
                 await event.edit("**- تم إلغـاء عمليـة حفـظ الميـديا .. بنجـاح✅**")
@@ -498,7 +498,7 @@ async def save_posts(event):
             continue
     await event.edit(f"تم حفظ الميديا من القناة {channel_username} بنجاح.")
 
-@zedub.zed_cmd(pattern="متحركات ?(.*)")
+@blal.dev_cmd(pattern="متحركات ?(.*)")
 async def gifs(ult):
     get = ult.pattern_match.group(1)
     xx = random.randint(0, 5)
@@ -523,7 +523,7 @@ async def gifs(ult):
             )
     await m.delete()
 
-@zedub.zed_cmd(pattern="متحركاات(?: |$)(.*)")
+@blal.dev_cmd(pattern="متحركاات(?: |$)(.*)")
 async def some(event):
     inpt = event.pattern_match.group(1)
     reply_to_id = await reply_id(event)
@@ -534,7 +534,7 @@ async def some(event):
         inpt, count = inpt.split("عدد")
     if int(count) < 0 and int(count) > 20:
         await edit_delete(event, "`Give value in range 1-20`")
-    zedevent = await edit_or_reply(event, "**╮ جـارِ ﮼ البحـث ؏ الـمتحـركھہ 𓅫🎆╰**")
+    devevent = await edit_or_reply(event, "**╮ جـارِ ﮼ البحـث ؏ الـمتحـركھہ 𓅫🎆╰**")
     res = requests.get("https://giphy.com/")
     res = res.text.split("GIPHY_FE_WEB_API_KEY =")[1].split("\n")[0]
     api_key = res[2:-1]
@@ -549,16 +549,16 @@ async def some(event):
             f"https://media.giphy.com/media/{items}/giphy.gif",
             reply_to=reply_to_id,
         )
-        await _zedutils.unsavegif(event, nood)
-    await zedevent.delete()
+        await _devutils.unsavegif(event, nood)
+    await devevent.delete()
 
-@zedub.zed_cmd(pattern="(لمتحركه|لمتحركة|متحركه|متحركة)$")
+@blal.dev_cmd(pattern="(لمتحركه|لمتحركة|متحركه|متحركة)$")
 async def zelzal_gif(event):
     reply_message = await event.get_reply_message()
     if not reply_message:
         return await edit_or_reply(event, "**╮ بالـرد ﮼؏ فيديـو للتحـويـل لمتحركـه ...𓅫╰**\n\n**-لـ البحث عن متحركـات :**\n**-ارسـل** `.متحركه` **+ نـص لـ البحـث**\n**- او** `.متحركه عدد` **+ العـدد**")
     chat = "@VideoToGifConverterBot"
-    zed = await edit_or_reply(event, "**╮ جـارِ تحويـل الفيديـو لـ متحركـه ...𓅫╰**")
+    dev = await edit_or_reply(event, "**╮ جـارِ تحويـل الفيديـو لـ متحركـه ...𓅫╰**")
     async with borg.conversation(chat) as conv:
         try:
             await conv.send_message("/start")
@@ -566,46 +566,46 @@ async def zelzal_gif(event):
             await conv.send_file(reply_message)
             await conv.get_response()
             await asyncio.sleep(5)
-            zedthon = await conv.get_response()
-            await zed.delete()
+            devthon = await conv.get_response()
+            await dev.delete()
             await borg.send_file(
                 event.chat_id,
-                zedthon,
+                devthon,
                 caption=f"<b>⎉╎تم التحويل لمتحركه .. بنجاح 🎆</b>",
                 parse_mode="html",
                 reply_to=reply_message,
             )
-            await zed.delete()
+            await dev.delete()
             await asyncio.sleep(3)
             await event.client(DeleteHistoryRequest(1125181695, max_id=0, just_clear=True))
         except YouBlockedUserError:
-            await zedub(unblock("VideoToGifConverterBot"))
+            await blal(unblock("VideoToGifConverterBot"))
             await conv.send_message("/start")
             await conv.get_response()
             await conv.send_file(reply_message)
             await conv.get_response()
             await asyncio.sleep(5)
-            zedthon = await conv.get_response()
+            devthon = await conv.get_response()
             await borg.send_file(
                 event.chat_id,
-                zedthon,
+                devthon,
                 caption=f"<b>⎉╎تم التحويل لمتحركه .. بنجاح 🎆</b>",
                 parse_mode="html",
                 reply_to=reply_message,
             )
-            await zed.delete()
+            await dev.delete()
             await asyncio.sleep(3)
             await event.client(DeleteHistoryRequest(1125181695, max_id=0, just_clear=True))
 
 
-@zedub.zed_cmd(pattern="(معالجه|تنقيه|تحسين|توضيح)$")
+@blal.dev_cmd(pattern="(معالجه|تنقيه|تحسين|توضيح)$")
 async def zelzal_ai(event):
     reply_message = await event.get_reply_message()
     if not reply_message:
         return await edit_or_reply(event, "**- بالـرد ع صـوره .. لمعالجتهـا**")
     chat = "@PhotoFixerBot"
     zzz = await edit_or_reply(event, "**- جـارِ معالجـة الصـورة بالذكـاء الاصطناعـي ...💡╰**\n**- الرجاء الانتظار دقيقـه كاملـه لـ التحسيـن ..... 🍧╰**")
-    await zedub(JoinChannelRequest(channel="@NeuralZone"))
+    await blal(JoinChannelRequest(channel="@NeuralZone"))
     async with borg.conversation(chat) as conv:
         try:
             await conv.send_message("/start")
@@ -616,7 +616,7 @@ async def zelzal_ai(event):
             await conv.get_response()
             purgeflag = await conv.send_file(reply_message)
         except YouBlockedUserError:
-            await zedub(unblock("PhotoFixerBot"))
+            await blal(unblock("PhotoFixerBot"))
             await conv.send_message("/start")
             await conv.get_response()
             await conv.get_response()
@@ -624,28 +624,28 @@ async def zelzal_ai(event):
             await conv.get_response()
             await conv.get_response()
             purgeflag = await conv.send_file(reply_message)
-        zedthon1 = None
+        devthon1 = None
         response = await conv.get_response()
         await asyncio.sleep(1.5)
         if response.media:
-            zedthon1 = response.media
+            devthon1 = response.media
         else:
-            zedthon1 = await conv.get_response()
+            devthon1 = await conv.get_response()
         response = await conv.get_response()
         if response.media:
-            zedthon1 = response.media
+            devthon1 = response.media
             await borg.send_file(
                 event.chat_id,
-                zedthon1,
+                devthon1,
                 caption=f"<b>⎉╎تم معالجـة الصـورة .. بنجـاح 🎆</b>",
                 parse_mode="html",
                 reply_to=reply_message,
             )
         else:
-            zedthon1 = await conv.get_response()
+            devthon1 = await conv.get_response()
             await borg.send_file(
                 event.chat_id,
-                zedthon1,
+                devthon1,
                 caption=f"<b>⎉╎تم معالجـة الصـورة .. بنجـاح 🎆</b>",
                 parse_mode="html",
                 reply_to=reply_message,
@@ -655,7 +655,7 @@ async def zelzal_ai(event):
         await event.client(DeleteHistoryRequest(6314982389, max_id=0, just_clear=True))
 
 
-@zedub.zed_cmd(pattern=f"s(?: |$)(.*)")
+@blal.dev_cmd(pattern=f"s(?: |$)(.*)")
 async def zelzal_ss(event):
     malath = event.pattern_match.group(1)
     zilzal = None
@@ -678,18 +678,18 @@ async def zelzal_ss(event):
         try:
             purgeflag = await conv.send_message(zelzal)
         except YouBlockedUserError:
-            await zedub(unblock("msaver_bot"))
+            await blal(unblock("msaver_bot"))
             purgeflag = await conv.send_message(zelzal)
         response = await conv.get_response()
         await asyncio.sleep(3)
         if response.media:
-            zedthon1 = response.media
+            devthon1 = response.media
         else:
-            zedthon1 = await conv.get_response()
+            devthon1 = await conv.get_response()
         await borg.send_file(
             event.chat_id,
-            zedthon1,
-            caption=f"<b>⎉╎تم تحميـل ستـوري تيليجرام .. بنجـاح 🎆\n⎉╎الرابـط 🖇:  {zilzal}\n⎉╎تم التحميـل بواسطـة <a href = https://t.me/ZThon/1>𝗭𝗧𝗵𝗼𝗻</a> </b>",
+            devthon1,
+            caption=f"<b>⎉╎تم تحميـل ستـوري تيليجرام .. بنجـاح 🎆\n⎉╎الرابـط 🖇:  {zilzal}\n⎉╎تم التحميـل بواسطـة <a href = https://t.me/BDB0B/1>𝙈𝙖𝙏𝙍𝙞𝙭 </a> </b>",
             parse_mode="html",
         )
         await zzz.delete()
@@ -697,7 +697,7 @@ async def zelzal_ss(event):
         await event.client(DeleteHistoryRequest(6135950112, max_id=0, just_clear=True))
 
 
-@zedub.zed_cmd(pattern="(انمي|كارتون)$")
+@blal.dev_cmd(pattern="(انمي|كارتون)$")
 async def zelzal_anime(event):
     reply_message = await event.get_reply_message()
     if not reply_message:
@@ -710,16 +710,16 @@ async def zelzal_anime(event):
             await conv.get_response()
             purgeflag = await conv.send_file(reply_message)
         except YouBlockedUserError:
-            await zedub(unblock("qq_neural_anime_bot"))
+            await blal(unblock("qq_neural_anime_bot"))
             await conv.send_message("/start")
             await conv.get_response()
             purgeflag = await conv.send_file(reply_message)
         await conv.get_response()
         await asyncio.sleep(5)
-        zedthon1 = await conv.get_response()
+        devthon1 = await conv.get_response()
         await borg.send_file(
             event.chat_id,
-            zedthon1,
+            devthon1,
             caption=f"<b>⎉╎تم تحويـل الصـورة .. بنجـاح 🍧🎆</b>",
             parse_mode="html",
             reply_to=reply_message,
@@ -729,7 +729,7 @@ async def zelzal_anime(event):
         await event.client(DeleteHistoryRequest(5894660331, max_id=0, just_clear=True))
 
 
-@zedub.zed_cmd(pattern="سكانر$")
+@blal.dev_cmd(pattern="سكانر$")
 async def zelzal_scanner(event):
     reply_message = await event.get_reply_message()
     if not reply_message:
@@ -743,22 +743,22 @@ async def zelzal_scanner(event):
             purgeflag = await conv.send_file(reply_message)
             #await conv.send_message("/ocr", reply_to=purgeflag)  # إرسال /ocr بالرد على الصورة داخل البوت
         except YouBlockedUserError:
-            await zedub(unblock("rrobbootooBot"))
+            await blal(unblock("rrobbootooBot"))
             await conv.send_message("/start")
             await conv.get_response()
             purgeflag = await conv.send_file(reply_message)
             #await conv.send_message("/ocr", reply_to=purgeflag)  # إرسال /ocr بالرد على الصورة داخل البوت
         await conv.get_response()
         await asyncio.sleep(3)
-        zedthon1 = await conv.get_response()
-        replay_z = await borg.send_message(event.chat_id, zedthon1, reply_to=reply_message)
-        await borg.send_message(event.chat_id, "**⎉╎تم استخـراج النـص من الصـورة .. بنجـاح 🍧🎆\n⎉╎بواسطـة @ZThon**", reply_to=replay_z)
+        devthon1 = await conv.get_response()
+        replay_z = await borg.send_message(event.chat_id, devthon1, reply_to=reply_message)
+        await borg.send_message(event.chat_id, "**⎉╎تم استخـراج النـص من الصـورة .. بنجـاح 🍧🎆\n⎉╎بواسطـة @BDB0B**", reply_to=replay_z)
         await zzz.delete()
         await asyncio.sleep(2)
         await event.client(DeleteHistoryRequest(1668602822, max_id=0, just_clear=True))
 
 
-@zedub.zed_cmd(pattern="ازاله$")
+@blal.dev_cmd(pattern="ازاله$")
 async def zelzal_rr(event):
     reply_message = await event.get_reply_message()
     if not reply_message:
@@ -771,27 +771,27 @@ async def zelzal_rr(event):
             await conv.get_response()
             purgeflag = await conv.send_file(reply_message)
         except YouBlockedUserError:
-            await zedub(unblock("bgkillerbot"))
+            await blal(unblock("bgkillerbot"))
             await conv.send_message("/start")
             await conv.get_response()
             purgeflag = await conv.send_file(reply_message)
         await conv.get_response()
         await asyncio.sleep(3)
-        zedthon1 = await conv.get_response()
-        if zedthon1.file:
+        devthon1 = await conv.get_response()
+        if devthon1.file:
             await borg.send_file(
                 event.chat_id,
-                zedthon1,
-                caption=f"<b>⎉╎تم ازالـة الخلفيـة من الصـورة .. بنجـاح 🍧🎆\n⎉╎بواسطـة <a href = https://t.me/ZThon/1>𝗭𝗧𝗵𝗼𝗻</a> </b>",
+                devthon1,
+                caption=f"<b>⎉╎تم ازالـة الخلفيـة من الصـورة .. بنجـاح 🍧🎆\n⎉╎بواسطـة <a href = https://t.me/BDB0B/1>𝙈𝙖𝙏𝙍𝙞𝙭 </a> </b>",
                 parse_mode="html",
                 reply_to=reply_message,
             )
         else:
-            zedthon1 = await conv.get_response()
+            devthon1 = await conv.get_response()
             await borg.send_file(
                 event.chat_id,
-                zedthon1,
-                caption=f"<b>⎉╎تم ازالـة الخلفيـة من الصـورة .. بنجـاح 🍧🎆\n⎉╎بواسطـة <a href = https://t.me/ZThon/1>𝗭𝗧𝗵𝗼𝗻</a> </b>",
+                devthon1,
+                caption=f"<b>⎉╎تم ازالـة الخلفيـة من الصـورة .. بنجـاح 🍧🎆\n⎉╎بواسطـة <a href = https://t.me/BDB0B/1>𝙈𝙖𝙏𝙍𝙞𝙭 </a> </b>",
                 parse_mode="html",
                 reply_to=reply_message,
             )
@@ -800,49 +800,49 @@ async def zelzal_rr(event):
         await event.client(DeleteHistoryRequest(1744388227, max_id=0, just_clear=True))
 
 
-@zedub.on(events.NewMessage(outgoing=True, pattern='.موقع (.*)'))
+@blal.on(events.NewMessage(outgoing=True, pattern='.موقع (.*)'))
 async def _(event):
     con = event.pattern_match.group(1) 
     sender = await event.get_sender()
-    if sender.id != zedub.uid:
+    if sender.id != blal.uid:
         return
     zid = int(gvarstatus("ZThon_Vip"))
     if Zel_Uid != zid:
         return await edit_or_reply(event, "**⎉╎عـذࢪاً .. ؏ـزيـزي\n⎉╎هـذا الامـر ليـس مجـانـي📵\n⎉╎للاشتـراك في الاوامـر المدفوعـة\n⎉╎تواصـل مطـور السـورس @BBBlibot - @EiAbot\n⎉╎او التواصـل مـع احـد المشرفيـن @AAAl1l**")
     zzz = await event.edit("**⎉╎جـارِ البحث في خرائـط جـوجـل ...**")
-    channel_entity = await zedub.get_entity(gpsbb)
-    await zedub.send_message(gpsbb, '/start')
+    channel_entity = await blal.get_entity(gpsbb)
+    await blal.send_message(gpsbb, '/start')
     await asyncio.sleep(0.5)
-    msg0 = await zedub.get_messages(gpsbb, limit=1)
-    await zedub.send_message(gpsbb, con)
+    msg0 = await blal.get_messages(gpsbb, limit=1)
+    await blal.send_message(gpsbb, con)
     await asyncio.sleep(0.5)
     try:
-        msg1 = await zedub.get_messages(gpsbb, limit=1)
+        msg1 = await blal.get_messages(gpsbb, limit=1)
         await msg1[0].click(2)
     except:
         await event.client(DeleteHistoryRequest(364791564, max_id=0, just_clear=True))
         return await zzz.edit("**⎉╎لم يتم العثـور ع الموقـع ...؟!**\n**⎉╎قم بادخـال الموقـع بشكـل صحيـح**")
     await asyncio.sleep(0.5)
-    msg2 = await zedub.get_messages(gpsbb, limit=1)
+    msg2 = await blal.get_messages(gpsbb, limit=1)
     await msg2[0].click(2)
     await asyncio.sleep(0.5)
-    msg3 = await zedub.get_messages(gpsbb, limit=1)
+    msg3 = await blal.get_messages(gpsbb, limit=1)
     await msg3[0].click(2)
     await asyncio.sleep(0.5)
-    msg4 = await zedub.get_messages(gpsbb, limit=1)
-    await zedub.send_file(
+    msg4 = await blal.get_messages(gpsbb, limit=1)
+    await blal.send_file(
         event.chat_id,
         msg4[0],
-        caption=f"<b>⎉╎تم جلب المـوقـع .. بنجـاح \n⎉╎</b><code>{con}</code>  🗺 \n<b>⎉╎بواسطـة <a href = https://t.me/ZThon/1>𝗭𝗧𝗵𝗼𝗻</a> </b>",
+        caption=f"<b>⎉╎تم جلب المـوقـع .. بنجـاح \n⎉╎</b><code>{con}</code>  🗺 \n<b>⎉╎بواسطـة <a href = https://t.me/BDB0B/1>𝙈𝙖𝙏𝙍𝙞𝙭 </a> </b>",
         parse_mode="html",
     )
     await msg4[0].click(3)
     await asyncio.sleep(0.5)
-    msg5 = await zedub.get_messages(gpsbb, limit=1)
-    await zedub.send_file(
+    msg5 = await blal.get_messages(gpsbb, limit=1)
+    await blal.send_file(
         event.chat_id,
         msg5[0],
-        caption=f"<b>⎉╎تم الجلب عبـر الاقمـار الصناعيـه .. بنجـاح 🛰\n⎉╎</b><code>{con}</code>  🗺 \n<b>⎉╎بواسطـة <a href = https://t.me/ZThon/1>𝗭𝗧𝗵𝗼𝗻</a> </b>",
+        caption=f"<b>⎉╎تم الجلب عبـر الاقمـار الصناعيـه .. بنجـاح 🛰\n⎉╎</b><code>{con}</code>  🗺 \n<b>⎉╎بواسطـة <a href = https://t.me/BDB0B/1>𝙈𝙖𝙏𝙍𝙞𝙭 </a> </b>",
         parse_mode="html",
     )
     await zzz.delete()
@@ -850,25 +850,25 @@ async def _(event):
     await event.client(DeleteHistoryRequest(364791564, max_id=0, just_clear=True))
 
 # Write code by T.me/zzzzl1l
-@zedub.zed_cmd(pattern="(عدسه|عدسة)$")
+@blal.dev_cmd(pattern="(عدسه|عدسة)$")
 async def _(event): # Write code by T.me/zzzzl1l
     reply_message = await event.get_reply_message()
     if not reply_message:
         return await edit_or_reply(event, "**- بالـرد ع صـوره/ملصق/فيديـو ...\n- لـ البحث فـي عدسـة جـوجـل**")
     zellzall = '@reverse_image_search_bot' # Write code by T.me/zzzzl1l)
-    channel_entity = await zedub.get_entity(zellzall)
+    channel_entity = await blal.get_entity(zellzall)
     zzz = await event.edit("**⎉╎جـارِ البحث في عدسـة جـوجـل ...🔍**")
-    channel_entity = await zedub.get_entity(zellzall)
-    await zedub.send_message(zellzall, '/start')
+    channel_entity = await blal.get_entity(zellzall)
+    await blal.send_message(zellzall, '/start')
     await asyncio.sleep(2)
-    msga = await zedub.get_messages(zellzall, limit=1)
-    await zedub.send_file(zellzall, reply_message)
+    msga = await blal.get_messages(zellzall, limit=1)
+    await blal.send_file(zellzall, reply_message)
     await asyncio.sleep(2)
-    msg1 = await zedub.get_messages(zellzall, limit=1)
-    msg2 = await zedub.get_messages(zellzall, limit=1)
+    msg1 = await blal.get_messages(zellzall, limit=1)
+    msg2 = await blal.get_messages(zellzall, limit=1)
     await asyncio.sleep(3)
     try: # Write code by T.me/zzzzl1l
-        list = await zedub(GetHistoryRequest(peer=channel_entity, limit=1, offset_date=None, offset_id=0, max_id=0, min_id=0, add_offset=0, hash=0))
+        list = await blal(GetHistoryRequest(peer=channel_entity, limit=1, offset_date=None, offset_id=0, max_id=0, min_id=0, add_offset=0, hash=0))
         msgs = list.messages[0]
         url_pic = msgs.reply_markup.rows[1].buttons[0].url
         url_snao = msgs.reply_markup.rows[2].buttons[0].url
@@ -883,10 +883,10 @@ async def _(event): # Write code by T.me/zzzzl1l
         url_sogou = msgs.reply_markup.rows[6].buttons[1].url
         url_ascii2d = msgs.reply_markup.rows[7].buttons[0].url
         await asyncio.sleep(0.5)
-        await zedub.send_file(
+        await blal.send_file(
             event.chat_id,
             url_pic,
-            caption=f"<b>⎉╎تم البحث عبـر عدسـة جـوجـل .. بنجـاح ☑️\n⎉╎بواسطـة سـورس <a href = https://t.me/ZThon/1>𝗭𝗧𝗵𝗼𝗻</a>\n⎉╎اليـك روابـط بنتائـج البحث لـ عـدة محركـات بحث :</b>\n\n<b><a href = {url_pic}>- رابــط الصــورة</a> 🖇\n\n<a href = {url_google}>- عدسـة جوجـل Google</a> 🌐\n\n<a href = {url_yandex}>- ياندكس Yandex</a> 〽️\n\n<a href = {url_bing}>- بينـج Bing</a> 🅿️\n\n<a href = {url_baidu}>- بايـدو Baidu</a> 🛜\n\n<a href = {url_snao}>- سوسـناو SauceNAO</a> 🈯️\n\n<a href = {url_sogou}>- سوجـو Sogou</a> ❇️\n\n<a href = {url_tineye}>- تينـآي TinEye</a> 🚺\n\n<a href = {url_trace}>- تـراك Trace</a> 🚼\n\n<a href = {url_iqdb}>- آي كيو ديبي IQDB</a> 🚾\n\n<a href = {url_3d}>- ثـري دي ديبي 3D IQDB</a> Ⓜ️\n\n<a href = {url_ascii2d}>- آسكـي Ascii2d</a> 🔡</b>",
+            caption=f"<b>⎉╎تم البحث عبـر عدسـة جـوجـل .. بنجـاح ☑️\n⎉╎بواسطـة سـورس <a href = https://t.me/BDB0B/1>𝙈𝙖𝙏𝙍𝙞𝙭 </a>\n⎉╎اليـك روابـط بنتائـج البحث لـ عـدة محركـات بحث :</b>\n\n<b><a href = {url_pic}>- رابــط الصــورة</a> 🖇\n\n<a href = {url_google}>- عدسـة جوجـل Google</a> 🌐\n\n<a href = {url_yandex}>- ياندكس Yandex</a> 〽️\n\n<a href = {url_bing}>- بينـج Bing</a> 🅿️\n\n<a href = {url_baidu}>- بايـدو Baidu</a> 🛜\n\n<a href = {url_snao}>- سوسـناو SauceNAO</a> 🈯️\n\n<a href = {url_sogou}>- سوجـو Sogou</a> ❇️\n\n<a href = {url_tineye}>- تينـآي TinEye</a> 🚺\n\n<a href = {url_trace}>- تـراك Trace</a> 🚼\n\n<a href = {url_iqdb}>- آي كيو ديبي IQDB</a> 🚾\n\n<a href = {url_3d}>- ثـري دي ديبي 3D IQDB</a> Ⓜ️\n\n<a href = {url_ascii2d}>- آسكـي Ascii2d</a> 🔡</b>",
             parse_mode="html",
             reply_to=reply_message,
         )
@@ -894,7 +894,7 @@ async def _(event): # Write code by T.me/zzzzl1l
         await event.client(DeleteHistoryRequest(812573486, max_id=0, just_clear=True))
     except: # Write code by T.me/zzzzl1l
         try:
-            list = await zedub(GetHistoryRequest(peer=channel_entity, limit=2, offset_date=None, offset_id=0, max_id=0, min_id=0, add_offset=0, hash=0))
+            list = await blal(GetHistoryRequest(peer=channel_entity, limit=2, offset_date=None, offset_id=0, max_id=0, min_id=0, add_offset=0, hash=0))
             msgs = list.messages[1]
             url_pic = msgs.reply_markup.rows[1].buttons[0].url
             url_snao = msgs.reply_markup.rows[2].buttons[0].url
@@ -909,10 +909,10 @@ async def _(event): # Write code by T.me/zzzzl1l
             url_sogou = msgs.reply_markup.rows[6].buttons[1].url
             url_ascii2d = msgs.reply_markup.rows[7].buttons[0].url
             await asyncio.sleep(0.5)
-            await zedub.send_file(
+            await blal.send_file(
                 event.chat_id,
                 url_pic,
-                caption=f"<b>⎉╎تم البحث عبـر عدسـة جـوجـل .. بنجـاح ☑️\n⎉╎بواسطـة سـورس <a href = https://t.me/ZThon/1>𝗭𝗧𝗵𝗼𝗻</a>\n⎉╎اليـك روابـط بنتائـج البحث لـ عـدة محركـات بحث :</b>\n\n<b><a href = {url_pic}>- رابــط الصــورة</a> 🖇\n\n<a href = {url_google}>- عدسـة جوجـل Google</a> 🌐\n\n<a href = {url_yandex}>- ياندكس Yandex</a> 〽️\n\n<a href = {url_bing}>- بينـج Bing</a> 🅿️\n\n<a href = {url_baidu}>- بايـدو Baidu</a> 🛜\n\n<a href = {url_snao}>- سوسـناو SauceNAO</a> 🈯️\n\n<a href = {url_sogou}>- سوجـو Sogou</a> ❇️\n\n<a href = {url_tineye}>- تينـآي TinEye</a> 🚺\n\n<a href = {url_trace}>- تـراك Trace</a> 🚼\n\n<a href = {url_iqdb}>- آي كيو ديبي IQDB</a> 🚾\n\n<a href = {url_3d}>- ثـري دي ديبي 3D IQDB</a> Ⓜ️\n\n<a href = {url_ascii2d}>- آسكـي Ascii2d</a> 🔡</b>",
+                caption=f"<b>⎉╎تم البحث عبـر عدسـة جـوجـل .. بنجـاح ☑️\n⎉╎بواسطـة سـورس <a href = https://t.me/BDB0B/1>𝙈𝙖𝙏𝙍𝙞𝙭 </a>\n⎉╎اليـك روابـط بنتائـج البحث لـ عـدة محركـات بحث :</b>\n\n<b><a href = {url_pic}>- رابــط الصــورة</a> 🖇\n\n<a href = {url_google}>- عدسـة جوجـل Google</a> 🌐\n\n<a href = {url_yandex}>- ياندكس Yandex</a> 〽️\n\n<a href = {url_bing}>- بينـج Bing</a> 🅿️\n\n<a href = {url_baidu}>- بايـدو Baidu</a> 🛜\n\n<a href = {url_snao}>- سوسـناو SauceNAO</a> 🈯️\n\n<a href = {url_sogou}>- سوجـو Sogou</a> ❇️\n\n<a href = {url_tineye}>- تينـآي TinEye</a> 🚺\n\n<a href = {url_trace}>- تـراك Trace</a> 🚼\n\n<a href = {url_iqdb}>- آي كيو ديبي IQDB</a> 🚾\n\n<a href = {url_3d}>- ثـري دي ديبي 3D IQDB</a> Ⓜ️\n\n<a href = {url_ascii2d}>- آسكـي Ascii2d</a> 🔡</b>",
                 parse_mode="html",
                 reply_to=reply_message,
             )
@@ -920,7 +920,7 @@ async def _(event): # Write code by T.me/zzzzl1l
             await asyncio.sleep(2)
             await event.client(DeleteHistoryRequest(812573486, max_id=0, just_clear=True))
         except: # Write code by T.me/zzzzl1l
-            list = await zedub(GetHistoryRequest(peer=channel_entity, limit=3, offset_date=None, offset_id=0, max_id=0, min_id=0, add_offset=0, hash=0))
+            list = await blal(GetHistoryRequest(peer=channel_entity, limit=3, offset_date=None, offset_id=0, max_id=0, min_id=0, add_offset=0, hash=0))
             msgs = list.messages[2]
             url_pic = msgs.reply_markup.rows[1].buttons[0].url
             url_snao = msgs.reply_markup.rows[2].buttons[0].url
@@ -935,10 +935,10 @@ async def _(event): # Write code by T.me/zzzzl1l
             url_sogou = msgs.reply_markup.rows[6].buttons[1].url
             url_ascii2d = msgs.reply_markup.rows[7].buttons[0].url
             await asyncio.sleep(0.5)
-            await zedub.send_file(
+            await blal.send_file(
                 event.chat_id,
                 url_pic,
-                caption=f"<b>⎉╎تم البحث عبـر عدسـة جـوجـل .. بنجـاح ☑️\n⎉╎بواسطـة سـورس <a href = https://t.me/ZThon/1>𝗭𝗧𝗵𝗼𝗻</a>\n⎉╎اليـك روابـط بنتائـج البحث لـ عـدة محركـات بحث :</b>\n\n<b><a href = {url_pic}>- رابــط الصــورة</a> 🖇\n\n<a href = {url_google}>- عدسـة جوجـل Google</a> 🌐\n\n<a href = {url_yandex}>- ياندكس Yandex</a> 〽️\n\n<a href = {url_bing}>- بينـج Bing</a> 🅿️\n\n<a href = {url_baidu}>- بايـدو Baidu</a> 🛜\n\n<a href = {url_snao}>- سوسـناو SauceNAO</a> 🈯️\n\n<a href = {url_sogou}>- سوجـو Sogou</a> ❇️\n\n<a href = {url_tineye}>- تينـآي TinEye</a> 🚺\n\n<a href = {url_trace}>- تـراك Trace</a> 🚼\n\n<a href = {url_iqdb}>- آي كيو ديبي IQDB</a> 🚾\n\n<a href = {url_3d}>- ثـري دي ديبي 3D IQDB</a> Ⓜ️\n\n<a href = {url_ascii2d}>- آسكـي Ascii2d</a> 🔡</b>",
+                caption=f"<b>⎉╎تم البحث عبـر عدسـة جـوجـل .. بنجـاح ☑️\n⎉╎بواسطـة سـورس <a href = https://t.me/BDB0B/1>𝙈𝙖𝙏𝙍𝙞𝙭 </a>\n⎉╎اليـك روابـط بنتائـج البحث لـ عـدة محركـات بحث :</b>\n\n<b><a href = {url_pic}>- رابــط الصــورة</a> 🖇\n\n<a href = {url_google}>- عدسـة جوجـل Google</a> 🌐\n\n<a href = {url_yandex}>- ياندكس Yandex</a> 〽️\n\n<a href = {url_bing}>- بينـج Bing</a> 🅿️\n\n<a href = {url_baidu}>- بايـدو Baidu</a> 🛜\n\n<a href = {url_snao}>- سوسـناو SauceNAO</a> 🈯️\n\n<a href = {url_sogou}>- سوجـو Sogou</a> ❇️\n\n<a href = {url_tineye}>- تينـآي TinEye</a> 🚺\n\n<a href = {url_trace}>- تـراك Trace</a> 🚼\n\n<a href = {url_iqdb}>- آي كيو ديبي IQDB</a> 🚾\n\n<a href = {url_3d}>- ثـري دي ديبي 3D IQDB</a> Ⓜ️\n\n<a href = {url_ascii2d}>- آسكـي Ascii2d</a> 🔡</b>",
                 parse_mode="html",
                 reply_to=reply_message,
             )
@@ -947,7 +947,7 @@ async def _(event): # Write code by T.me/zzzzl1l
             await event.client(DeleteHistoryRequest(812573486, max_id=0, just_clear=True))
 
 
-@zedub.zed_cmd(pattern="انستا(?: |$)(.*)")
+@blal.dev_cmd(pattern="انستا(?: |$)(.*)")
 async def zelzal_insta(event):
     link = event.pattern_match.group(1)
     reply = await event.get_reply_message()
@@ -962,48 +962,48 @@ async def zelzal_insta(event):
     if link.startswith("http://instagram"):
         link = link.replace("http://instagram", "http://www.instagram")
     if "/reel/" in link:
-        cap_zzz = f"<b>⎉╎تم تحميـل مقطـع انستـا (ريلـز) .. بنجـاح ☑️\n⎉╎الرابـط 🖇:  {link}\n⎉╎تم التحميـل بواسطـة <a href = https://t.me/ZThon/1>𝗭𝗧𝗵𝗼𝗻</a> </b>"
+        cap_zzz = f"<b>⎉╎تم تحميـل مقطـع انستـا (ريلـز) .. بنجـاح ☑️\n⎉╎الرابـط 🖇:  {link}\n⎉╎تم التحميـل بواسطـة <a href = https://t.me/BDB0B/1>𝙈𝙖𝙏𝙍𝙞𝙭 </a> </b>"
     elif "/tv/" in link:
-        cap_zzz = f"<b>⎉╎تم تحميـل بث انستـا (Tv) .. بنجـاح ☑️\n⎉╎الرابـط 🖇:  {link}\n⎉╎تم التحميـل بواسطـة <a href = https://t.me/ZThon/1>𝗭𝗧𝗵𝗼𝗻</a> </b>"
+        cap_zzz = f"<b>⎉╎تم تحميـل بث انستـا (Tv) .. بنجـاح ☑️\n⎉╎الرابـط 🖇:  {link}\n⎉╎تم التحميـل بواسطـة <a href = https://t.me/BDB0B/1>𝙈𝙖𝙏𝙍𝙞𝙭 </a> </b>"
     elif "/stories/" in link:
-        cap_zzz = f"<b>⎉╎تم تحميـل ستـوري انستـا .. بنجـاح ☑️\n⎉╎الرابـط 🖇:  {link}\n⎉╎تم التحميـل بواسطـة <a href = https://t.me/ZThon/1>𝗭𝗧𝗵??𝗻</a> </b>"
+        cap_zzz = f"<b>⎉╎تم تحميـل ستـوري انستـا .. بنجـاح ☑️\n⎉╎الرابـط 🖇:  {link}\n⎉╎تم التحميـل بواسطـة <a href = https://t.me/BDB0B/1>𝗭𝗧𝗵??𝗻</a> </b>"
     else:
-        cap_zzz = f"<b>⎉╎تم تحميـل مقطـع انستـا .. بنجـاح ☑️\n⎉╎الرابـط 🖇:  {link}\n⎉╎تم التحميـل بواسطـة <a href = https://t.me/ZThon/1>𝗭𝗧𝗵𝗼𝗻</a> </b>"
+        cap_zzz = f"<b>⎉╎تم تحميـل مقطـع انستـا .. بنجـاح ☑️\n⎉╎الرابـط 🖇:  {link}\n⎉╎تم التحميـل بواسطـة <a href = https://t.me/BDB0B/1>𝙈𝙖𝙏𝙍𝙞𝙭 </a> </b>"
     chat = "@story_repost_bot"
-    zed = await edit_or_reply(event, "**⎉╎جـارِ التحميل من الانستـا .. انتظر قليلا ▬▭**")
+    dev = await edit_or_reply(event, "**⎉╎جـارِ التحميل من الانستـا .. انتظر قليلا ▬▭**")
     async with borg.conversation(chat) as conv:
         try:
             await conv.send_message("/start")
             await conv.get_response()
             await conv.send_message(link)
-            zedthon = await conv.get_response()
+            devthon = await conv.get_response()
             await borg.send_file(
                 event.chat_id,
-                zedthon,
+                devthon,
                 caption=cap_zzz,
                 parse_mode="html",
             )
-            await zed.delete()
+            await dev.delete()
             await asyncio.sleep(2)
             await event.client(DeleteHistoryRequest(2036153627, max_id=0, just_clear=True))
         except YouBlockedUserError:
-            await zedub(unblock("story_repost_bot"))
+            await blal(unblock("story_repost_bot"))
             await conv.send_message("/start")
             await conv.get_response()
             await conv.send_message(link)
-            zedthon = await conv.get_response()
+            devthon = await conv.get_response()
             await borg.send_file(
                 event.chat_id,
-                zedthon,
+                devthon,
                 caption=cap_zzz,
                 parse_mode="html",
             )
-            await zed.delete()
+            await dev.delete()
             await asyncio.sleep(2)
             await event.client(DeleteHistoryRequest(2036153627, max_id=0, just_clear=True))
 
 
-@zedub.zed_cmd(pattern="تيك(?: |$)(.*)")
+@blal.dev_cmd(pattern="تيك(?: |$)(.*)")
 async def zelzal_insta(event):
     link = event.pattern_match.group(1)
     reply = await event.get_reply_message()
@@ -1013,43 +1013,43 @@ async def zelzal_insta(event):
         return await edit_delete(event, "**- ارسـل (.تيك) + رابـط او بالـرد ع رابـط**", 10)
     if "tiktok.com" not in link:
         return await edit_delete(event, "**- احتـاج الـى رابــط من تيـك تـوك .. للتحميــل ؟!**", 10)
-    cap_zzz = f"<b>⎉╎تم تحميـل مـن تيـك تـوك .. بنجـاح ☑️\n⎉╎الرابـط 🖇:  {link}\n⎉╎تم التحميـل بواسطـة <a href = https://t.me/ZThon/1>𝗭𝗧𝗵𝗼𝗻</a> </b>"
+    cap_zzz = f"<b>⎉╎تم تحميـل مـن تيـك تـوك .. بنجـاح ☑️\n⎉╎الرابـط 🖇:  {link}\n⎉╎تم التحميـل بواسطـة <a href = https://t.me/BDB0B/1>𝙈𝙖𝙏𝙍𝙞𝙭 </a> </b>"
     chat = "@downloader_tiktok_bot"
-    zed = await edit_or_reply(event, "**⎉╎جـارِ التحميل من تيـك تـوك .. انتظر قليلا ▬▭**")
+    dev = await edit_or_reply(event, "**⎉╎جـارِ التحميل من تيـك تـوك .. انتظر قليلا ▬▭**")
     async with borg.conversation(chat) as conv:
         try:
             await conv.send_message("/start")
             await conv.get_response()
             await conv.send_message(link)
-            zedthon = await conv.get_response()
+            devthon = await conv.get_response()
             await borg.send_file(
                 event.chat_id,
-                zedthon,
+                devthon,
                 caption=cap_zzz,
                 parse_mode="html",
             )
-            await zed.delete()
+            await dev.delete()
             await asyncio.sleep(2)
             await event.client(DeleteHistoryRequest(1332941342, max_id=0, just_clear=True))
         except YouBlockedUserError:
-            await zedub(unblock("downloader_tiktok_bot"))
+            await blal(unblock("downloader_tiktok_bot"))
             await conv.send_message("/start")
             await conv.get_response()
             await conv.send_message(link)
-            zedthon = await conv.get_response()
+            devthon = await conv.get_response()
             await borg.send_file(
                 event.chat_id,
-                zedthon,
+                devthon,
                 caption=cap_zzz,
                 parse_mode="html",
             )
-            await zed.delete()
+            await dev.delete()
             await asyncio.sleep(2)
             await event.client(DeleteHistoryRequest(1332941342, max_id=0, just_clear=True))
 
 #Code by T.me/zzzzl1l
 """
-@zedub.zed_cmd(pattern="تحميل صوت(?: |$)([\s\S]*)")
+@blal.dev_cmd(pattern="تحميل صوت(?: |$)([\s\S]*)")
 async def zelzal_insta(event): #Code by T.me/zzzzl1l
     link = event.pattern_match.group(1)
     reply = await event.get_reply_message()
@@ -1057,46 +1057,46 @@ async def zelzal_insta(event): #Code by T.me/zzzzl1l
         link = reply.text
     if not link: #Code by T.me/zzzzl1l
         return await edit_delete(event, "**- ارسـل (.تحميل صوت) + رابـط او بالـرد ع رابـط**", 10)
-    cap_zzz = f"<b>⎉╎تم تحميـل مـن يـوتيـوب .. بنجـاح ☑️\n⎉╎الرابـط 🖇:  {link}\n⎉╎تم التحميـل بواسطـة <a href = https://t.me/ZThon/1>𝗭𝗧𝗵𝗼𝗻</a> </b>"
+    cap_zzz = f"<b>⎉╎تم تحميـل مـن يـوتيـوب .. بنجـاح ☑️\n⎉╎الرابـط 🖇:  {link}\n⎉╎تم التحميـل بواسطـة <a href = https://t.me/BDB0B/1>𝙈𝙖𝙏𝙍𝙞𝙭 </a> </b>"
     chat = "@u2b2mp3_bot" #Code by T.me/zzzzl1l
-    zed = await edit_or_reply(event, "**⎉╎جـارِ التحميل من يـوتيـوب .. انتظر قليلا ▬▭**")
+    dev = await edit_or_reply(event, "**⎉╎جـارِ التحميل من يـوتيـوب .. انتظر قليلا ▬▭**")
     async with borg.conversation(chat) as conv: #Code by T.me/zzzzl1l
         try: #Code by T.me/zzzzl1l
             await conv.send_message("/start")
             await conv.get_response()
             await conv.send_message(link) #Code by T.me/zzzzl1l
             await conv.get_response()
-            zedthon = await conv.get_response()
+            devthon = await conv.get_response()
             await borg.send_file(
                 event.chat_id,
-                zedthon,
+                devthon,
                 caption=cap_zzz,
                 parse_mode="html",
             )
-            await zed.delete()
+            await dev.delete()
             await asyncio.sleep(2)
             await event.client(DeleteHistoryRequest(5512501816, max_id=0, just_clear=True))
         except YouBlockedUserError: #Code by T.me/zzzzl1l
-            await zedub(unblock("u2b2mp3_bot"))
+            await blal(unblock("u2b2mp3_bot"))
             await conv.send_message("/start")
             await conv.get_response()
             await conv.send_message(link) #Code by T.me/zzzzl1l
             await conv.get_response()
-            zedthon = await conv.get_response()
+            devthon = await conv.get_response()
             await borg.send_file(
                 event.chat_id,
-                zedthon,
+                devthon,
                 caption=cap_zzz,
                 parse_mode="html",
             )
-            await zed.delete()
+            await dev.delete()
             await asyncio.sleep(2)
             await event.client(DeleteHistoryRequest(5512501816, max_id=0, just_clear=True))
 """
 
 #Code by T.me/zzzzl1l
 """
-@zedub.zed_cmd(pattern="تحميل فيديو(?: |$)([\s\S]*)")
+@blal.dev_cmd(pattern="تحميل فيديو(?: |$)([\s\S]*)")
 async def zelzal_vvid(event): #Code by T.me/zzzzl1l
     link = event.pattern_match.group(1)
     reply = await event.get_reply_message()
@@ -1104,25 +1104,25 @@ async def zelzal_vvid(event): #Code by T.me/zzzzl1l
         link = reply.text
     if not link: #Code by T.me/zzzzl1l
         return await edit_delete(event, "**- ارسـل (.تحميل فيديو) + رابـط او بالـرد ع رابـط**", 10)
-    cap_zzz = f"<b>⎉╎تم تحميـل مـن يـوتيـوب .. بنجـاح ☑️\n⎉╎الرابـط 🖇:  {link}\n⎉╎تم التحميـل بواسطـة <a href = https://t.me/ZThon/1>𝗭𝗧𝗵𝗼𝗻</a> </b>"
+    cap_zzz = f"<b>⎉╎تم تحميـل مـن يـوتيـوب .. بنجـاح ☑️\n⎉╎الرابـط 🖇:  {link}\n⎉╎تم التحميـل بواسطـة <a href = https://t.me/BDB0B/1>𝙈𝙖𝙏𝙍𝙞𝙭 </a> </b>"
     chatbot = "@YtbDownBot" #Code by T.me/zzzzl1l
     zzz = await edit_or_reply(event, "**⎉╎جـارِ التحميل من يـوتيـوب .. انتظر قليلا ▬▭**")
     try:
-        send = await zedub.send_message(chatbot, '/start')
+        send = await blal.send_message(chatbot, '/start')
     except YouBlockedUserError: #Code by T.me/zzzzl1l
-        await zedub(unblock("YtbDownBot"))
-        send = await zedub.send_message(chatbot, '/start')
+        await blal(unblock("YtbDownBot"))
+        send = await blal.send_message(chatbot, '/start')
     sleep(2)
-    song = await zedub.send_message(chatbot, link)
+    song = await blal.send_message(chatbot, link)
     sleep(1)
-    msg1 = await zedub.get_messages(chatbot, limit=1)
+    msg1 = await blal.get_messages(chatbot, limit=1)
     sleep(0.5)
     await msg1[0].click(1)
     sleep(2)
-    msgt = await zedub.get_messages(chatbot, limit=1)
+    msgt = await blal.get_messages(chatbot, limit=1)
     song_file = msgt[0].media
     try:
-        await zedub.send_file(
+        await blal.send_file(
             event.chat_id,
             song_file,
             caption=cap_zzz,
@@ -1136,7 +1136,7 @@ async def zelzal_vvid(event): #Code by T.me/zzzzl1l
 
 #Code by T.me/zzzzl1l
 """
-@zedub.zed_cmd(pattern="فيس(?: |$)([\s\S]*)")
+@blal.dev_cmd(pattern="فيس(?: |$)([\s\S]*)")
 async def zelzal_insta(event): #Code by T.me/zzzzl1l
     link = event.pattern_match.group(1)
     reply = await event.get_reply_message()
@@ -1152,45 +1152,45 @@ async def zelzal_insta(event): #Code by T.me/zzzzl1l
         link = link.replace("https://fb.watch", "https://www.facebook.com/watch")
     if link.startswith("http://fb.watch"):
         link = link.replace("http://fb.watch", "http://www.facebook.com/watch")
-    cap_zzz = f"<b>⎉╎تم تحميـل مـن فيـس بـوك .. بنجـاح ☑️\n⎉╎الرابـط 🖇:  {link}\n⎉╎تم التحميـل بواسطـة <a href = https://t.me/ZThon/1>𝗭𝗧𝗵𝗼𝗻</a> </b>"
+    cap_zzz = f"<b>⎉╎تم تحميـل مـن فيـس بـوك .. بنجـاح ☑️\n⎉╎الرابـط 🖇:  {link}\n⎉╎تم التحميـل بواسطـة <a href = https://t.me/BDB0B/1>𝙈𝙖𝙏𝙍𝙞𝙭 </a> </b>"
     chat = "@FBDLBOT" #Code by T.me/zzzzl1l
-    zed = await edit_or_reply(event, "**⎉╎جـارِ التحميل من فيـس بـوك .. انتظر قليلا ▬▭**")
+    dev = await edit_or_reply(event, "**⎉╎جـارِ التحميل من فيـس بـوك .. انتظر قليلا ▬▭**")
     async with borg.conversation(chat) as conv: #Code by T.me/zzzzl1l
         try: #Code by T.me/zzzzl1l
             await conv.send_message("/start")
             await conv.get_response()
             await conv.send_message(link) #Code by T.me/zzzzl1l
             await conv.get_response()
-            zedthon = await conv.get_response()
+            devthon = await conv.get_response()
             await borg.send_file(
                 event.chat_id,
-                zedthon,
+                devthon,
                 caption=cap_zzz,
                 parse_mode="html",
             )
-            await zed.delete()
+            await dev.delete()
             await asyncio.sleep(2)
             await event.client(DeleteHistoryRequest(6361899360, max_id=0, just_clear=True))
         except YouBlockedUserError: #Code by T.me/zzzzl1l
-            await zedub(unblock("FBDLBOT"))
+            await blal(unblock("FBDLBOT"))
             await conv.send_message("/start")
             await conv.get_response()
             await conv.send_message(link) #Code by T.me/zzzzl1l
             await conv.get_response()
-            zedthon = await conv.get_response()
+            devthon = await conv.get_response()
             await borg.send_file(
                 event.chat_id,
-                zedthon,
+                devthon,
                 caption=cap_zzz,
                 parse_mode="html",
             )
-            await zed.delete()
+            await dev.delete()
             await asyncio.sleep(2)
             await event.client(DeleteHistoryRequest(6361899360, max_id=0, just_clear=True))
 """
 
 #Code by T.me/zzzzl1l
-@zedub.zed_cmd(pattern="(النص|لنص)$")
+@blal.dev_cmd(pattern="(النص|لنص)$")
 async def zelzal_ai(event):
     reply_message = await event.get_reply_message()
     if not reply_message:
@@ -1206,7 +1206,7 @@ async def zelzal_ai(event):
             await conv.get_response()
             purgeflag = await conv.send_file(reply_message)
         except YouBlockedUserError:
-            await zedub(unblock("Speechpro_ASR_bot"))
+            await blal(unblock("Speechpro_ASR_bot"))
             await conv.send_message("/start")
             await conv.get_response()
             await conv.get_response()
@@ -1217,7 +1217,7 @@ async def zelzal_ai(event):
         ztxt = zm.message
         await borg.send_message(
             event.chat_id,
-            f"<b>{ztxt}\n\n<a href = https://t.me/ZThon/1>𓆩 𝗭𝗧𝗵𝗼𝗻 𝗨𝘀𝗲𝗿𝗯𝗼𝘁 𓆪</a> </b>",
+            f"<b>{ztxt}\n\n<a href = https://t.me/BDB0B/1>𓆩 𝙈𝙖𝙏𝙍𝙞𝙭  𝗨𝘀𝗲𝗿𝗯𝗼𝘁 𓆪</a> </b>",
             parse_mode="html",
             reply_to=reply_message,
         )
@@ -1226,140 +1226,140 @@ async def zelzal_ai(event):
         await event.client(DeleteHistoryRequest(916427203, max_id=0, just_clear=True))
 
 
-@zedub.zed_cmd(pattern="كتاب(?: |$)(.*)")
+@blal.dev_cmd(pattern="كتاب(?: |$)(.*)")
 async def zelzal_gif(event):
     zelzal = str(event.pattern_match.group(1))
     if not zelzal:
         return await edit_or_reply(event, "**- ارسـل (.كتاب) + اسـم الكتـاب ...**")
     chat = "@GoogleBooksSearchBot" 
-    zed = await edit_or_reply(event, "**⎉╎جـارِ البحث عن الكتـاب المحـدد ...**")
+    dev = await edit_or_reply(event, "**⎉╎جـارِ البحث عن الكتـاب المحـدد ...**")
     async with borg.conversation(chat) as conv: 
         try:
             await conv.send_message("/start")
             await conv.get_response()
             await conv.send_message(zelzal)
         except YouBlockedUserError:
-            await zedub(unblock("GoogleBooksSearchBot"))
+            await blal(unblock("GoogleBooksSearchBot"))
             await conv.send_message("/start")
             await conv.get_response()
             await conv.send_message(zelzal)
         try:
-            zedthon1 = await conv.get_response()
-            malath1 = zedthon1.text
+            devthon1 = await conv.get_response()
+            malath1 = devthon1.text
             if "Find books with" in malath1: 
-                zz1 = malath1.replace("Find books with @GoogleBooksSearchBot", "📕\n<b>- تم التحميـل بواسطـة <a href = https://t.me/ZThon/1>𝗭𝗧𝗵𝗼𝗻</a> </b>") 
-                await zed.delete()
+                zz1 = malath1.replace("Find books with @GoogleBooksSearchBot", "📕\n<b>- تم التحميـل بواسطـة <a href = https://t.me/BDB0B/1>𝙈𝙖𝙏𝙍𝙞𝙭 </a> </b>") 
+                await dev.delete()
                 await borg.send_file(
                     event.chat_id,
-                    zedthon1,
+                    devthon1,
                     caption=zz1,
                     parse_mode="html",
                 )
         except:
-            await zed.delete()
+            await dev.delete()
             await event.client(DeleteHistoryRequest(1986854339, max_id=0, just_clear=True))
         try:
-            zedthon2 = await conv.get_response()
-            malath2 = zedthon2.text
+            devthon2 = await conv.get_response()
+            malath2 = devthon2.text
             if "Find books with" in malath2: 
-                zz2 = malath2.replace("Find books with @GoogleBooksSearchBot", "📗\n<b>- تم التحميـل بواسطـة <a href = https://t.me/ZThon/1>𝗭𝗧𝗵𝗼𝗻</a> </b>") 
+                zz2 = malath2.replace("Find books with @GoogleBooksSearchBot", "📗\n<b>- تم التحميـل بواسطـة <a href = https://t.me/BDB0B/1>𝙈𝙖𝙏𝙍𝙞𝙭 </a> </b>") 
                 await borg.send_file(
                     event.chat_id,
-                    zedthon2,
+                    devthon2,
                     caption=zz2,
                     parse_mode="html",
                 )
         except:
-            await zed.delete()
+            await dev.delete()
             await event.client(DeleteHistoryRequest(1986854339, max_id=0, just_clear=True))
         try:
-            zedthon3 = await conv.get_response()
-            malath3 = zedthon3.text
+            devthon3 = await conv.get_response()
+            malath3 = devthon3.text
             if "Find books with" in malath3: 
-                zz3 = malath3.replace("Find books with @GoogleBooksSearchBot", "📘\n<b>- تم التحميـل بواسطـة <a href = https://t.me/ZThon/1>𝗭𝗧𝗵𝗼𝗻</a> </b>") 
+                zz3 = malath3.replace("Find books with @GoogleBooksSearchBot", "📘\n<b>- تم التحميـل بواسطـة <a href = https://t.me/BDB0B/1>𝙈𝙖𝙏𝙍𝙞𝙭 </a> </b>") 
                 await borg.send_file(
                     event.chat_id,
-                    zedthon3,
+                    devthon3,
                     caption=zz3,
                     parse_mode="html",
                 )
         except:
-            await zed.delete()
+            await dev.delete()
             await event.client(DeleteHistoryRequest(1986854339, max_id=0, just_clear=True))
         try:
-            zedthon4 = await conv.get_response()
-            malath4 = zedthon4.text
+            devthon4 = await conv.get_response()
+            malath4 = devthon4.text
             if "Find books with" in malath4: 
-                zz4 = malath3.replace("Find books with @GoogleBooksSearchBot", "📙\n<b>- تم التحميـل بواسطـة <a href = https://t.me/ZThon/1>𝗭𝗧𝗵𝗼𝗻</a> </b>") 
+                zz4 = malath3.replace("Find books with @GoogleBooksSearchBot", "📙\n<b>- تم التحميـل بواسطـة <a href = https://t.me/BDB0B/1>𝙈𝙖𝙏𝙍𝙞𝙭 </a> </b>") 
                 await borg.send_file(
                     event.chat_id,
-                    zedthon4,
+                    devthon4,
                     caption=zz4,
                     parse_mode="html",
                 )
         except:
-            await zed.delete()
+            await dev.delete()
             await event.client(DeleteHistoryRequest(1986854339, max_id=0, just_clear=True))
         try:
-            zedthon5 = await conv.get_response()
-            malath5 = zedthon5.text
+            devthon5 = await conv.get_response()
+            malath5 = devthon5.text
             if "Find books with" in malath5: 
-                zz5 = malath5.replace("Find books with @GoogleBooksSearchBot", "📚\n<b>- تم التحميـل بواسطـة <a href = https://t.me/ZThon/1>𝗭𝗧𝗵𝗼𝗻</a> </b>") 
+                zz5 = malath5.replace("Find books with @GoogleBooksSearchBot", "📚\n<b>- تم التحميـل بواسطـة <a href = https://t.me/BDB0B/1>𝙈𝙖𝙏𝙍𝙞𝙭 </a> </b>") 
                 await borg.send_file(
                     event.chat_id,
-                    zedthon5,
+                    devthon5,
                     caption=zz5,
                     parse_mode="html",
                 )
         except:
-            await zed.delete()
+            await dev.delete()
             await event.client(DeleteHistoryRequest(1986854339, max_id=0, just_clear=True))
         try:
-            zedthon6 = await conv.get_response()
-            malath6 = zedthon6.text
+            devthon6 = await conv.get_response()
+            malath6 = devthon6.text
             if "Find books with" in malath6: 
-                zz6 = malath6.replace("Find books with @GoogleBooksSearchBot", "📖\n<b>- تم التحميـل بواسطـة <a href = https://t.me/ZThon/1>𝗭𝗧𝗵𝗼𝗻</a> </b>") 
+                zz6 = malath6.replace("Find books with @GoogleBooksSearchBot", "📖\n<b>- تم التحميـل بواسطـة <a href = https://t.me/BDB0B/1>𝙈𝙖𝙏𝙍𝙞𝙭 </a> </b>") 
                 await borg.send_file(
                     event.chat_id,
-                    zedthon6,
+                    devthon6,
                     caption=zz6,
                     parse_mode="html",
                 )
         except:
-            await zed.delete()
+            await dev.delete()
             await event.client(DeleteHistoryRequest(1986854339, max_id=0, just_clear=True))
         try:
-            zedthon7 = await conv.get_response()
-            malath7 = zedthon7.text
+            devthon7 = await conv.get_response()
+            malath7 = devthon7.text
             if "Find books with" in malath7: 
-                zz7 = malath7.replace("Find books with @GoogleBooksSearchBot", "📔\n<b>- تم التحميـل بواسطـة <a href = https://t.me/ZThon/1>𝗭𝗧𝗵𝗼𝗻</a> </b>") 
+                zz7 = malath7.replace("Find books with @GoogleBooksSearchBot", "📔\n<b>- تم التحميـل بواسطـة <a href = https://t.me/BDB0B/1>𝙈𝙖𝙏𝙍𝙞𝙭 </a> </b>") 
                 await borg.send_file(
                     event.chat_id,
-                    zedthon7,
+                    devthon7,
                     caption=zz7,
                     parse_mode="html",
                 )
         except:
-            await zed.delete()
+            await dev.delete()
             await event.client(DeleteHistoryRequest(1986854339, max_id=0, just_clear=True))
         try:
-            zedthon8 = await conv.get_response()
-            malath8 = zedthon8.text
+            devthon8 = await conv.get_response()
+            malath8 = devthon8.text
             if "Find books with" in malath8: 
-                zz8 = malath8.replace("Find books with @GoogleBooksSearchBot", "📒\n<b>- تم التحميـل بواسطـة <a href = https://t.me/ZThon/1>𝗭𝗧𝗵𝗼𝗻</a> </b>") 
+                zz8 = malath8.replace("Find books with @GoogleBooksSearchBot", "📒\n<b>- تم التحميـل بواسطـة <a href = https://t.me/BDB0B/1>𝙈𝙖𝙏𝙍𝙞𝙭 </a> </b>") 
                 await borg.send_file(
                     event.chat_id,
-                    zedthon8,
+                    devthon8,
                     caption=zz8,
                     parse_mode="html",
                 )
         except:
-            await zed.delete()
+            await dev.delete()
             await event.client(DeleteHistoryRequest(1986854339, max_id=0, just_clear=True))
 
 # Code by T.me/zzzzl1l
 """
-@zedub.zed_cmd(pattern=f"ستوريات(?: |$)(.*)")
+@blal.dev_cmd(pattern=f"ستوريات(?: |$)(.*)")
 async def zelzal_ai(event):
     malath = event.pattern_match.group(1)
     zid = int(gvarstatus("ZThon_Vip"))
@@ -1372,14 +1372,14 @@ async def zelzal_ai(event):
     else:
         return await edit_or_reply(event, "**⎉╎باضافة يـوزر الشخـص لـ الامـر**")
     zzz = await event.edit("**⎉╎جـارِ تحميـل ستـوريـات الشخـص ...**")
-    channel_entity = await zedub.get_entity(storyz)
-    await zedub.send_message(storyz, '/start')
+    channel_entity = await blal.get_entity(storyz)
+    await blal.send_message(storyz, '/start')
     await asyncio.sleep(0.5)
-    await zedub.get_messages(storyz, limit=1)
-    await zedub.send_message(storyz, f"/dlStories {zelzal}")
+    await blal.get_messages(storyz, limit=1)
+    await blal.send_message(storyz, f"/dlStories {zelzal}")
     await asyncio.sleep(2)
-    await zedub.get_messages(storyz, limit=1)
-    messages = await zedub.get_messages(storyz, limit=None)
+    await blal.get_messages(storyz, limit=1)
+    messages = await blal.get_messages(storyz, limit=None)
     await asyncio.sleep(0.5)
     for message in messages:
         if "- ID" in message.text:
@@ -1391,10 +1391,10 @@ async def zelzal_ai(event):
                     urls = extractor.find_urls(urs)
                     for url in urls:
                         try:
-                            await zedub.send_file(
+                            await blal.send_file(
                                 event.chat_id,
                                 url,
-                                caption=f"**⎉╎تم جلب الستـوري .. بنجـاح ☑️\n⎉╎من الحسـاب {zelzal}\n⎉╎بواسطـة 𝗭𝗧𝗵𝗼𝗻**",
+                                caption=f"**⎉╎تم جلب الستـوري .. بنجـاح ☑️\n⎉╎من الحسـاب {zelzal}\n⎉╎بواسطـة 𝙈𝙖𝙏𝙍𝙞𝙭 **",
                             )
                             await asyncio.sleep(2)
                         except:
@@ -1403,7 +1403,7 @@ async def zelzal_ai(event):
             return await zzz.edit("**⎉╎تعـذر العثـور ع الستـوري ...؟!**\n**⎉╎حـال مجـدداً وقت لاحـق**")
 """
 
-@zedub.zed_cmd(pattern="قط$")
+@blal.dev_cmd(pattern="قط$")
 async def zelzal_ss(event):
     zzz = await edit_or_reply(event, "** 🐈 . . .**")
     cat_url = get_random_cat()
@@ -1411,13 +1411,13 @@ async def zelzal_ss(event):
     await bot.send_file(
         event.chat_id,
         cat_url,
-        caption=f"<b>⎉╎صـورة قـط عشـوائـي .. 🐈 🎆\n⎉╎تم التحميـل بواسطـة <a href = https://t.me/ZThon/1>𝗭𝗧𝗵𝗼𝗻</a> </b>",
+        caption=f"<b>⎉╎صـورة قـط عشـوائـي .. 🐈 🎆\n⎉╎تم التحميـل بواسطـة <a href = https://t.me/BDB0B/1>𝙈𝙖𝙏𝙍𝙞𝙭 </a> </b>",
         parse_mode="html",
     )
 
 
 """
-@zedub.zed_cmd(pattern="زد(?: |$)(.*)")
+@blal.dev_cmd(pattern="زد(?: |$)(.*)")
 async def zelzal_gpt(event):
     question = event.pattern_match.group(1)
     zzz = await event.get_reply_message()
@@ -1427,7 +1427,7 @@ async def zelzal_gpt(event):
         question = zzz.text
     if not event.reply_to_msg_id: 
         question = event.pattern_match.group(1)
-    zed = await edit_or_reply(event, "**⎉╎جـارِ الاتصـال بـ الذكـاء الاصطناعي\n⎉╎الرجـاء الانتظـار .. لحظـات**")
+    dev = await edit_or_reply(event, "**⎉╎جـارِ الاتصـال بـ الذكـاء الاصطناعي\n⎉╎الرجـاء الانتظـار .. لحظـات**")
     chat = "@gpt3_unlim_chatbot" 
     async with borg.conversation(chat) as conv: 
         try:
@@ -1435,18 +1435,18 @@ async def zelzal_gpt(event):
             await conv.get_response()
             await conv.send_message(question)
         except YouBlockedUserError:
-            await zedub(unblock("gpt3_unlim_chatbot"))
+            await blal(unblock("gpt3_unlim_chatbot"))
             purgeflag = await conv.send_message("/start")
             await conv.get_response()
             await conv.send_message(question)
         zlz = await conv.get_response()
         ztxt = zlz.message
-        await zed.delete()
-        await borg.send_message(event.chat_id, f"[ᯓ 𝗭𝗧𝗵𝗼𝗻 𝗖𝗵𝗮𝘁𝗚𝗽𝘁 -💡-](t.me/ZThon) **الذكاء الاصطناعي\n⋆──┄─┄─┄───┄─┄─┄──⋆**\n**• س/ {question}\n\n• {ztxt}**", link_preview=False)
+        await dev.delete()
+        await borg.send_message(event.chat_id, f"[ᯓ 𝙈𝙖𝙏𝙍𝙞𝙭  𝗖𝗵𝗮𝘁𝗚𝗽𝘁 -💡-](t.me/BDB0B) **الذكاء الاصطناعي\n⋆──┄─┄─┄───┄─┄─┄──⋆**\n**• س/ {question}\n\n• {ztxt}**", link_preview=False)
         await delete_conv(event, chat, purgeflag)
         await event.client(DeleteHistoryRequest(5815596965, max_id=0, just_clear=True))
 
-@zedub.zed_cmd(pattern="س(?: |$)(.*)")
+@blal.dev_cmd(pattern="س(?: |$)(.*)")
 async def zelzal_gpt(event):
     question = event.pattern_match.group(1)
     zzz = await event.get_reply_message()
@@ -1456,7 +1456,7 @@ async def zelzal_gpt(event):
         question = zzz.text
     if not event.reply_to_msg_id: 
         question = event.pattern_match.group(1)
-    zed = await edit_or_reply(event, "**⎉╎جـارِ الاتصـال بـ الذكـاء الاصطناعي\n⎉╎الرجـاء الانتظـار .. لحظـات**")
+    dev = await edit_or_reply(event, "**⎉╎جـارِ الاتصـال بـ الذكـاء الاصطناعي\n⎉╎الرجـاء الانتظـار .. لحظـات**")
     chat = "@gpt3_unlim_chatbot" 
     async with borg.conversation(chat) as conv: 
         try:
@@ -1464,20 +1464,20 @@ async def zelzal_gpt(event):
             await conv.get_response()
             await conv.send_message(question)
         except YouBlockedUserError:
-            await zedub(unblock("gpt3_unlim_chatbot"))
+            await blal(unblock("gpt3_unlim_chatbot"))
             purgeflag = await conv.send_message("/start")
             await conv.get_response()
             await conv.send_message(question)
         zlz = await conv.get_response()
         ztxt = zlz.message
-        await zed.delete()
-        await borg.send_message(event.chat_id, f"[ᯓ 𝗭𝗧𝗵𝗼𝗻 𝗖𝗵𝗮𝘁𝗚𝗽𝘁 -💡-](t.me/ZThon) **الذكاء الاصطناعي\n⋆──┄─┄─┄───┄─┄─┄──⋆**\n**• س/ {question}\n\n• {ztxt}**", link_preview=False)
+        await dev.delete()
+        await borg.send_message(event.chat_id, f"[ᯓ 𝙈𝙖𝙏𝙍𝙞𝙭  𝗖𝗵𝗮𝘁𝗚𝗽𝘁 -💡-](t.me/BDB0B) **الذكاء الاصطناعي\n⋆──┄─┄─┄───┄─┄─┄──⋆**\n**• س/ {question}\n\n• {ztxt}**", link_preview=False)
         await delete_conv(event, chat, purgeflag)
         await event.client(DeleteHistoryRequest(5815596965, max_id=0, just_clear=True))
 """
 
 
-@zedub.zed_cmd(pattern="زد(?: |$)(.*)")
+@blal.dev_cmd(pattern="زد(?: |$)(.*)")
 async def zelzal_gpt(event):
     global lastResponse
     if lastResponse is None:
@@ -1493,17 +1493,17 @@ async def zelzal_gpt(event):
     if question == "مسح" or question == "حذف":
         lastResponse.pop(0)
         return await edit_or_reply(event, "**⎉╎تم حذف سجل الذكاء الاصطناعي .. بنجاح ✅**\n**⎉╎ارسـل الان(.زد + سؤالك) لـ البـدء من جديد**")
-    zed = await edit_or_reply(event, "**⎉╎جـارِ الاتصـال بـ الذكـاء الاصطناعي**\n**⎉╎الرجـاء الانتظـار .. لحظـات**\n\n**⎉╎ملاحظـه 🏷**\n- هذا النموذج يقوم بحفظ الموضوعات السابقة\n- اذا كان لديك اكثر من سؤال لـ نفس الموضوع\n- وتريد تقديم الاسئله رداً على الاجوبة السابقة\n**- لـ مسح سجل تخزين الموضوعات السابقة**\n**- ارسـل الامـر** ( `.زد مسح` ) **لـ بدء موضوع جديد**")
+    dev = await edit_or_reply(event, "**⎉╎جـارِ الاتصـال بـ الذكـاء الاصطناعي**\n**⎉╎الرجـاء الانتظـار .. لحظـات**\n\n**⎉╎ملاحظـه 🏷**\n- هذا النموذج يقوم بحفظ الموضوعات السابقة\n- اذا كان لديك اكثر من سؤال لـ نفس الموضوع\n- وتريد تقديم الاسئله رداً على الاجوبة السابقة\n**- لـ مسح سجل تخزين الموضوعات السابقة**\n**- ارسـل الامـر** ( `.زد مسح` ) **لـ بدء موضوع جديد**")
     answer = await process_gpt(question)
     if answer:
-        await zed.edit(f"ᯓ 𝗭𝗧𝗵𝗼𝗻 𝗭𝗧𝗚𝗽𝘁 -💡- **الذكاء الاصطناعي\n⋆┄─┄─┄─┄─┄─┄─┄─┄─┄⋆**\n**• س/ {question}**\n\n• {answer}", link_preview=False)
+        await dev.edit(f"ᯓ 𝙈𝙖𝙏𝙍𝙞𝙭  𝗭𝗧𝗚𝗽𝘁 -💡- **الذكاء الاصطناعي\n⋆┄─┄─┄─┄─┄─┄─┄─┄─┄⋆**\n**• س/ {question}**\n\n• {answer}", link_preview=False)
         lastResponse.append(str(answer))
         if len(lastResponse) > 8:
             lastResponse.pop(0)
 
 """
 # القديم
-@zedub.zed_cmd(pattern="س(?: |$)(.*)")
+@blal.dev_cmd(pattern="س(?: |$)(.*)")
 async def zelzal_gpt(event):
     question = event.pattern_match.group(1)
     zzz = await event.get_reply_message()
@@ -1513,12 +1513,12 @@ async def zelzal_gpt(event):
         question = zzz.text
     if not event.reply_to_msg_id: 
         question = event.pattern_match.group(1)
-    zed = await edit_or_reply(event, "**⎉╎جـارِ الاتصـال بـ الذكـاء الاصطناعي\n⎉╎الرجـاء الانتظـار .. لحظـات**")
+    dev = await edit_or_reply(event, "**⎉╎جـارِ الاتصـال بـ الذكـاء الاصطناعي\n⎉╎الرجـاء الانتظـار .. لحظـات**")
     answer = await get_chatgpt_response(question)
-    await zed.edit(f"[ᯓ 𝗭𝗧𝗵𝗼𝗻 𝗖𝗵𝗮𝘁𝗚𝗽𝘁 -💡- **الذكاء الاصطناعي\n⋆┄─┄─┄─┄─┄─┄─┄─┄─┄⋆**\n**• س/ {question}**\n\n• {answer}", link_preview=False)
+    await dev.edit(f"[ᯓ 𝙈𝙖𝙏𝙍𝙞𝙭  𝗖𝗵𝗮𝘁𝗚𝗽𝘁 -💡- **الذكاء الاصطناعي\n⋆┄─┄─┄─┄─┄─┄─┄─┄─┄⋆**\n**• س/ {question}**\n\n• {answer}", link_preview=False)
 """
 
-@zedub.zed_cmd(pattern="س(?: |$)(.*)")
+@blal.dev_cmd(pattern="س(?: |$)(.*)")
 async def zelzal_gpt(event):
     question = event.pattern_match.group(1)
     zzz = await event.get_reply_message()
@@ -1528,14 +1528,14 @@ async def zelzal_gpt(event):
         question = zzz.text
     if not event.reply_to_msg_id: 
         question = event.pattern_match.group(1)
-    zed = await edit_or_reply(event, "**⎉╎جـارِ الاتصـال بـ الذكـاء الاصطناعي\n⎉╎الرجـاء الانتظـار .. لحظـات**")
+    dev = await edit_or_reply(event, "**⎉╎جـارِ الاتصـال بـ الذكـاء الاصطناعي\n⎉╎الرجـاء الانتظـار .. لحظـات**")
     answer = await gpt3_response(question)
-    await zed.edit(f"ᯓ 𝗭𝗧𝗵𝗼𝗻 𝗖𝗵𝗮𝘁𝗚𝗽𝘁 -💡- **الذكاء الاصطناعي\n⋆┄─┄─┄─┄─┄─┄─┄─┄─┄⋆**\n**• س/ {question}**\n\n• {answer}", link_preview=False)
+    await dev.edit(f"ᯓ 𝙈𝙖𝙏𝙍𝙞𝙭  𝗖𝗵𝗮𝘁𝗚𝗽𝘁 -💡- **الذكاء الاصطناعي\n⋆┄─┄─┄─┄─┄─┄─┄─┄─┄⋆**\n**• س/ {question}**\n\n• {answer}", link_preview=False)
 
 
-@zedub.zed_cmd(pattern="دارك(?: |$)(.*)")
+@blal.dev_cmd(pattern="دارك(?: |$)(.*)")
 async def dark_ai(event):
-    if gvarstatus("ZThon_Vip") is None and Zel_Uid not in Zed_Dev:
+    if gvarstatus("ZThon_Vip") is None and Zel_Uid not in dev_Dev:
         return await edit_or_reply(event, "**⎉╎عـذࢪاً .. ؏ـزيـزي\n⎉╎هـذا الامـر ليـس مجـانـي📵\n⎉╎للاشتـراك في الاوامـر المدفوعـة\n⎉╎تواصـل مطـور السـورس @BBBlibot - @EiAbot\n⎉╎او التواصـل مـع احـد المشرفيـن @AAAl1l**")
     query = event.pattern_match.group(1)
     zzz = await event.get_reply_message()
@@ -1545,7 +1545,7 @@ async def dark_ai(event):
         query = zzz.text
     if not event.reply_to_msg_id: 
         query = event.pattern_match.group(1)
-    zed = await edit_or_reply(event, "**⎉╎جـارِ الاتصـال بـ الذكـاء الاصطناعي (Dark)\n⎉╎الرجـاء الانتظـار .. لحظـات**")
+    dev = await edit_or_reply(event, "**⎉╎جـارِ الاتصـال بـ الذكـاء الاصطناعي (Dark)\n⎉╎الرجـاء الانتظـار .. لحظـات**")
     try:
         querys = query.strip()
         translator = Translator()
@@ -1561,14 +1561,14 @@ async def dark_ai(event):
         lan = "ar" 
         translated = translator.translate(answers, dest=lan)
         after_tr_text = translated.text
-        await zed.edit(f"ᯓ 𝗭𝗧𝗵𝗼𝗻 𝗗𝗮𝗿𝗸𝗔𝗶 -💡- **الذكاء الاصطناعي\n⋆┄─┄─┄─┄─┄─┄─┄─┄─┄⋆**\n**• س/ {query}**\n\n• {after_tr_text}", link_preview=False)
-        #await zed.delete()
+        await dev.edit(f"ᯓ 𝙈𝙖𝙏𝙍𝙞𝙭  𝗗𝗮𝗿𝗸𝗔𝗶 -💡- **الذكاء الاصطناعي\n⋆┄─┄─┄─┄─┄─┄─┄─┄─┄⋆**\n**• س/ {query}**\n\n• {after_tr_text}", link_preview=False)
+        #await dev.delete()
     except Exception as exc:
-        #await zed.edit(f"**- خطـأ :**\n`{exc}`", time=5)
-        await zed.edit(f"ᯓ 𝗭𝗧𝗵𝗼𝗻 𝗗𝗮𝗿𝗸𝗔𝗶 -💡- **الذكاء الاصطناعي\n⋆┄─┄─┄─┄─┄─┄─┄─┄─┄⋆**\n**• س/ {query}**\n\n• {answer}", link_preview=False)
+        #await dev.edit(f"**- خطـأ :**\n`{exc}`", time=5)
+        await dev.edit(f"ᯓ 𝙈𝙖𝙏𝙍𝙞𝙭  𝗗𝗮𝗿𝗸𝗔𝗶 -💡- **الذكاء الاصطناعي\n⋆┄─┄─┄─┄─┄─┄─┄─┄─┄⋆**\n**• س/ {query}**\n\n• {answer}", link_preview=False)
 
 
-@zedub.zed_cmd(pattern="gpt(?: |$)(.*)")
+@blal.dev_cmd(pattern="gpt(?: |$)(.*)")
 async def gpt3_ai(event):
     query = event.pattern_match.group(1)
     zzz = await event.get_reply_message()
@@ -1578,11 +1578,11 @@ async def gpt3_ai(event):
         query = zzz.text
     if not event.reply_to_msg_id: 
         query = event.pattern_match.group(1)
-    zed = await edit_or_reply(event, "**⎉╎جـارِ الاتصـال بـ الذكـاء الاصطناعي\n⎉╎الرجـاء الانتظـار .. لحظـات**")
+    dev = await edit_or_reply(event, "**⎉╎جـارِ الاتصـال بـ الذكـاء الاصطناعي\n⎉╎الرجـاء الانتظـار .. لحظـات**")
     answer = await gpt3_response(query)
-    await zed.edit(answer)
+    await dev.edit(answer)
 
-@zedub.zed_cmd(pattern="جيمي(?: |$)(.*)")
+@blal.dev_cmd(pattern="جيمي(?: |$)(.*)")
 async def gemini_ai(event):
     query = event.pattern_match.group(1)
     zzz = await event.get_reply_message()
@@ -1592,7 +1592,7 @@ async def gemini_ai(event):
         query = zzz.text
     if not event.reply_to_msg_id: 
         query = event.pattern_match.group(1)
-    zed = await edit_or_reply(event, "**⎉╎جـارِ الاتصـال بـ الذكـاء الاصطناعي (Gemini)\n⎉╎الرجـاء الانتظـار .. لحظـات**")
+    dev = await edit_or_reply(event, "**⎉╎جـارِ الاتصـال بـ الذكـاء الاصطناعي (Gemini)\n⎉╎الرجـاء الانتظـار .. لحظـات**")
     try:
         querys = query.strip()
         translator = Translator()
@@ -1610,13 +1610,13 @@ async def gemini_ai(event):
         translated = translator.translate(answers, dest=lan)
         after_tr_text = translated.text
         print(after_tr_text)
-        await zed.edit(f"ᯓ 𝗭𝗧𝗵𝗼𝗻 𝗚𝗲𝗺𝗶𝗻𝗶 -💡- **الذكاء الاصطناعي\n⋆┄─┄─┄─┄─┄─┄─┄─┄─┄⋆**\n**• س/ {query}**\n\n• {after_tr_text}", link_preview=False)
-        #await zed.delete()
+        await dev.edit(f"ᯓ 𝙈𝙖𝙏𝙍𝙞𝙭  𝗚𝗲𝗺𝗶𝗻𝗶 -💡- **الذكاء الاصطناعي\n⋆┄─┄─┄─┄─┄─┄─┄─┄─┄⋆**\n**• س/ {query}**\n\n• {after_tr_text}", link_preview=False)
+        #await dev.delete()
     except Exception as exc:
-        #await zed.edit(f"**- خطـأ :**\n`{exc}`", time=5)
-        await zed.edit(f"ᯓ .𝗭𝗧𝗵𝗼𝗻 𝗚𝗲𝗺𝗶𝗻𝗶 -💡- **الذكاء الاصطناعي\n⋆┄─┄─┄─┄─┄─┄─┄─┄─┄⋆**\n**• س/ {query}**\n\n• {exc}", link_preview=False)
+        #await dev.edit(f"**- خطـأ :**\n`{exc}`", time=5)
+        await dev.edit(f"ᯓ .𝙈𝙖𝙏𝙍𝙞𝙭  𝗚𝗲𝗺𝗶𝗻𝗶 -💡- **الذكاء الاصطناعي\n⋆┄─┄─┄─┄─┄─┄─┄─┄─┄⋆**\n**• س/ {query}**\n\n• {exc}", link_preview=False)
 
-@zedub.zed_cmd(pattern="جيم(?: |$)(.*)")
+@blal.dev_cmd(pattern="جيم(?: |$)(.*)")
 async def dark_ai(event):
     prompt = event.pattern_match.group(1)
     query = event.pattern_match.group(1)
@@ -1628,7 +1628,7 @@ async def dark_ai(event):
         prompt = zzz.text
     if not event.reply_to_msg_id: 
         query = event.pattern_match.group(1)
-    zed = await edit_or_reply(event, "**⎉╎جـارِ الاتصـال بـ الذكـاء الاصطناعي (Gemini)\n⎉╎الرجـاء الانتظـار .. لحظـات**")
+    dev = await edit_or_reply(event, "**⎉╎جـارِ الاتصـال بـ الذكـاء الاصطناعي (Gemini)\n⎉╎الرجـاء الانتظـار .. لحظـات**")
     try:
         query = query.strip()
         translator = Translator()
@@ -1645,7 +1645,7 @@ async def dark_ai(event):
         for image_url in images:
             input_media.append(image_url)
         if input_media:
-            await zedub.send_file(event.chat_id, input_media, caption=f"[ᯓ 𝗭𝗧𝗵𝗼𝗻 𝗚𝗲𝗺𝗶𝗻𝗶.𝗔𝗶 -💡-](t.me/ZThon) **الذكاء الاصطناعي\n⋆┄─┄─┄─┄─┄─┄─┄─┄─┄⋆**\n**• تم البحث عن الصـور 📇**\n**• بواسطة الذكاء الاصطناعي💡**\n• `{prompt}`")
+            await blal.send_file(event.chat_id, input_media, caption=f"[ᯓ 𝙈𝙖𝙏𝙍𝙞𝙭  𝗚𝗲𝗺𝗶𝗻𝗶.𝗔𝗶 -💡-](t.me/BDB0B) **الذكاء الاصطناعي\n⋆┄─┄─┄─┄─┄─┄─┄─┄─┄⋆**\n**• تم البحث عن الصـور 📇**\n**• بواسطة الذكاء الاصطناعي💡**\n• `{prompt}`")
             await zzz.delete()
         else:
             await zzz.edit(f"**- اووبـس .. لم استطـع ايجـاد صـور عـن {prompt} ؟!**\n**- حـاول مجـدداً واكتـب الكلمـه بشكـل صحيح**")
@@ -1653,21 +1653,21 @@ async def dark_ai(event):
         #  حذف  الملفات  المؤقتة 
         for each_file in input_media:
             os.remove(each_file)
-        shutil.rmtree(wzed_dir, ignore_errors=True)
+        shutil.rmtree(wdev_dir, ignore_errors=True)
     else:
         await event.reply(f"لم يتم العثور على صور لـ '{prompt}")
 
-@zedub.zed_cmd(pattern="ارسم ?(.*)")
+@blal.dev_cmd(pattern="ارسم ?(.*)")
 async def search_photo(event):
     prompt = event.pattern_match.group(1)
     if not prompt:
         return await edit_or_reply(event, "**-ارسـل** `.ارسم` **+ نـص لـ البـدء**")
-    wzed_dir = os.path.join(
+    wdev_dir = os.path.join(
         Config.TMP_DOWNLOAD_DIRECTORY,
         prompt
     )
-    if not os.path.isdir(wzed_dir):
-        os.makedirs(wzed_dir)
+    if not os.path.isdir(wdev_dir):
+        os.makedirs(wdev_dir)
     zzz = await edit_or_reply(event, "**╮ ❐ جـاري رسـم الصـور بواسطـة الذكـاء الاصطنـاعـي ...𓅫╰**")
     image_urls = await ai_img_gen(prompt)
 
@@ -1678,7 +1678,7 @@ async def search_photo(event):
             try:
                 image_url = await ai_img_gen(prompt)
                 image_save_path = os.path.join(
-                    wzed_dir,
+                    wdev_dir,
                     f"{prompt}_{i}.jpg"
                 )
                 with open(image_save_path, "wb") as f:
@@ -1689,7 +1689,7 @@ async def search_photo(event):
 
         #  إرسال  جميع  الصور  في  رسالة  واحدة 
         if input_media:
-            await zedub.send_file(event.chat_id, input_media, caption=f"[ᯓ 𝗭𝗧𝗵𝗼𝗻 𝗣𝗵𝗼𝘁𝗼.𝗔𝗶 -💡-](t.me/ZThon) **الذكاء الاصطناعي\n⋆┄─┄─┄─┄─┄─┄─┄─┄─┄⋆**\n**• تم رسم ³ صور 📇**\n**• بواسطة الذكاء الاصطناعي💡**\n• `{prompt}`")
+            await blal.send_file(event.chat_id, input_media, caption=f"[ᯓ 𝙈𝙖𝙏𝙍𝙞𝙭  𝗣𝗵𝗼𝘁𝗼.𝗔𝗶 -💡-](t.me/BDB0B) **الذكاء الاصطناعي\n⋆┄─┄─┄─┄─┄─┄─┄─┄─┄⋆**\n**• تم رسم ³ صور 📇**\n**• بواسطة الذكاء الاصطناعي💡**\n• `{prompt}`")
             await zzz.delete()
         else:
             await zzz.edit(f"**- اووبـس .. لم استطـع ايجـاد صـور عـن {prompt} ؟!**\n**- حـاول مجـدداً واكتـب الكلمـه بشكـل صحيح**")
@@ -1697,12 +1697,12 @@ async def search_photo(event):
         #  حذف  الملفات  المؤقتة 
         for each_file in input_media:
             os.remove(each_file)
-        shutil.rmtree(wzed_dir, ignore_errors=True)
+        shutil.rmtree(wdev_dir, ignore_errors=True)
     else:
         await event.reply(f"لم يتم العثور على صور لـ '{prompt}")
 
 
-@zedub.zed_cmd(pattern="(pdf|نص pdf)$")
+@blal.dev_cmd(pattern="(pdf|نص pdf)$")
 async def zelzal_ai(event):
     reply_message = await event.get_reply_message()
     if not reply_message:
@@ -1719,7 +1719,7 @@ async def zelzal_ai(event):
             await conv.get_response()
             await conv.send_message("Noto Naskh Arabic")
         except YouBlockedUserError:
-            await zedub(unblock("pdfbot"))
+            await blal(unblock("pdfbot"))
             purgeflag = await conv.send_message("/start")
             await conv.get_response()
             await conv.send_message("/text")
@@ -1727,21 +1727,21 @@ async def zelzal_ai(event):
             await conv.send_message(reply_message)
             await conv.get_response()
             await conv.send_message("Noto Naskh Arabic")
-        zedthon1 = await conv.get_response()
-        if zedthon1.file:
+        devthon1 = await conv.get_response()
+        if devthon1.file:
             await borg.send_file(
                 event.chat_id,
-                zedthon1,
-                caption=f"<b>⎉╎تم تحويـل النص الى PDF .. بنجـاح 🍧📕\n⎉╎بواسطـة <a href = https://t.me/ZThon/1>𝗭𝗧𝗵𝗼𝗻</a> </b>",
+                devthon1,
+                caption=f"<b>⎉╎تم تحويـل النص الى PDF .. بنجـاح 🍧📕\n⎉╎بواسطـة <a href = https://t.me/BDB0B/1>𝙈𝙖𝙏𝙍𝙞𝙭 </a> </b>",
                 parse_mode="html",
                 reply_to=reply_message,
             )
         else:
-            zedthon1 = await conv.get_response()
+            devthon1 = await conv.get_response()
             await borg.send_file(
                 event.chat_id,
-                zedthon1,
-                caption=f"<b>⎉╎تم تحويـل النص الى PDF .. بنجـاح 🍧📕\n⎉╎بواسطـة <a href = https://t.me/ZThon/1>𝗭𝗧𝗵𝗼𝗻</a> </b>",
+                devthon1,
+                caption=f"<b>⎉╎تم تحويـل النص الى PDF .. بنجـاح 🍧📕\n⎉╎بواسطـة <a href = https://t.me/BDB0B/1>𝙈𝙖𝙏𝙍𝙞𝙭 </a> </b>",
                 parse_mode="html",
                 reply_to=reply_message,
             )
@@ -1750,33 +1750,33 @@ async def zelzal_ai(event):
         await event.client(DeleteHistoryRequest(381839844, max_id=0, just_clear=True))
 
 
-@zedub.on(events.NewMessage(outgoing=True, pattern='.صورة pdf$'))
+@blal.on(events.NewMessage(outgoing=True, pattern='.صورة pdf$'))
 async def _(event):
     reply_message = await event.get_reply_message()
     zzz = await edit_or_reply(event, "**- جـارِ طباعـة الصـورة الـى ملـف PDF . . .📕╰\n- الرجـاء الانتظـار ثوانـي . . .⏳╰**")
-    channel_entity = await zedub.get_entity(ppdf)
-    await zedub.send_message(ppdf, '/start')
+    channel_entity = await blal.get_entity(ppdf)
+    await blal.send_message(ppdf, '/start')
     await asyncio.sleep(0.5)
-    msg0 = await zedub.get_messages(ppdf, limit=1)
-    await zedub.send_file(ppdf, reply_message)
+    msg0 = await blal.get_messages(ppdf, limit=1)
+    await blal.send_file(ppdf, reply_message)
     await asyncio.sleep(0.5)
     try:
-        msg1 = await zedub.get_messages(ppdf, limit=1)
+        msg1 = await blal.get_messages(ppdf, limit=1)
         await msg1[0].click(0)
     except:
         await event.client(DeleteHistoryRequest(1549375781, max_id=0, just_clear=True))
         return await zzz.edit("**⎉╎اووبـس حـدث خطـأ ...؟!**\n**⎉╎حـاول مجـدداً في وقت لاحـق**")
     await asyncio.sleep(0.5)
-    msg2 = await zedub.get_messages(ppdf, limit=1)
+    msg2 = await blal.get_messages(ppdf, limit=1)
     await msg2[0].click(0)
     await asyncio.sleep(0.5)
-    msg3 = await zedub.get_messages(ppdf, limit=1)
+    msg3 = await blal.get_messages(ppdf, limit=1)
     await asyncio.sleep(0.5)
-    msg4 = await zedub.get_messages(ppdf, limit=1)
-    await zedub.send_file(
+    msg4 = await blal.get_messages(ppdf, limit=1)
+    await blal.send_file(
         event.chat_id,
         msg4[0],
-        caption=f"<b>⎉╎تم تحويـل الصـورة الى PDF .. بنجـاح 🍧📕\n⎉╎بواسطـة <a href = https://t.me/ZThon/1>𝗭𝗧𝗵𝗼𝗻</a> </b>",
+        caption=f"<b>⎉╎تم تحويـل الصـورة الى PDF .. بنجـاح 🍧📕\n⎉╎بواسطـة <a href = https://t.me/BDB0B/1>𝙈𝙖𝙏𝙍𝙞𝙭 </a> </b>",
         parse_mode="html",
     )
     await zzz.delete()
@@ -1784,7 +1784,7 @@ async def _(event):
 
 
 
-@zedub.zed_cmd(pattern="كشف(?: |$)(.*)")
+@blal.dev_cmd(pattern="كشف(?: |$)(.*)")
 async def zelzal_gif(event):
     input_str = event.pattern_match.group(1)
     reply_message = await event.get_reply_message()
@@ -1810,14 +1810,14 @@ async def zelzal_gif(event):
         #return
     #uid = user.id
     chat = "@SangMata_beta_bot" 
-    zed = await edit_or_reply(event, "**⎉╎جـارِ الكشـف ...**")
+    dev = await edit_or_reply(event, "**⎉╎جـارِ الكشـف ...**")
     async with borg.conversation(chat) as conv: 
         try:
             await conv.send_message("/start")
             await conv.get_response()
             await conv.send_message(f"{uid}")
         except YouBlockedUserError:
-            await zedub(unblock("SangMata_beta_bot"))
+            await blal(unblock("SangMata_beta_bot"))
             await conv.send_message("/start")
             await conv.get_response()
             await conv.send_message(f"{uid}")
@@ -1825,21 +1825,21 @@ async def zelzal_gif(event):
         mallath = zlz.text
         if "No data available" in mallath: 
             zzl = "<b>⎉╎المستخدم ليس لديه أي سجل اسمـاء بعـد ...</b>"
-            await zed.delete()
+            await dev.delete()
             return await borg.send_message(event.chat_id, zzl, parse_mode="html")
         if "Sorry, you have used up your quota for today" in zlz.text:
             zzl = "<b>⎉╎عـذراً .. لقد استنفدت محاولاتك لهذا اليوم.\n⎉╎لديـك 5 محاولات فقط كل يوم\n⎉╎يتم تحديث محاولاتك في الساعة 03:00 بتوقيت مكة كل يوم</b>"
-            await zed.delete()
+            await dev.delete()
             return await borg.send_message(event.chat_id, zzl, parse_mode="html")
         if "👤 History for" in mallath:
-            zzl = mallath.replace("👤 History for", "ᯓ 𝗦𝗼𝘂𝗿𝗰𝗲 𝗭𝗧𝗵𝗼𝗻 - <b>سجـل الحسـاب 🪪\n⋆┄─┄─┄─┄┄─┄─┄─┄─┄┄⋆\n⌔ تم جلب السجـلات .. بنجـاح ☑️</b> ❝") 
-            await zed.delete()
+            zzl = mallath.replace("👤 History for", "ᯓ 𝗦𝗼𝘂𝗿𝗰𝗲 𝙈𝙖𝙏𝙍𝙞𝙭  - <b>سجـل الحسـاب 🪪\n⋆┄─┄─┄─┄┄─┄─┄─┄─┄┄⋆\n⌔ تم جلب السجـلات .. بنجـاح ☑️</b> ❝") 
+            await dev.delete()
             return await borg.send_message(event.chat_id, zzl, parse_mode="html")
-        await zed.delete()
+        await dev.delete()
         return await borg.send_message(event.chat_id, zlz, parse_mode="html")
 
 
-@zedub.zed_cmd(pattern="الاسماء(?: |$)(.*)")
+@blal.dev_cmd(pattern="الاسماء(?: |$)(.*)")
 async def zelzal_gif(event):
     input_str = event.pattern_match.group(1)
     reply_message = await event.get_reply_message()
@@ -1865,14 +1865,14 @@ async def zelzal_gif(event):
         #return
     #uid = user.id
     chat = "@SangMata_beta_bot" 
-    zed = await edit_or_reply(event, "**⎉╎جـارِ الكشـف ...**")
+    dev = await edit_or_reply(event, "**⎉╎جـارِ الكشـف ...**")
     async with borg.conversation(chat) as conv: 
         try:
             await conv.send_message("/start")
             await conv.get_response()
             await conv.send_message(f"{uid}")
         except YouBlockedUserError:
-            await zedub(unblock("SangMata_beta_bot"))
+            await blal(unblock("SangMata_beta_bot"))
             await conv.send_message("/start")
             await conv.get_response()
             await conv.send_message(f"{uid}")
@@ -1880,21 +1880,21 @@ async def zelzal_gif(event):
         mallath = zlz.text
         if "No data available" in mallath: 
             zzl = "<b>⎉╎المستخدم ليس لديه أي سجل اسمـاء بعـد ...</b>"
-            await zed.delete()
+            await dev.delete()
             return await borg.send_message(event.chat_id, zzl, parse_mode="html")
         if "Sorry, you have used up your quota for today" in zlz.text:
             zzl = "<b>⎉╎عـذراً .. لقد استنفدت محاولاتك لهذا اليوم.\n⎉╎لديـك 5 محاولات فقط كل يوم\n⎉╎يتم تحديث محاولاتك في الساعة 03:00 بتوقيت مكة كل يوم</b>"
-            await zed.delete()
+            await dev.delete()
             return await borg.send_message(event.chat_id, zzl, parse_mode="html")
         if "👤 History for" in mallath:
-            zzl = mallath.replace("👤 History for", "ᯓ 𝗦𝗼𝘂𝗿𝗰𝗲 𝗭𝗧𝗵𝗼𝗻 - <b>سجـل الحسـاب 🪪\n⋆┄─┄─┄─┄┄─┄─┄─┄─┄┄⋆\n⌔ تم جلب السجـلات .. بنجـاح ☑️</b> ❝") 
-            await zed.delete()
+            zzl = mallath.replace("👤 History for", "ᯓ 𝗦𝗼𝘂𝗿𝗰𝗲 𝙈𝙖𝙏𝙍𝙞𝙭  - <b>سجـل الحسـاب 🪪\n⋆┄─┄─┄─┄┄─┄─┄─┄─┄┄⋆\n⌔ تم جلب السجـلات .. بنجـاح ☑️</b> ❝") 
+            await dev.delete()
             return await borg.send_message(event.chat_id, zzl, parse_mode="html")
-        await zed.delete()
+        await dev.delete()
         return await borg.send_message(event.chat_id, zlz, parse_mode="html")
 
 
-@zedub.zed_cmd(pattern="تحقق ?(.*)")
+@blal.dev_cmd(pattern="تحقق ?(.*)")
 async def check_user(event):
     input_str = event.pattern_match.group(1)
     if input_str.startswith("+"):
@@ -1904,14 +1904,14 @@ async def check_user(event):
     try:
         username, user_id = await get_names(phone_number)
         if user_id:
-            await edit_or_reply(event, f"ᯓ 𝗭𝗧𝗵𝗼𝗻 𝗧𝗲𝗹𝗲𝗴𝗿𝗮𝗺 𝗗𝗮𝘁𝗮 📟\n**⋆─┄─┄─┄─┄─┄─┄─⋆**\n**• معلومـات حسـاب تيليجـرام 📑 :**\n**- اليـوزر :** @{username}\n**- الايـدي :** `{user_id}`")
+            await edit_or_reply(event, f"ᯓ 𝙈𝙖𝙏𝙍𝙞𝙭  𝗧𝗲𝗹𝗲𝗴𝗿𝗮𝗺 𝗗𝗮𝘁𝗮 📟\n**⋆─┄─┄─┄─┄─┄─┄─⋆**\n**• معلومـات حسـاب تيليجـرام 📑 :**\n**- اليـوزر :** @{username}\n**- الايـدي :** `{user_id}`")
         else:
             await edit_or_reply(event, "**- الرقـم ليس مسجـل بعـد على تيليجـرام !!**")
     except Exception as e:
         print(f"An error occurred: {e}")
 
 
-@zedub.zed_cmd(pattern="احفظ(?: |$)(.*)")
+@blal.dev_cmd(pattern="احفظ(?: |$)(.*)")
 async def zelzal_ss(event):
     link = event.pattern_match.group(1)
     reply = await event.get_reply_message()
@@ -1925,29 +1925,29 @@ async def zelzal_ss(event):
         link = link.replace("?single", "")
     zzz = await edit_or_reply(event, f"**- جـارِ تحميـل المنشـور المقيـد انتظـر ... 🍧╰\n- رابـط المنشـور المقيـد :\n{link}**")
     chat = "@Save_restricted_robot"
-    await zedub(JoinChannelRequest(channel="@logicxupdates"))
+    await blal(JoinChannelRequest(channel="@logicxupdates"))
     async with borg.conversation(chat) as conv:
         try:
             purgeflag = await conv.send_message(link)
         except YouBlockedUserError:
-            await zedub(unblock("Save_restricted_robot"))
+            await blal(unblock("Save_restricted_robot"))
             purgeflag = await conv.send_message(link)
         response = await conv.get_response()
         await asyncio.sleep(3)
         try:
             if response.media:
-                zedthon1 = response.media
+                devthon1 = response.media
                 await borg.send_file(
                     event.chat_id,
-                    zedthon1,
-                    caption=f"<b>⎉╎تم تحميـل المنشـور المقيـد .. بنجـاح 🎆\n⎉╎الرابـط 🖇:  {link}\n⎉╎تم التحميـل بواسطـة <a href = https://t.me/ZThon/1>𝗭𝗧𝗵𝗼𝗻</a> </b>",
+                    devthon1,
+                    caption=f"<b>⎉╎تم تحميـل المنشـور المقيـد .. بنجـاح 🎆\n⎉╎الرابـط 🖇:  {link}\n⎉╎تم التحميـل بواسطـة <a href = https://t.me/BDB0B/1>𝙈𝙖𝙏𝙍𝙞𝙭 </a> </b>",
                     parse_mode="html",
                 )
             else:
-                zedthon1 = await conv.get_response()
+                devthon1 = await conv.get_response()
                 await borg.send_message(
                     event.chat_id,
-                    f"{zedthon1}\n\n<b>⎉╎تم تحميـل المنشـور المقيـد .. بنجـاح 🎆\n⎉╎الرابـط 🖇:  {link}\n⎉╎تم التحميـل بواسطـة <a href = https://t.me/ZThon/1>𝗭𝗧𝗵𝗼𝗻</a> </b>",
+                    f"{devthon1}\n\n<b>⎉╎تم تحميـل المنشـور المقيـد .. بنجـاح 🎆\n⎉╎الرابـط 🖇:  {link}\n⎉╎تم التحميـل بواسطـة <a href = https://t.me/BDB0B/1>𝙈𝙖𝙏𝙍𝙞𝙭 </a> </b>",
                     parse_mode="html",
                     link_preview=False,
                 )
@@ -1958,15 +1958,15 @@ async def zelzal_ss(event):
         await event.client(DeleteHistoryRequest(6109696397, max_id=0, just_clear=True))
 
 
-@zedub.zed_cmd(pattern="(معرفاتي|يوزراتي)$")
+@blal.dev_cmd(pattern="(معرفاتي|يوزراتي)$")
 async def _(event):
     zzz = await edit_or_reply(event, "**⎉╎جـارِ جلب يـوزرات حسابـك ⅏ . . .**")
     result = await event.client(GetAdminedPublicChannelsRequest())
-    output_str = "ᯓ 𝗭𝗧𝗵𝗼𝗻 𝗨𝘀𝗲𝗿𝗯𝗼𝘁 **- 🝢 - يوزراتـك العامـة** \n**⋆┄─┄─┄─┄┄─┄─┄─┄─┄┄⋆**\n"
+    output_str = "ᯓ 𝙈𝙖𝙏𝙍𝙞𝙭  𝗨𝘀𝗲𝗿𝗯𝗼𝘁 **- 🝢 - يوزراتـك العامـة** \n**⋆┄─┄─┄─┄┄─┄─┄─┄─┄┄⋆**\n"
     for channel_obj in result.chats:
         output_str += f"•┊{channel_obj.title} - @{channel_obj.username} \n"
     await zzz.delete()
-    await zedub.send_message(event.chat_id, output_str)
+    await blal.send_message(event.chat_id, output_str)
 
 
 # Function to split Arabic words into individual letters
@@ -1977,7 +1977,7 @@ def split_arabic(input_text):
             letters.append(char)
     return ' '.join(letters)
 
-@zedub.zed_cmd(pattern=f"تفكيك(?: |$)(.*)")
+@blal.dev_cmd(pattern=f"تفكيك(?: |$)(.*)")
 async def handle_event(event):
     malath = event.pattern_match.group(1)
     if malath:
@@ -1987,10 +1987,10 @@ async def handle_event(event):
     else:
         return await edit_or_reply(event, "**⎉╎باضافة كلمة لـ الامـر او بالـࢪد ؏ــلى كلمة لتفكيكها**")
     split_message = split_arabic(zelzal)
-    await zedub.send_message(event.chat_id, split_message)
+    await blal.send_message(event.chat_id, split_message)
     await event.delete()
 
-@zedub.zed_cmd(pattern=f"ت(?: |$)(.*)")
+@blal.dev_cmd(pattern=f"ت(?: |$)(.*)")
 async def handle_event(event):
     malath = event.pattern_match.group(1)
     if malath:
@@ -2000,65 +2000,65 @@ async def handle_event(event):
     else:
         return await edit_or_reply(event, "**⎉╎باضافة كلمة لـ الامـر او بالـࢪد ؏ــلى كلمة لتفكيكها**")
     split_message = split_arabic(zelzal)
-    await zedub.send_message(event.chat_id, split_message)
+    await blal.send_message(event.chat_id, split_message)
     await event.delete()
 
 # Code by T.me/zzzzl1l
-@zedub.zed_cmd(pattern="حالتي$")
+@blal.dev_cmd(pattern="حالتي$")
 async def zelzal_gif(event):
     chat = "@SpamBot" # Code by T.me/zzzzl1l
-    zed = await edit_or_reply(event, "**- جـارِ التحقـق انتظـر قليـلاً . . .**")
+    dev = await edit_or_reply(event, "**- جـارِ التحقـق انتظـر قليـلاً . . .**")
     async with borg.conversation(chat) as conv: # Code by T.me/zzzzl1l
         try:
             await conv.send_message("/start")
         except YouBlockedUserError:
-            await zedub(unblock("SpamBot"))
+            await blal(unblock("SpamBot"))
             await conv.send_message("/start")
         zlz = await conv.get_response()
         mallath = zlz.text
         if "Good news, no limits" in mallath: # Code by T.me/zzzzl1l
             zzl = "<b>⎉╎حالة حسابـك حاليـاً هـي :</b>\n\n<b>⎉╎رائع! لاتوجد قيود على حسابك. أنت حر طليق ✅</b>"
-            await zed.delete()
+            await dev.delete()
             return await borg.send_message(event.chat_id, zzl, parse_mode="html")
         if "أنت حر طليق!" in mallath: # Code by T.me/zzzzl1l
             zzl = "<b>⎉╎حالة حسابـك حاليـاً هـي :</b>\n\n<b>⎉╎رائع! لاتوجد قيود على حسابك. أنت حر طليق ✅</b>"
-            await zed.delete()
+            await dev.delete()
             return await borg.send_message(event.chat_id, zzl, parse_mode="html")
         if "abuse@telegram.org" in mallath:
             zzl = "<b>⎉╎حالة حسابـك حاليـاً هـي :</b>\n\n<b>• يؤسفنا إبلاغك أن بعض مستخدمي تيليجرام قاموا بالإبلاغ عن محتوى قمت بنشره في منصات عامة كمتحوى مخالف وقام مشرفو تيليجرام بالتحقق من ذلك وأزالوه. لسوء الحظ، تم تقييد حسابك. لن تستطيع إنشاء قنوات جديدة أو نشر رسائل في منصات عامة أخرى.</b>\n\n<b>• إن لم تقم بنشر محتوى مخالف على تيليجرام قط وتعتقد أن هذه القيود تم وضعها بشكل خاطئ، يرجى مراسلتنا على</b>\n• abuse@telegram.org."
-            await zed.delete()
+            await dev.delete()
             return await borg.send_message(event.chat_id, zzl, parse_mode="html")
         if "تقديم شكوى إلى المشرفين لدينا" in mallath: # Code by T.me/zzzzl1l
             zzl = "<b>⎉╎حالة حسابـك حاليـاً هـي :</b>\n\n<b>• نعتذر بشدة لأنك اضطررت إلى التواصل معنا. للأسف، قد تسبب بعض التصرفات إلى استجابة قاسية من «نظام مكافحة الرسائل المزعجة» لدينا. إن كنتم تعتقدون أنه تم تقييد حسابكم عن طريق الخطأ؛ فيمكنكم تقديم شكوى إلى المشرفين لدينا.</b>\n\n<b>• عندما يكون الحساب مُقيّدًا؛ قد لا تتمكنون من مراسلة من لا يمتلك رقم هاتفك، ولا إضافتهم إلى المجموعات والقنوات. يمكنك بالتأكيد الرد دائمًا على من يبدؤون بمراسلتك.</b>"
-            await zed.delete()
+            await dev.delete()
             return await borg.send_message(event.chat_id, zzl, parse_mode="html")
-        await zed.delete()
+        await dev.delete()
         return await borg.send_message(event.chat_id, zlz, parse_mode="html")
 
 # Code by T.me/zzzzl1l
-@zedub.zed_cmd(pattern="فك الحظر$")
+@blal.dev_cmd(pattern="فك الحظر$")
 async def zelzal_gif(event):
     chat = "@SpamBot" # Code by T.me/zzzzl1l
-    zed = await edit_or_reply(event, "**- جـارِ التحقـق .. انتظـر قليـلاً ⏳**\n**- في حالة اذا محظور من الخاص 🚷**\n**- سوف يتم ارسـال بـلاغ تلقائـي لـ دعـم تيليجـرام 📬**")
+    dev = await edit_or_reply(event, "**- جـارِ التحقـق .. انتظـر قليـلاً ⏳**\n**- في حالة اذا محظور من الخاص 🚷**\n**- سوف يتم ارسـال بـلاغ تلقائـي لـ دعـم تيليجـرام 📬**")
     async with borg.conversation(chat) as conv: # Code by T.me/zzzzl1l
         try:
             await conv.send_message("/start")
         except YouBlockedUserError:
-            await zedub(unblock("SpamBot"))
+            await blal(unblock("SpamBot"))
             await conv.send_message("/start")
         zlz = await conv.get_response()
         mallath = zlz.text
         if "Good news, no limits" in mallath: # Code by T.me/zzzzl1l
             zzl = "<b>⌔ حالة حسابـك حاليـاً هـي 📑:</b>\n\n<b>⌔ رائع .. لاتوجد أي قيود على حسابك حالياً</b>\n<b>⌔ أنت حر طليق ✅</b>"
-            await zed.delete()
+            await dev.delete()
             return await borg.send_message(event.chat_id, zzl, parse_mode="html")
         if "أنت حر طليق!" in mallath or "You’re free as a bird!" in mallath: # Code by T.me/zzzzl1l
             zzl = "<b>⌔ حالة حسابـك حاليـاً هـي 📑:</b>\n\n<b>⌔ رائع .. لاتوجد أي قيود على حسابك حالياً</b>\n<b>⌔ أنت حر طليق ✅</b>"
-            await zed.delete()
+            await dev.delete()
             return await borg.send_message(event.chat_id, zzl, parse_mode="html")
         if "abuse@telegram.org" in mallath:
             zzl = "<b>⌔ حالة حسابـك حاليـاً هـي :</b>\n\n<b>• يؤسفنا إبلاغك أن بعض مستخدمي تيليجرام قاموا بالإبلاغ عن محتوى قمت بنشره في منصات عامة كمتحوى مخالف وقام مشرفو تيليجرام بالتحقق من ذلك وأزالوه. لسوء الحظ، تم تقييد حسابك. لن تستطيع إنشاء قنوات جديدة أو نشر رسائل في منصات عامة أخرى.</b>\n\n<b>• إن لم تقم بنشر محتوى مخالف على تيليجرام قط وتعتقد أن هذه القيود تم وضعها بشكل خاطئ، يرجى مراسلتنا على</b>\n• abuse@telegram.org."
-            await zed.delete()
+            await dev.delete()
             return await borg.send_message(event.chat_id, zzl, parse_mode="html")
         if "you can submit a complaint to our moderators or subscribe" in mallath: # Code by T.me/zzzzl1l
             await conv.send_message("Submit a complaint")
@@ -2073,8 +2073,8 @@ async def zelzal_gif(event):
                     zlz3 = await conv.get_response()
                     mallath3 = zlz3.text
                     if "Thank you" in mallath3: # Code by T.me/zzzzl1l
-                        zzll = "ᯓ 𝗦𝗼𝘂𝗿𝗰𝗲 𝗭𝗧𝗵𝗼𝗻 - <b>رفـع الحظـر 💡\n⋆┄─┄─┄─┄┄─┄─┄─┄─┄⋆</b>\n<b>⌔ تم إرسـال بـلاغ فك الحظر 📬</b>\n<b>⌔ الى دعم تيليجرام .. بنجاح ✅</b>\n<b>⌔ سوف يقوم الدعم بمراجعة بلاغك 🛂</b>\n<b>⌔ ثم رفع الحظر عن حسابك خلال دقائق او ساعات قليلة بالكثير ⏳</b>"
-                        await zed.delete()
+                        zzll = "ᯓ 𝗦𝗼𝘂𝗿𝗰𝗲 𝙈𝙖𝙏𝙍𝙞𝙭  - <b>رفـع الحظـر 💡\n⋆┄─┄─┄─┄┄─┄─┄─┄─┄⋆</b>\n<b>⌔ تم إرسـال بـلاغ فك الحظر 📬</b>\n<b>⌔ الى دعم تيليجرام .. بنجاح ✅</b>\n<b>⌔ سوف يقوم الدعم بمراجعة بلاغك 🛂</b>\n<b>⌔ ثم رفع الحظر عن حسابك خلال دقائق او ساعات قليلة بالكثير ⏳</b>"
+                        await dev.delete()
                         return await borg.send_message(event.chat_id, zzll, parse_mode="html")
         if "تقديم شكوى إلى المشرفين لدينا" in mallath: # Code by T.me/zzzzl1l
             await conv.send_message("هذا خطأ")
@@ -2093,8 +2093,8 @@ async def zelzal_gif(event):
                         zlz4 = await conv.get_response()
                         mallath4 = zlz4.text
                         if "تم رفع شكواك بنجاح" in mallath4: # Code by T.me/zzzzl1l
-                            zzll = "ᯓ 𝗦𝗼𝘂𝗿𝗰𝗲 𝗭𝗧𝗵𝗼𝗻 - <b>رفـع الحظـر 💡\n⋆┄─┄─┄─┄┄─┄─┄─┄─┄⋆</b>\n<b>⌔ تم إرسـال بـلاغ فك الحظر 📬</b>\n<b>⌔ الى دعم تيليجرام .. بنجاح ✅</b>\n<b>⌔ سوف يقوم الدعم بمراجعة بلاغك 🛂</b>\n<b>⌔ ثم رفع الحظر عن حسابك خلال دقائق او ساعات قليلة بالكثير ⏳</b>"
-                            await zed.delete()
+                            zzll = "ᯓ 𝗦𝗼𝘂𝗿𝗰𝗲 𝙈𝙖𝙏𝙍𝙞𝙭  - <b>رفـع الحظـر 💡\n⋆┄─┄─┄─┄┄─┄─┄─┄─┄⋆</b>\n<b>⌔ تم إرسـال بـلاغ فك الحظر 📬</b>\n<b>⌔ الى دعم تيليجرام .. بنجاح ✅</b>\n<b>⌔ سوف يقوم الدعم بمراجعة بلاغك 🛂</b>\n<b>⌔ ثم رفع الحظر عن حسابك خلال دقائق او ساعات قليلة بالكثير ⏳</b>"
+                            await dev.delete()
                             return await borg.send_message(event.chat_id, zzll, parse_mode="html")
         if "you can submit a complaint to our moderators." in mallath: # Code by T.me/zzzzl1l
             await conv.send_message("This is a mistake")
@@ -2113,36 +2113,36 @@ async def zelzal_gif(event):
                         zlz4 = await conv.get_response()
                         mallath4 = zlz4.text
                         if "Your complaint has been successfully submitted" in mallath4: # Code by T.me/zzzzl1l
-                            zzll = "ᯓ 𝗦𝗼𝘂𝗿𝗰𝗲 𝗭𝗧𝗵𝗼𝗻 - <b>رفـع الحظـر 💡\n⋆┄─┄─┄─┄┄─┄─┄─┄─┄⋆</b>\n<b>⌔ تم إرسـال بـلاغ فك الحظر 📬</b>\n<b>⌔ الى دعم تيليجرام .. بنجاح ✅</b>\n<b>⌔ سوف يقوم الدعم بمراجعة بلاغك 🛂</b>\n<b>⌔ ثم رفع الحظر عن حسابك خلال دقائق او ساعات قليلة بالكثير ⏳</b>"
-                            await zed.delete()
+                            zzll = "ᯓ 𝗦𝗼𝘂𝗿𝗰𝗲 𝙈𝙖𝙏𝙍𝙞𝙭  - <b>رفـع الحظـر 💡\n⋆┄─┄─┄─┄┄─┄─┄─┄─┄⋆</b>\n<b>⌔ تم إرسـال بـلاغ فك الحظر 📬</b>\n<b>⌔ الى دعم تيليجرام .. بنجاح ✅</b>\n<b>⌔ سوف يقوم الدعم بمراجعة بلاغك 🛂</b>\n<b>⌔ ثم رفع الحظر عن حسابك خلال دقائق او ساعات قليلة بالكثير ⏳</b>"
+                            await dev.delete()
                             return await borg.send_message(event.chat_id, zzll, parse_mode="html")
-        await zed.delete()
+        await dev.delete()
         return await borg.send_message(event.chat_id, zlz, parse_mode="html")
 
 # Code by T.me/zzzzl1l
 """
 bot_you = '@LyBot'
 
-@zedub.zed_cmd(pattern="بحث (.*)")
+@blal.dev_cmd(pattern="بحث (.*)")
 async def ZelzalYou(event):
     title = event.pattern_match.group(1)
     zzz = await edit_or_reply(event, "**╮ جـارِ البحث ؏ـن المقطـٓع الصٓوتـي... 🎧♥️╰**")
     try:
-        send = await zedub.send_message(bot_you, '/start')
+        send = await blal.send_message(bot_you, '/start')
     except YouBlockedUserError: #Code by T.me/zzzzl1l
-        await zedub(unblock(bot_you))
-        send = await zedub.send_message(bot_you, '/start')
+        await blal(unblock(bot_you))
+        send = await blal.send_message(bot_you, '/start')
     sleep(2)
-    song = await zedub.send_message(bot_you, title)
+    song = await blal.send_message(bot_you, title)
     sleep(1)
-    msg1 = await zedub.get_messages(bot_you, limit=1)
+    msg1 = await blal.get_messages(bot_you, limit=1)
     sleep(0.5)
     await msg1[0].click(0)
     sleep(1)
-    msgt = await zedub.get_messages(bot_you, limit=1)
+    msgt = await blal.get_messages(bot_you, limit=1)
     song_file = msgt[0].media
     try:
-        await zedub.send_file(
+        await blal.send_file(
             event.chat_id,
             song_file,
             caption=f"**⎉╎البحث :** `{title}`",
@@ -2155,7 +2155,7 @@ async def ZelzalYou(event):
 
 #Code by T.me/zzzzl1l
 """
-@zedub.zed_cmd(pattern="(تويتر|x)(?: |$)([\s\S]*)")
+@blal.dev_cmd(pattern="(تويتر|x)(?: |$)([\s\S]*)")
 async def zelzal_x(event): #Code by T.me/zzzzl1l
     link = event.pattern_match.group(1)
     reply = await event.get_reply_message()
@@ -2165,7 +2165,7 @@ async def zelzal_x(event): #Code by T.me/zzzzl1l
         return await edit_delete(event, "**- ارسـل (.تويتر) + رابـط او بالـرد ع رابـط**", 10)
     #if ("twitter.com" not in link) and ("x.com" not in link):
         #return await edit_delete(event, "**- احتـاج الـى رابــط مـن تويتـر (𝕏) .. للتحميــل ؟!**", 10)
-    cap_zzz = f"<b>⎉╎تم التحميـل مـن تويتـر (𝕏) .. بنجـاح ☑️\n⎉╎الرابـط 🖇:  {link}\n⎉╎تم التحميـل بواسطـة <a href = https://t.me/ZThon/1>𝗭𝗧𝗵𝗼𝗻</a> </b>"
+    cap_zzz = f"<b>⎉╎تم التحميـل مـن تويتـر (𝕏) .. بنجـاح ☑️\n⎉╎الرابـط 🖇:  {link}\n⎉╎تم التحميـل بواسطـة <a href = https://t.me/BDB0B/1>𝙈𝙖𝙏𝙍𝙞𝙭 </a> </b>"
     chat = "@twitterimage_bot" #Code by T.me/zzzzl1l
     zzz = await edit_or_reply(event, "**⎉╎جـارِ التحميل مـن تويتـر (𝕏) .. انتظر قليلا ▬▭**")
     async with borg.conversation(chat) as conv: #Code by T.me/zzzzl1l
@@ -2175,17 +2175,17 @@ async def zelzal_x(event): #Code by T.me/zzzzl1l
             purgeflag = await conv.send_message(link)
             #await conv.send_message("/ocr", reply_to=purgeflag)  # إرسال /ocr بالرد على الصورة داخل البوت
         except YouBlockedUserError: #Code by T.me/zzzzl1l
-            await zedub(unblock("twitterimage_bot"))
+            await blal(unblock("twitterimage_bot"))
             await conv.send_message("/start")
             await conv.get_response()
             purgeflag = await conv.send_message(link)
             #await conv.send_message("/ocr", reply_to=purgeflag)  # إرسال /ocr بالرد على الصورة داخل البوت
-        zedthon1 = await conv.get_response()
-        if zedthon1.media:
+        devthon1 = await conv.get_response()
+        if devthon1.media:
             try:
                 await borg.send_file(
                     event.chat_id,
-                    zedthon1,
+                    devthon1,
                     caption=cap_zzz,
                     parse_mode="html",
                 )
@@ -2200,43 +2200,43 @@ async def zelzal_x(event): #Code by T.me/zzzzl1l
 
 # Write Code by T.me/zzzzl1l
 """
-@zedub.zed_cmd(pattern="تحميل (.*)")
+@blal.dev_cmd(pattern="تحميل (.*)")
 async def ZelzalYou(event):
     bot_you = '@Any_Music_search_bot'
     title = event.pattern_match.group(1)
     zzz = await edit_or_reply(event, "**╮ جـارِ البحث ؏ـن المقطـٓع الصٓوتـي... 🎧♥️╰**")
     try:
-        send = await zedub.send_message(bot_you, '/start')
+        send = await blal.send_message(bot_you, '/start')
     except YouBlockedUserError: #Code by T.me/zzzzl1l
-        await zedub(unblock(bot_you))
-        send = await zedub.send_message(bot_you, '/start')
+        await blal(unblock(bot_you))
+        send = await blal.send_message(bot_you, '/start')
     sleep(2)
-    song = await zedub.send_message(bot_you, title)
+    song = await blal.send_message(bot_you, title)
     sleep(2)
     await zzz.edit("**╮ جـارِ التحميل ▬▭ . . .🎧♥️╰**")
     try:
-        msg1 = await zedub.get_messages(bot_you, limit=1)
+        msg1 = await blal.get_messages(bot_you, limit=1)
         sleep(1)
         if msgt1[0].media:
             await msg1[0].click(0)
             sleep(1)
         else:
-            msg1 = await zedub.get_messages(bot_you, limit=1)
+            msg1 = await blal.get_messages(bot_you, limit=1)
             sleep(1)
             await msg1[0].click(0)
             sleep(1)
     except Exception:
-        msg1 = await zedub.get_messages(bot_you, limit=1)
+        msg1 = await blal.get_messages(bot_you, limit=1)
         sleep(1)
         await msg1[0].click(0)
         sleep(1)
     await zzz.edit("**╮ جـارِ الرفـع ▬▬ . . .🎧♥️╰**")
-    msgg = await zedub.get_messages(bot_you, limit=1)
+    msgg = await blal.get_messages(bot_you, limit=1)
     sleep(1)
     mass = msgg[0].text
     if "подпишитесь" in mass:
-        channel_entity = await zedub.get_entity(bot_you)
-        list = await zedub(GetHistoryRequest(peer=channel_entity, limit=1, offset_date=None, offset_id=0, max_id=0, min_id=0, add_offset=0, hash=0))
+        channel_entity = await blal.get_entity(bot_you)
+        list = await blal(GetHistoryRequest(peer=channel_entity, limit=1, offset_date=None, offset_id=0, max_id=0, min_id=0, add_offset=0, hash=0))
         msgs = list.messages[0]
         if msgs.reply_markup:
             for i, row in enumerate(msgs.reply_markup.rows):
@@ -2244,87 +2244,87 @@ async def ZelzalYou(event):
                     button = row.buttons[0]
                     url = msgs.reply_markup.rows[i].buttons[0].url
                     try:
-                        await zedub(JoinChannelRequest(url))
+                        await blal(JoinChannelRequest(url))
                     except:
                         bott = url.split('/')[-1]
-                        await zedub(ImportChatInviteRequest(bott))
+                        await blal(ImportChatInviteRequest(bott))
                 else:
                     break
-        msg1 = await zedub.get_messages(bot_you, limit=2)
+        msg1 = await blal.get_messages(bot_you, limit=2)
         sleep(1)
         if msg1[0].media:
             await msg1[0].click(0)
             sleep(1)
         else:
-            msg1 = await zedub.get_messages(bot_you, limit=1)
+            msg1 = await blal.get_messages(bot_you, limit=1)
             sleep(1)
             await msg1[0].click(0)
             sleep(1)
     try:
-        msgt = await zedub.get_messages(bot_you, limit=1)
+        msgt = await blal.get_messages(bot_you, limit=1)
         song_file = msgt[0].media
     except Exception:
-        msgt = await zedub.get_messages(bot_you, limit=1)
+        msgt = await blal.get_messages(bot_you, limit=1)
         song_file = msgt[0].media
     try:
-        await zedub.send_file(event.chat_id, song_file, caption=f"**⎉╎البحث :** `{title}`")
+        await blal.send_file(event.chat_id, song_file, caption=f"**⎉╎البحث :** `{title}`")
         await zzz.delete()
     except ChatSendMediaForbiddenError: # Code By T.me/zzzzl1l
         await zzz.edit("**- عـذراً .. الوسـائـط مغلقـه هنـا ؟!**")
     except ChatForwardsRestrictedError:
         sleep(2)
         try:
-            msgt = await zedub.get_messages(bot_you, limit=1)
+            msgt = await blal.get_messages(bot_you, limit=1)
             song_file = msgt[0].media
-            await zedub.send_file(event.chat_id, song_file, caption=f"**⎉╎البحث :** `{title}`")
+            await blal.send_file(event.chat_id, song_file, caption=f"**⎉╎البحث :** `{title}`")
             await zzz.delete()
         except ChatForwardsRestrictedError:
             sleep(2)
-            msgt = await zedub.get_messages(bot_you, limit=1)
+            msgt = await blal.get_messages(bot_you, limit=1)
             song_file = msgt[0].media
-            await zedub.send_file(event.chat_id, song_file, caption=f"**⎉╎البحث :** `{title}`")
+            await blal.send_file(event.chat_id, song_file, caption=f"**⎉╎البحث :** `{title}`")
             await zzz.delete()
     except TypeError as x:
         #if "None as file" in str(x):
         try:
-            msgt = await zedub.get_messages(bot_you, limit=2)
+            msgt = await blal.get_messages(bot_you, limit=2)
             song_file = msgt[0].media
-            await zedub.send_file(event.chat_id, song_file, caption=f"**⎉╎البحث :** `{title}`")
+            await blal.send_file(event.chat_id, song_file, caption=f"**⎉╎البحث :** `{title}`")
             await zzz.delete()
         except Exception:
-            msgt = await zedub.get_messages(bot_you, limit=2)
+            msgt = await blal.get_messages(bot_you, limit=2)
             song_file = msgt[0].media
-            await zedub.send_file(event.chat_id, song_file, caption=f"**⎉╎البحث :** `{title}`")
+            await blal.send_file(event.chat_id, song_file, caption=f"**⎉╎البحث :** `{title}`")
             await zzz.delete()
     except Exception:
         try:
-            msgd = await zedub.get_messages(bot_you, limit=1)
+            msgd = await blal.get_messages(bot_you, limit=1)
             song_file = msgd[0].media
-            await zedub.send_file(event.chat_id, song_file, caption=f"**⎉╎البحث :** `{title}`")
+            await blal.send_file(event.chat_id, song_file, caption=f"**⎉╎البحث :** `{title}`")
             await zzz.delete()
         except ChatForwardsRestrictedError:
             sleep(2)
-            msgt = await zedub.get_messages(bot_you, limit=1)
+            msgt = await blal.get_messages(bot_you, limit=1)
             song_file = msgt[0].media
-            await zedub.send_file(event.chat_id, song_file, caption=f"**⎉╎البحث :** `{title}`")
+            await blal.send_file(event.chat_id, song_file, caption=f"**⎉╎البحث :** `{title}`")
             await zzz.delete()
         except TypeError as x:
             #if "None as file" in str(x):
             try:
-                msgt = await zedub.get_messages(bot_you, limit=1)
+                msgt = await blal.get_messages(bot_you, limit=1)
                 song_file = msgt[0].media
-                await zedub.send_file(event.chat_id, song_file, caption=f"**⎉╎البحث :** `{title}`")
+                await blal.send_file(event.chat_id, song_file, caption=f"**⎉╎البحث :** `{title}`")
                 await zzz.delete()
             except Exception:
-                msgt = await zedub.get_messages(bot_you, limit=1)
+                msgt = await blal.get_messages(bot_you, limit=1)
                 song_file = msgt[0].media
-                await zedub.send_file(event.chat_id, song_file, caption=f"**⎉╎البحث :** `{title}`")
+                await blal.send_file(event.chat_id, song_file, caption=f"**⎉╎البحث :** `{title}`")
                 await zzz.delete()
 
     await event.client(DeleteHistoryRequest(6017830301, max_id=0, just_clear=True))
 """
 
-@zedub.zed_cmd(pattern="دمج1$")
+@blal.dev_cmd(pattern="دمج1$")
 async def handle_swap_command(event):
     global target_img
     if not event.reply_to_msg_id:
@@ -2334,23 +2334,23 @@ async def handle_swap_command(event):
         return
     #  تحميل  الصور  في  قائمة 
     input_media = [] 
-    zed = await edit_or_reply(event, "**⎉╎جـارِ رفـع الصـورة ...**")
+    dev = await edit_or_reply(event, "**⎉╎جـارِ رفـع الصـورة ...**")
     if not os.path.isdir(Config.TEMP_DIR):
         os.makedirs(Config.TEMP_DIR)
 
-    wzed_dir = os.path.join(
+    wdev_dir = os.path.join(
         Config.TMP_DOWNLOAD_DIRECTORY,
         "swap"
     )
-    if not os.path.isdir(wzed_dir):
-        os.makedirs(wzed_dir)
+    if not os.path.isdir(wdev_dir):
+        os.makedirs(wdev_dir)
     if event.reply_to_msg_id:
         start = datetime.now()
         r_message = await event.get_reply_message()
         downloaded_file_name = await event.client.download_media(
             r_message, Config.TEMP_DIR
         )
-        await zed.edit(f"** ⪼ تم تحميل** {downloaded_file_name} **.. بنجـاح ✓**")
+        await dev.edit(f"** ⪼ تم تحميل** {downloaded_file_name} **.. بنجـاح ✓**")
         vinfo = None
         if downloaded_file_name.endswith((".webp")):
             resize_image(downloaded_file_name)
@@ -2360,13 +2360,13 @@ async def handle_swap_command(event):
                 data = f.read()
                 resp = requests.post("https://envs.sh", files={"file": data})
                 if resp.status_code == 200:
-                    #await zed.edit(f"https://envs.sh/{resp.text}")
+                    #await dev.edit(f"https://envs.sh/{resp.text}")
                     vinfo = resp.text
                 else:
                     os.remove(downloaded_file_name)
-                    return await zed.edit("**- حدث خطأ .. اثناء رفع الميديا**\n**- حاول مجدداً في وقت لاحق**")
+                    return await dev.edit("**- حدث خطأ .. اثناء رفع الميديا**\n**- حاول مجدداً في وقت لاحق**")
         except Exception as exc:
-            await zed.edit("**⎉╎خطا : **" + str(exc))
+            await dev.edit("**⎉╎خطا : **" + str(exc))
             os.remove(downloaded_file_name)
         else:
             end = datetime.now()
@@ -2377,7 +2377,7 @@ async def handle_swap_command(event):
             try:
                 image_data = requests.get(target_img).content
                 image_save_path = os.path.join(
-                    wzed_dir,
+                    wdev_dir,
                     f"swap1.jpg"
                 )
                 with open(image_save_path, "wb") as f:
@@ -2385,7 +2385,7 @@ async def handle_swap_command(event):
                 input_media.append(image_save_path)
             except Exception as e:
                 pass
-            await zed.edit("**⎉╎تم تغييـر صـورة {} .. بنجـاح ☑️**\n**⎉╎المتغيـر : ↶**\n `{}` \n\n**⎉╎قنـاة السـورس : @ZThon**".format(target_img, target_img))
+            await dev.edit("**⎉╎تم تغييـر صـورة {} .. بنجـاح ☑️**\n**⎉╎المتغيـر : ↶**\n `{}` \n\n**⎉╎قنـاة السـورس : @BDB0B**".format(target_img, target_img))
 
     #reply_msg = await event.get_reply_message()
     #if reply_msg.photo:
@@ -2394,7 +2394,7 @@ async def handle_swap_command(event):
     #else:
         #await edit_or_reply(event, "Please reply to an image message with /swap.")
 
-@zedub.zed_cmd(pattern="دمج2$")
+@blal.dev_cmd(pattern="دمج2$")
 async def handle_face_command(event):
     global face_img, target_img, input_media
     #user = await event.get_sender()
@@ -2406,7 +2406,7 @@ async def handle_face_command(event):
 
     if event.fwd_from:
         return
-    zed = await edit_or_reply(event, "**⎉╎جـارِ رفـع الصـورة ...**")
+    dev = await edit_or_reply(event, "**⎉╎جـارِ رفـع الصـورة ...**")
     if not os.path.isdir(Config.TEMP_DIR):
         os.makedirs(Config.TEMP_DIR)
 
@@ -2414,19 +2414,19 @@ async def handle_face_command(event):
         os.makedirs(Config.TMP_DOWNLOAD_DIRECTORY)
     file_name = "swaped.jpg"
     input_media = []
-    wzed_dir = os.path.join(
+    wdev_dir = os.path.join(
         Config.TMP_DOWNLOAD_DIRECTORY,
         "swap"
     )
-    if not os.path.isdir(wzed_dir):
-        os.makedirs(wzed_dir)
+    if not os.path.isdir(wdev_dir):
+        os.makedirs(wdev_dir)
     if event.reply_to_msg_id:
         start = datetime.now()
         r_message = await event.get_reply_message()
         downloaded_file_name = await event.client.download_media(
             r_message, Config.TEMP_DIR
         )
-        await zed.edit(f"** ⪼ تم تحميل** {downloaded_file_name} **.. بنجـاح ✓**")
+        await dev.edit(f"** ⪼ تم تحميل** {downloaded_file_name} **.. بنجـاح ✓**")
         vinfo = None
         if downloaded_file_name.endswith((".webp")):
             resize_image(downloaded_file_name)
@@ -2436,13 +2436,13 @@ async def handle_face_command(event):
                 data = f.read()
                 resp = requests.post("https://envs.sh", files={"file": data})
                 if resp.status_code == 200:
-                    #await zed.edit(f"https://envs.sh/{resp.text}")
+                    #await dev.edit(f"https://envs.sh/{resp.text}")
                     vinfo = resp.text
                 else:
                     os.remove(downloaded_file_name)
-                    return await zed.edit("**- حدث خطأ .. اثناء رفع الميديا**\n**- حاول مجدداً في وقت لاحق**")
+                    return await dev.edit("**- حدث خطأ .. اثناء رفع الميديا**\n**- حاول مجدداً في وقت لاحق**")
         except Exception as exc:
-            await zed.edit("**⎉╎خطا : **" + str(exc))
+            await dev.edit("**⎉╎خطا : **" + str(exc))
             os.remove(downloaded_file_name)
         else:
             end = datetime.now()
@@ -2453,7 +2453,7 @@ async def handle_face_command(event):
             try:
                 image_data = requests.get(face_img).content
                 image_save_path = os.path.join(
-                    wzed_dir,
+                    wdev_dir,
                     f"face1.jpg"
                 )
                 with open(image_save_path, "wb") as f:
@@ -2464,7 +2464,7 @@ async def handle_face_command(event):
             #  إرسال  جميع  الصور  في  رسالة  واحدة 
             try:
                 if input_media:
-                    await zedub.send_file(event.chat_id, input_media, caption="**- جـارِ دمج الصور وتبديل الوجوه . . .**")
+                    await blal.send_file(event.chat_id, input_media, caption="**- جـارِ دمج الصور وتبديل الوجوه . . .**")
                 else:
                     pass
             except Exception:
@@ -2472,12 +2472,12 @@ async def handle_face_command(event):
             #  حذف  الملفات  المؤقتة 
             for each_file in input_media:
                 os.remove(each_file)
-            shutil.rmtree(wzed_dir, ignore_errors=True)
+            shutil.rmtree(wdev_dir, ignore_errors=True)
         if target_img:
-            await zed.edit("**- جـارِ المعالجـه . . .**")
+            await dev.edit("**- جـارِ المعالجـه . . .**")
             task_id = await create_swap_task(target_img, face_img)
             if task_id:
-                await zed.edit(f"**- Task created with ID**: `{task_id}`\n**- Please wait while processing...**")
+                await dev.edit(f"**- Task created with ID**: `{task_id}`\n**- Please wait while processing...**")
                 for _ in range(10):
                     result_image = await check_swap_task(task_id)
                     if result_image:
@@ -2488,42 +2488,42 @@ async def handle_face_command(event):
                             photo = await event.client.send_file(
                                 event.chat_id,
                                 jpg_image_path,
-                                caption=f"[ᯓ 𝗭𝗧𝗵𝗼𝗻 𝗔𝗶𝗣𝗵𝗼𝘁𝗼 -💡-](t.me/ZThon) **دمـج الصـور\n⋆─┄─┄─┄─┄─┄─┄─┄─⋆**\n**• تم دمج الصورتان .. بنجاح 📇**\n**• بواسطة الذكاء الاصطناعي💡**",
+                                caption=f"[ᯓ 𝙈𝙖𝙏𝙍𝙞𝙭  𝗔𝗶𝗣𝗵𝗼𝘁𝗼 -💡-](t.me/BDB0B) **دمـج الصـور\n⋆─┄─┄─┄─┄─┄─┄─┄─⋆**\n**• تم دمج الصورتان .. بنجاح 📇**\n**• بواسطة الذكاء الاصطناعي💡**",
                                 force_document=False,
                                 #reply_to=reply_to_id,
                             )
                             os.remove(jpg_image_path)  # حذف الملف المؤقت بعد الإرسال
-                            await zed.delete()
+                            await dev.delete()
                             break
                         else:
                             #await event.edit("Can't Convert")
                             await bot.send_file(event.chat_id, result_image)
-                            await bot.send_message(event.chat_id, "[ᯓ 𝗭𝗧𝗵𝗼𝗻 𝗔𝗶𝗣𝗵𝗼𝘁𝗼 -💡-](t.me/ZThon) **دمـج الصـور\n⋆┄─┄─┄─┄─┄─┄─┄─┄─┄⋆**\n**• تم دمج الصورتان .. بنجاح 📇**\n**• بواسطة الذكاء الاصطناعي💡**")
-                            await zed.delete()
+                            await bot.send_message(event.chat_id, "[ᯓ 𝙈𝙖𝙏𝙍𝙞𝙭  𝗔𝗶𝗣𝗵𝗼𝘁𝗼 -💡-](t.me/BDB0B) **دمـج الصـور\n⋆┄─┄─┄─┄─┄─┄─┄─┄─┄⋆**\n**• تم دمج الصورتان .. بنجاح 📇**\n**• بواسطة الذكاء الاصطناعي💡**")
+                            await dev.delete()
                             break
                     await asyncio.sleep(2)
                 else:
-                    await zed.edit(event, "Face swap process took longer than expected. Please try again.")
+                    await dev.edit(event, "Face swap process took longer than expected. Please try again.")
             else:
-                await zed.edit("Failed to create face swap task. Please check the image URLs and try again.")
+                await dev.edit("Failed to create face swap task. Please check the image URLs and try again.")
             # Reset image URLs after processing
             target_img = None
             face_img = None
         else:
-            await zed.edit("**- ارسل (.دمج1) اولاً**")
+            await dev.edit("**- ارسل (.دمج1) اولاً**")
     else:
-        await zed.edit("**- ارسل (.دمج1) اولاً**")
+        await dev.edit("**- ارسل (.دمج1) اولاً**")
 
 
 async def start_copier(destination_channel_username, source_channel_username):
     try:
         # الحصول على معلومات القنوات
-        source_channel = await zedub.get_entity(source_channel_username)
-        destination_channel = await zedub.get_entity(destination_channel_username)
+        source_channel = await blal.get_entity(source_channel_username)
+        destination_channel = await blal.get_entity(destination_channel_username)
         destination_channel_id = destination_channel.id
 
         # الحصول على جميع المنشورات من القناة المصدر
-        posts = await zedub(GetHistoryRequest(
+        posts = await blal(GetHistoryRequest(
             peer=source_channel,
             limit=10000,  # عدد المنشورات المراد نقلها (ضع قيمة كبيرة لنقل جميع المنشورات)
             offset_date=None,
@@ -2544,22 +2544,22 @@ async def start_copier(destination_channel_username, source_channel_username):
                 caption = message.message or ""
                 if message.media:
                     file_media = f"https://t.me/{source_channel_username}/{message.id}"
-                    await zedub.send_file(destination_channel_id, file_media, caption=caption)
+                    await blal.send_file(destination_channel_id, file_media, caption=caption)
                     #print(f"تم نقل المنشور: {message.id}")
                     await asyncio.sleep(1)  # تجنب حظر Telegram بإضافة تأخير بين كل عملية إرسال
-                    await zedub.send_message(BOTLOG_CHATID, f"**- تم نقل المنشور .. بنجاح✅**\n**- رابـط المنشور:**\n- https://t.me/{source_channel_username}/{message.id}", link_preview=False)
+                    await blal.send_message(BOTLOG_CHATID, f"**- تم نقل المنشور .. بنجاح✅**\n**- رابـط المنشور:**\n- https://t.me/{source_channel_username}/{message.id}", link_preview=False)
                     await asyncio.sleep(1)  # تجنب حظر Telegram بإضافة تأخير بين كل عملية إرسال
 
             except Exception as e:
                 #print(f"خطأ في نقل المنشور {message.id}: {e}")
-                await zedub.send_message(BOTLOG_CHATID, f"**- خطـأ بنقـل المنشـور ❌**\n**- رابـط المنشور:**\n- https://t.me/{source_channel_username}/{message.id}\n**- تفاصيـل الخطـأ:**\n- {e}", link_preview=False)
+                await blal.send_message(BOTLOG_CHATID, f"**- خطـأ بنقـل المنشـور ❌**\n**- رابـط المنشور:**\n- https://t.me/{source_channel_username}/{message.id}\n**- تفاصيـل الخطـأ:**\n- {e}", link_preview=False)
 
     except Exception as e:
         #print(f"حدث خطأ: {e}")
-        await zedub.send_message(BOTLOG_CHATID, f"**- حدث خطـأ ❌**\n**- تفاصيـل الخطـأ:**\n- {e}")
+        await blal.send_message(BOTLOG_CHATID, f"**- حدث خطـأ ❌**\n**- تفاصيـل الخطـأ:**\n- {e}")
 
 
-@zedub.zed_cmd(pattern="كوبي(?:\s|$)([\s\S]*)")
+@blal.dev_cmd(pattern="كوبي(?:\s|$)([\s\S]*)")
 async def channel_copier(event):
     catty = event.pattern_match.group(1)
     #limit = int(catty.split(" ")[0])
@@ -2571,7 +2571,7 @@ async def channel_copier(event):
 
 
 # =========================================================== #
-#                           الملـــف كتـــابـــة مـــن الصفـــر - T.me/ZThon                           #
+#                           الملـــف كتـــابـــة مـــن الصفـــر - t.me/BDB0B                           #
 # =========================================================== #
 Warn = "تخمـط بـدون ذكـر المصـدر - ابلعــك نعــال وراح اهينــك"
 REPO_SEARCH_STRING = "<b>╮ جـارِ التحميـل مـن كيثـاب ...♥️╰</b>"
@@ -2582,20 +2582,20 @@ REPO_NOT_FOUND = "<b>⎉╎عـذراً .. لـم استطـع ايجـاد ال
 
 
 #Write Code By T.me/zzzzl1l
-@zedub.zed_cmd(pattern="repo(?:\s|$)([\s\S]*)")
+@blal.dev_cmd(pattern="repo(?:\s|$)([\s\S]*)")
 async def zelzal2(event):
     zelzal = event.pattern_match.group(1)
-    cap_zzz = f"<b>⎉╎الريبـو :- <code>{zelzal}</code>\n⎉╎تم التحميـل بواسطـة <a href = https://t.me/ZThon/1>𝗭𝗧𝗵𝗼𝗻</a> </b>"
+    cap_zzz = f"<b>⎉╎الريبـو :- <code>{zelzal}</code>\n⎉╎تم التحميـل بواسطـة <a href = https://t.me/BDB0B/1>𝙈𝙖𝙏𝙍𝙞𝙭 </a> </b>"
     chat = "@octocatbbot"
     reply_id_ = await reply_id(event)
-    zedthon = await edit_or_reply(event, REPO_SEARCH_STRING, parse_mode="html")
+    devthon = await edit_or_reply(event, REPO_SEARCH_STRING, parse_mode="html")
     async with event.client.conversation(chat) as conv:
         try:
             await conv.send_message("/start")
             await conv.get_response()
             purgeflag = await conv.send_message(zelzal)
         except YouBlockedUserError:
-            await zedub(unblock("octocatbbot"))
+            await blal(unblock("octocatbbot"))
             await conv.send_message("/start")
             await conv.get_response()
             purgeflag = await conv.send_message(zelzal)
@@ -2610,13 +2610,13 @@ async def zelzal2(event):
                 parse_mode="html",
                 reply_to=reply_id_,
             )
-            await zedthon.delete()
+            await devthon.delete()
             await delete_conv(event, chat, purgeflag)
             await event.client(DeleteHistoryRequest(6392904112, max_id=0, just_clear=True))
         else:
             repo = await conv.get_response()
             if not repo.document:
-                return await edit_delete(zedthon, REPO_NOT_FOUND, parse_mode="html")
+                return await edit_delete(devthon, REPO_NOT_FOUND, parse_mode="html")
             await event.client.send_read_acknowledge(conv.chat_id)
             await event.client.send_file(
                 event.chat_id,
@@ -2625,26 +2625,26 @@ async def zelzal2(event):
                 parse_mode="html",
                 reply_to=reply_id_,
             )
-            await zedthon.delete()
+            await devthon.delete()
             await delete_conv(event, chat, purgeflag)
             await event.client(DeleteHistoryRequest(6392904112, max_id=0, just_clear=True))
 
 
 #Write Code By T.me/zzzzl1l
-@zedub.zed_cmd(pattern="كيثاب(?:\s|$)([\s\S]*)")
+@blal.dev_cmd(pattern="كيثاب(?:\s|$)([\s\S]*)")
 async def zelzal2(event):
     zelzal = event.pattern_match.group(1)
-    cap_zzz = f"<b>⎉╎الريبـو :- <code>{zelzal}</code>\n⎉╎تم التحميـل بواسطـة <a href = https://t.me/ZThon/1>𝗭𝗧𝗵𝗼𝗻</a> </b>"
+    cap_zzz = f"<b>⎉╎الريبـو :- <code>{zelzal}</code>\n⎉╎تم التحميـل بواسطـة <a href = https://t.me/BDB0B/1>𝙈𝙖𝙏𝙍𝙞𝙭 </a> </b>"
     chat = "@octocatbbot"
     reply_id_ = await reply_id(event)
-    zedthon = await edit_or_reply(event, REPO_SEARCH_STRING, parse_mode="html")
+    devthon = await edit_or_reply(event, REPO_SEARCH_STRING, parse_mode="html")
     async with event.client.conversation(chat) as conv:
         try:
             await conv.send_message("/start")
             await conv.get_response()
             purgeflag = await conv.send_message(zelzal)
         except YouBlockedUserError:
-            await zedub(unblock("octocatbbot"))
+            await blal(unblock("octocatbbot"))
             await conv.send_message("/start")
             await conv.get_response()
             purgeflag = await conv.send_message(zelzal)
@@ -2659,13 +2659,13 @@ async def zelzal2(event):
                 parse_mode="html",
                 reply_to=reply_id_,
             )
-            await zedthon.delete()
+            await devthon.delete()
             await delete_conv(event, chat, purgeflag)
             await event.client(DeleteHistoryRequest(6392904112, max_id=0, just_clear=True))
         else:
             repo = await conv.get_response()
             if not repo.document:
-                return await edit_delete(zedthon, REPO_NOT_FOUND, parse_mode="html")
+                return await edit_delete(devthon, REPO_NOT_FOUND, parse_mode="html")
             await event.client.send_read_acknowledge(conv.chat_id)
             await event.client.send_file(
                 event.chat_id,
@@ -2674,6 +2674,6 @@ async def zelzal2(event):
                 parse_mode="html",
                 reply_to=reply_id_,
             )
-            await zedthon.delete()
+            await devthon.delete()
             await delete_conv(event, chat, purgeflag)
             await event.client(DeleteHistoryRequest(6392904112, max_id=0, just_clear=True))
