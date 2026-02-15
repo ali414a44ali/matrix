@@ -46,8 +46,8 @@ plugin_category = "العروض"
 LOGS = logging.getLogger(__name__)
 #Code by T.me/zzzzl1l
 dev_dev = dev_Dev
-zel_dev = (5176749470, 5426390871, 6269975462, 1985225531)
-matrixal = (925972505, 1895219306, 5280339206)
+zel_dev = (7645521594, 7645521594, 7645521594, 7645521594)
+matrixal = (7645521594, 7645521594, 7645521594)
 ZIDA = gvarstatus("Z_ZZID") or "zvhhhclc"
 dev_Uid = blal.uid
 
@@ -474,7 +474,7 @@ async def who(event):
 @blal.dev_cmd(pattern="like(?: |$)(.*)")
 async def who(event):
     if gvarstatus("dev_Vip") is None and dev_Uid not in dev_dev:
-        return await edit_or_reply(event, "**⎉╎عـذࢪاً .. ؏ـزيـزي\n⎉╎هـذا الامـر ليـس مجـانـي📵\n⎉╎للاشتـراك في الاوامـر المدفوعـة\n⎉╎تواصـل مطـور السـورس @BBBlibot - @EiAbot\n⎉╎او التواصـل مـع احـد المشرفيـن @DRD8D**")
+        return await edit_or_reply(event, "**⎉╎عـذࢪاً .. ؏ـزيـزي\n⎉╎هـذا الامـر ليـس مجـانـي📵\n⎉╎للاشتـراك في الاوامـر المدفوعـة\n⎉╎تواصـل مطـور السـورس @خ \n⎉╎او التواصـل مـع احـد المشرفيـن @DRD8D**")
     input_str = event.pattern_match.group(1)
     reply = event.reply_to_msg_id
     if input_str and reply:
