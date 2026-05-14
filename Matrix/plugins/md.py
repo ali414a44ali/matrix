@@ -428,6 +428,77 @@ async def Matrixal_gif(event):
             await event.client(DeleteHistoryRequest(1125181695, max_id=0, just_clear=True))
 
 
+
+
+
+
+
+@blal.dev_cmd(pattern=r"مقيد (.+)")
+async def save_post(event):
+    post_link = event.pattern_match.group(1)
+    if not post_link:
+        return await edit_or_reply(event, "**- يرجـى إدخـال رابـط المنشـور المقيـد بعـد الامـر ؟!**")
+    save_dir = "media"
+    os.makedirs(save_dir, exist_ok=True)
+    if post_link.startswith("https://t.me/c/"):
+        try:
+            post_id = post_link.split("/")
+            if len(post_id) >= 2:
+                channel_username_or_id = int(post_id[-2])
+                message_id = int(post_id[-1])
+            else:
+                return
+        except Exception as e:
+            return await edit_or_reply(event, f"**- اووبـس .. حدث خطأ أثناء حفظ الرسالة\n- تفاصيل الخطأ :**\n {str(e)}\n\n**- استخـدم الامـر الآخـر لـ حفـظ الملفـات المقيـده 🔳:\n- ارسـل** ( .مقيد ) **+ رابـط او بالـرد ع رابـط مقيـد**")
+    else:
+        try:
+            post_id = post_link.split("/")
+            if len(post_id) >= 2:
+                channel_username_or_id = post_id[-2]
+                message_id = int(post_id[-1])
+            else:
+                return await edit_or_reply(event, "**- رابـط غيـر صالـح ؟!**")
+        except Exception as e:
+            return await edit_or_reply(event, f"**- اووبـس .. حدث خطأ أثناء حفظ الرسالة\n- تفاصيل الخطأ :**\n {str(e)}\n\n**- استخـدم الامـر الآخـر لـ حفـظ الملفـات المقيـده 🔳:\n- ارسـل** ( .مقيد ) **+ رابـط او بالـرد ع رابـط مقيـد**")
+    try:
+        message = await blal.get_messages(channel_username_or_id, ids=message_id)
+        if not message:
+            return await edit_or_reply(event, "**- رابـط غيـر صالـح ؟!**")
+        if message.media:
+            file_ext = ""
+            if message.photo:
+                file_ext = ".jpg"
+            elif message.video:
+                file_ext = ".mp4"
+            elif message.document:
+                if hasattr(message.document, "file_name") and message.document.file_name:
+                    file_ext = os.path.splitext(message.document.file_name)[1]
+                else:
+                    for attr in message.document.attributes:
+                        if isinstance(attr, DocumentAttributeFilename):
+                            file_ext = os.path.splitext(attr.file_name)[1]
+            file_path = os.path.join(save_dir, f"media_{message.id}{file_ext}")
+            await blal.download_media(message, file=file_path)
+            if message.text:
+                ahmed = await blal.send_file(event.chat_id, file=file_path, caption=f"{message.text}")
+                await blal.send_message(event.chat_id, f"ᯓ 𝗦𝗼𝘂𝗿𝗰𝗲 𝙈𝙖𝙏𝙍𝙞𝙭 - حـفـظ المـحتـوى 🧧\n⋆┄─┄─┄─┄┄─┄─┄─┄─┄┄⋆\n**⌔╎ تـم جلب المنشـور المقيـد .. بنجـاح ☑️** ❝\n**⌔╎رابـط المنشـور** {post_link} .", reply_to=ahmed)
+                os.remove(file_path)
+                await event.delete()
+            else:
+                await blal.send_file(event.chat_id, file=file_path, caption=f"[ᯓ 𝗦𝗼𝘂𝗿𝗰𝗲 𝙈𝙖𝙏𝙍𝙞𝙭 - حـفـظ المـحتـوى 🧧](t.me/BDB0B) .\n⋆┄─┄─┄─┄┄─┄─┄─┄─┄┄⋆\n**⌔╎ تـم جلب المنشـور المقيـد .. بنجـاح ☑️** ❝\n**⌔╎رابـط المنشـور** {post_link} .")
+                os.remove(file_path)
+                await event.delete()
+        else:
+            if message.text:
+                ali = await blal.send_message(event.chat_id, f"{message.text}")
+                await blal.send_message(event.chat_id, f"ᯓ 𝗦𝗼𝘂𝗿𝗰𝗲 𝙈𝙖𝙏𝙍𝙞𝙭  - حـفـظ المـحتـوى 🧧\n⋆┄─┄─┄─┄┄─┄─┄─┄─┄┄⋆\n**⌔╎ تـم جلب المنشـور المقيـد .. بنجـاح ☑️** ❝\n**⌔╎رابـط المنشـور** {post_link} .", reply_to=ali)
+                await event.delete()
+            else:
+                await edit_or_reply(event, "**- الرابط لا يحتوي على ميديا أو نص ؟!**")
+    except Exception as e:
+        return await edit_or_reply(event, f"**- اووبـس .. حدث خطأ أثناء حفظ الرسالة\n- تفاصيل الخطأ :**\n {str(e)}\n\n**- استخـدم الامـر الآخـر لـ حفـظ الملفـات المقيـده 🔳:\n- ارسـل** ( .مقيد ) **+ رابـط او بالـرد ع رابـط مقيـد**")
+
+
 @blal.dev_cmd(pattern="(معالجه|تنقيه|تحسين|توضيح)$")
 async def Matrixal_ai(event):
     reply_message = await event.get_reply_message()
